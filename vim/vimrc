@@ -1,0 +1,33 @@
+" setup vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+" My Bundles
+Bundle 'wgibbs/vim-irblack'
+Bundle 'kml/vim-irblack-plus'
+
+" enable vim plugins for golang
+set rtp+=$GODIST/misc/vim
+
+" enable indentation for filetype plugins
+filetype plugin indent on
+
+" show relative numbers in side bar
+set relativenumber
+
+" enable syntax highlighting
+syntax on
+
+" show command in last line of the screen
+set showcmd
+
+" set up indentation using '4 whitespace chars' style
+set ts=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
