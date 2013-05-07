@@ -1,0 +1,34 @@
+[http]
+	sslVerify = false
+
+[user]
+	name = Sergiusz Urbaniak
+	email = sergiusz.urbaniak@gmail.com
+
+[color]
+	ui = true
+
+[gui]
+	fontdiff = -family Menlo -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+	fontui = -family \"Lucida Grande\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+
+[mergetool]
+	keepBackup = false
+	keepTemporaries = false
+	prompt = false
+
+[merge]
+	tool = diffmerge
+
+[core]
+	editor = subl -w
+
+[alias]
+	l = log --graph --decorate --all
+    sync = ! git fetch -v && git rebase origin/master
+    publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
+    wdiff = !sh -c 'git difftool -- '**/*$1*'' -
+    wadd = !sh -c 'git add -- '**/*$1*'' -
+
+[push]
+	default = simple
