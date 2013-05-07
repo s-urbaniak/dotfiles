@@ -25,10 +25,10 @@
 
 [alias]
 	l = log --graph --decorate --all
-    sync = ! git fetch -v && git rebase origin/master
-    publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
-    wdiff = !sh -c 'git difftool -- '**/*$1*'' -
-    wadd = !sh -c 'git add -- '**/*$1*'' -
+	sync = ! git fetch -v && git rebase origin/master
+	publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
+	wdiff = !sh -c 'git difftool -- '**/*$1*'' -
+	wadd = !sh -c 'git add -- '**/*$1*'' -
 
 [push]
 	default = simple
