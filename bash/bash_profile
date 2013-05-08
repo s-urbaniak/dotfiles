@@ -8,6 +8,7 @@ shopt -s globstar
 shopt -s nocaseglob
 
 export EDITOR=vim
+export PAGER=most
 
 BLACK='\e[0;30m'
 RED='\e[0;31m'
