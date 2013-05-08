@@ -20,9 +20,6 @@
 [merge]
 	tool = diffmerge
 
-[core]
-	editor = subl -w
-
 [alias]
 	l = log --graph --decorate --all
 	sync = ! git fetch -v && git rebase origin/master
