@@ -1,5 +1,6 @@
 " setup vundle
 set nocompatible
+
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -10,6 +11,8 @@ Bundle 'gmarik/vundle'
 " My Bundles
 Bundle 'wgibbs/vim-irblack'
 Bundle 'kml/vim-irblack-plus'
+Bundle 'davidhalter/jedi-vim'
+Bundle 's-urbaniak/ropevim'
 
 " enable vim plugins for golang
 set rtp+=$GODIST/misc/vim
@@ -31,3 +34,7 @@ set ts=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+" display tabs, trailing whitespaces, extends and nbsp characters
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
