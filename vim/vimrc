@@ -1,11 +1,11 @@
-" setup vundle
+" Vundle
 set nocompatible
 
 filetype off
+filetype plugin indent off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
 " My Bundles
@@ -14,10 +14,21 @@ Bundle 'kml/vim-irblack-plus'
 Bundle 'davidhalter/jedi-vim'
 Bundle 's-urbaniak/ropevim'
 
-" enable vim plugins for golang
-set rtp+=$GODIST/misc/vim
+" Python
+autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" Google Go
+filetype off
+set runtimepath+=$GODIST/misc/vim
+
+autocmd filetype go map K <Plug>(godoc-keyword)
+autocmd filetype go map <LocalLeader>l :Fmt<CR>
+autocmd filetype go set noexpandtab
+
+" Global settings
 
 " enable indentation for filetype plugins
+filetype on
 filetype plugin indent on
 
 " show relative numbers in side bar
@@ -35,6 +46,5 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" display tabs, trailing whitespaces, extends and nbsp characters
-set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+let mapleader = ","
+let maplocalleader = ","

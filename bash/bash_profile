@@ -19,6 +19,9 @@ export EDITOR=vim
 export PAGER=most
 export LANG=en_US.UTF-8
 
+# Google Go
+export GODIST=/usr/local/Cellar/go/1.1
+
 BLACK='\e[0;30m'
 RED='\e[0;31m'
 GREEN='\e[0;32m'
