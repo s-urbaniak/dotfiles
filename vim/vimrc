@@ -24,6 +24,7 @@ set runtimepath+=$GODIST/misc/vim
 autocmd filetype go map K <Plug>(godoc-keyword)
 autocmd filetype go map <LocalLeader>l :Fmt<CR>
 autocmd filetype go set noexpandtab
+autocmd filetype go set makeprg=go\ test\ -v
 
 " Global settings
 
@@ -36,6 +37,13 @@ set relativenumber
 
 " enable syntax highlighting
 syntax on
+
+" enable ignore case and smartcase
+set ic
+set scs
+
+" enable incremental search
+set is
 
 " show command in last line of the screen
 set showcmd
