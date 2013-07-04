@@ -1,16 +1,22 @@
 # osx
 if which brew >/dev/null; then
-    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
-        . $(brew --prefix)/share/bash-completion/bash_completion
-    fi
+	export PATH=/usr/local/bin:$PATH
+	export PATH=$PATH:~/bin/groovy-2.1.5/bin
+
+	export GODIST=/usr/local/Cellar/go/1.1.1
+
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		. $(brew --prefix)/etc/bash_completion
+	fi
 fi
 
 # linux
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
 
-set -o vi
+	export GODIST=/usr/lib/go
+
+	. /etc/bash_completion
+fi
 
 shopt -s globstar
 shopt -s nocaseglob
@@ -19,9 +25,7 @@ export EDITOR=vim
 export PAGER=most
 export LANG=en_US.UTF-8
 
-# Google Go
-#export GODIST=/usr/local/Cellar/go/1.1
-export GODIST=/usr/lib/go
+export GOPATH=~/gopath
 
 BLACK='\e[0;30m'
 RED='\e[0;31m'

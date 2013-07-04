@@ -17,6 +17,9 @@ Bundle 's-urbaniak/ropevim'
 " Python
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+" xml
+autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
+
 " Google Go
 filetype off
 set runtimepath+=$GODIST/misc/vim
@@ -24,7 +27,7 @@ set runtimepath+=$GODIST/misc/vim
 autocmd filetype go map K <Plug>(godoc-keyword)
 autocmd filetype go map <LocalLeader>l :Fmt<CR>
 autocmd filetype go set noexpandtab
-autocmd filetype go set makeprg=go\ test\ -v
+autocmd filetype go set makeprg=go\ install
 
 " Global settings
 
@@ -33,7 +36,7 @@ filetype on
 filetype plugin indent on
 
 " show relative numbers in side bar
-set relativenumber
+set number
 
 " enable syntax highlighting
 syntax on
