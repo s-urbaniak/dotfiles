@@ -13,11 +13,22 @@ Bundle 'wgibbs/vim-irblack'
 Bundle 'kml/vim-irblack-plus'
 Bundle 'davidhalter/jedi-vim'
 Bundle 's-urbaniak/ropevim'
+Bundle 'maksimr/vim-jsbeautify'
+Bundle 'godlygeek/tabular'
+
+" CSS
+autocmd filetype css noremap <buffer> <LocalLeader>l :call CSSBeautify()<cr>
+
+" HTML
+autocmd filetype html noremap <buffer> <LocalLeader>l :call HtmlBeautify()<cr>
+
+" Javascript
+autocmd filetype javascript noremap <buffer> <LocalLeader>l :call JsBeautify()<cr>
 
 " Python
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-" xml
+" XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
 " Google Go
