@@ -15,6 +15,7 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 's-urbaniak/ropevim'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'godlygeek/tabular'
+Bundle 'Blackrush/vim-gocode'
 
 " CSS
 autocmd filetype css noremap <buffer> <LocalLeader>l :call CSSBeautify()<cr>
