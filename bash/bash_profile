@@ -4,29 +4,66 @@ if which brew >/dev/null; then
 	export PATH=$PATH:~/opt/groovy-2.1.5/bin
     export PATH=$PATH:~/opt/gradle-1.6/bin
     export PATH=$PATH:~/opt/apache-cxf-2.7.6/bin
+    export PATH=$PATH:~/opt/adt-bundle-mac-x86_64-20130717/sdk/platform-tools
 
-	export GODIST=/usr/local/Cellar/go/1.1.1
+	export GODIST=/usr/local/Cellar/go/1.1.2
 
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home
+    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
 
-    export JAVA_HOME=$JDK7
+    export JAVA_HOME=$JDK6
+    
+    export VAGRANT_HOME=~/dev/var/vagrant
 
 	if [ -f $(brew --prefix)/etc/bash_completion ]; then
 		. $(brew --prefix)/etc/bash_completion
 	fi
+
+    function tabname {
+        printf "\e]1;$1\a"
+    }
 fi
 
 # linux
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-
 	export GODIST=/usr/lib/go
 
 	. /etc/bash_completion
 fi
 
-# global maven settings
-MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+function p {
+    POS=$(expr -$1)
+
+    if [[ $POS -lt 0 ]]
+    then
+        pushd $POS
+    fi
+
+    popd
+}
+
+function pp {
+    p $1
+    pushd .
+}
+
+function pu {
+    pushd .
+}
+
+function dv {
+    dirs -v
+}
+
+# maven settings
+MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+MVN_DEBUG_OPTS="-Xmx1024m -XX:MaxPermSize=128m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
+
+# java settings
+export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=512m"
+
+MAVEN_OPTS=$MVN_OPTS
 
 # bash settings
 shopt -s globstar
@@ -36,8 +73,8 @@ export EDITOR=vim
 export PAGER=most
 export LANG=en_US.UTF-8
 
-export GOPATH=~/gopath
-export PATH=$PATH:$GOPATH/bin
+# export GOPATH=~/golang/default
+# export PATH=$PATH:$GOPATH/bin
 
 BLACK='\e[0;30m'
 RED='\e[0;31m'
