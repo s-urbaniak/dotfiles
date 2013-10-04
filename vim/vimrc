@@ -12,11 +12,11 @@ Bundle 'gmarik/vundle'
 Bundle 'wgibbs/vim-irblack'
 Bundle 'kml/vim-irblack-plus'
 Bundle 'davidhalter/jedi-vim'
-Bundle 's-urbaniak/ropevim'
 Bundle 's-urbaniak/xoria256'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'godlygeek/tabular'
 Bundle 'Blackrush/vim-gocode'
+Bundle 'Rip-Rip/clang_complete'
 
 colorscheme xoria256
 

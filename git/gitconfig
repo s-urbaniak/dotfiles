@@ -21,7 +21,7 @@
 	tool = diffmerge
 
 [alias]
-	l = log --graph --decorate --all
+	l = log --graph --decorate --oneline
 	stat = status -sb
 	sync = ! git fetch -v && git rebase origin/master
 	publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
@@ -32,3 +32,5 @@
 	default = simple
 [core]
 	excludesfile = /Users/surbaniak/.gitignore_global
+[diff]
+	tool = vimdiff
