@@ -29,9 +29,6 @@
 	wdiff = !sh -c 'git difftool -- '**/*$1*'' -
 	wadd = !sh -c 'git add -- '**/*$1*'' -
 
-[push]
-	default = simple
-
 [core]
 	excludesfile = /Users/surbaniak/.gitignore_global
 
