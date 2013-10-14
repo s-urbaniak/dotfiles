@@ -26,8 +26,10 @@ if which brew >/dev/null; then
 fi
 
 # linux
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	export GODIST=/usr/lib/go
+if [ -f /etc/lsb-release ]
+then
+	export GODIST=/home/sur/Projects/go
+    export TERM=xterm-256color
 
 	. /etc/bash_completion
 fi
