@@ -73,9 +73,6 @@ export EDITOR=vim
 export PAGER=most
 export LANG=en_US.UTF-8
 
-# export GOPATH=~/golang/default
-# export PATH=$PATH:$GOPATH/bin
-
 BLACK='\e[0;30m'
 RED='\e[0;31m'
 GREEN='\e[0;32m'
