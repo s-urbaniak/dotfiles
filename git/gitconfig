@@ -24,13 +24,19 @@
     ls-commit-files = diff-tree --no-commit-id --name-only -r
     loggdo = log --graph --decorate --oneline
 	stat = status -sb
+
 	sync = ! git fetch -v && git rebase origin/master
 	publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
+
 	wdiff = !sh -c 'git difftool -- '**/*$1*'' -
 	wadd = !sh -c 'git add -- '**/*$1*'' -
 
+    ignore = update-index --assume-unchanged
+    unignore = update-index --no-assume-unchanged
+    ignored = !git ls-files -v | grep "^[[:lower:]]"
+
 [core]
-	excludesfile = /Users/surbaniak/.gitignore_global
+	excludesfile = ~/.gitignore_global
 
 [diff]
 	tool = vimdiff
