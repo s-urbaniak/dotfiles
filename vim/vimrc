@@ -52,6 +52,10 @@ let g:tagbar_type_go = {
 
 colorscheme xoria256
 
+" C
+autocmd filetype c noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
+autocmd filetype cpp noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
+
 " CSS
 autocmd filetype css noremap <buffer> <LocalLeader>l :call CSSBeautify()<cr>
 
@@ -103,6 +107,8 @@ set ts=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+nmap ; :
 
 let mapleader = ","
 let maplocalleader = ","
