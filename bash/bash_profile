@@ -1,7 +1,7 @@
 platform=$(uname)
 
 # osx
-if [ $platform == 'Darwin' ] && [ which brew >/dev/null ]
+if [ $platform == 'Darwin' ] && which brew >/dev/null;
 then
 	export PATH=/usr/local/bin:$PATH
 	export PATH=$PATH:~/opt/groovy-2.1.5/bin
