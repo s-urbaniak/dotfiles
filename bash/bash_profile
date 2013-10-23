@@ -22,6 +22,8 @@ then
 	if [ -f $(brew --prefix)/etc/bash_completion ]; then
 		. $(brew --prefix)/etc/bash_completion
 	fi
+
+    alias mmvn="JAVA_HOME=$JDK6 ~/dev/opt/ride220/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
 fi
 
 # linux
@@ -79,7 +81,11 @@ WHITE='\e[0;37m'
 
 
 function prompt_cmd() {
-    tmux rename-window ${PWD##*/}
+    if [ -n "$TMUX" ]
+    then
+        tmux rename-window ${PWD##*/}
+    fi
+
     PS1="\[$CYAN\]\h\[$RED\]|\[$GREEN\]\A\[$RED\]|\[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\$ "
 }
 
