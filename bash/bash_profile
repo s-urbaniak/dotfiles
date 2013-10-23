@@ -86,7 +86,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="\[$CYAN\]\h\[$RED\]|\[$GREEN\]\A\[$RED\]|\[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\$ "
+    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\n\$ "
 }
 
 PROMPT_COMMAND=prompt_cmd
