@@ -12,7 +12,7 @@ then
 	export GODIST=/usr/local/Cellar/go/1.1.2
 
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
-    export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_25.jdk/Contents/Home
+    export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
     export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
 
     export JAVA_HOME=$JDK6
@@ -24,6 +24,7 @@ then
 	fi
 
     alias mmvn="JAVA_HOME=$JDK6 ~/dev/opt/ride220/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
+    alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
 fi
 
 # linux
@@ -86,7 +87,17 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\n\$ "
+    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\nλ "
 }
 
 PROMPT_COMMAND=prompt_cmd
+
+function rcd {
+    tempfile='/tmp/chosendir'
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
