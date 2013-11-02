@@ -38,8 +38,8 @@ then
     alias pbpaste="xclip -o -selection c"
 fi
 
-# ubuntu linux
-if [ -f /etc/lsb-release ]
+# ubuntu/debian linux
+if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]
 then
 	export GODIST=/home/sur/Projects/go
 	. /etc/bash_completion
