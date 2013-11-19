@@ -71,6 +71,10 @@ autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
+" C
+autocmd filetype c map <LocalLeader>l :%!indent --no-tabs --indent-level 4 -kr<CR>
+autocmd filetype cpp map <LocalLeader>l :%!indent --no-tabs --indent-level 4 -kr<CR>
+
 " Google Go
 filetype off
 set runtimepath+=$GODIST/misc/vim
@@ -112,3 +116,4 @@ nmap ; :
 
 let mapleader = ","
 let maplocalleader = ","
+nmap ; :
