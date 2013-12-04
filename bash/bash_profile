@@ -38,6 +38,9 @@ then
     alias open=xdg-open
     alias pbcopy="xclip -i -selection c"
     alias pbpaste="xclip -o -selection c"
+
+    alias smvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
+    export PATH=$PATH:~/.cabal/bin
 fi
 
 export PATH=$PATH:~/.cabal/bin
