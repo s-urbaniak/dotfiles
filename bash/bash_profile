@@ -9,15 +9,17 @@ then
     export PATH=$PATH:~/opt/apache-cxf-2.7.6/bin
     export PATH=$PATH:~/opt/adt-bundle-mac-x86_64-20130717/sdk/platform-tools
 
-	export GODIST=/usr/local/Cellar/go/1.1.2
-
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
     export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
 
-    export JAVA_HOME=$JDK6
-    
+    export JAVA_HOME=$JDK7
+    export PATH=$JAVA_HOME/bin:$PATH
+    export PATH=~/dev/opt/npm/node_modules/.bin:$PATH
+
     export VAGRANT_HOME=~/dev/var/vagrant
+
+    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -XX:MaxPermSize=256M'
 
 	if [ -f $(brew --prefix)/etc/bash_completion ]; then
 		. $(brew --prefix)/etc/bash_completion
@@ -38,19 +40,7 @@ then
     alias pbpaste="xclip -o -selection c"
 fi
 
-# ubuntu/debian linux
-if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]
-then
-	export GODIST=/home/sur/Projects/go
-	. /etc/bash_completion
-fi
-
-# arch linux
-if [ -f /etc/arch-release ]
-then
-	source /usr/share/git/completion/git-prompt.sh
-    alias mmvn="JAVA_HOME=~/opt/ride-2.2.0/java6-ibm-sr9fp1-2011-02-08-linux-x86_64 ~/opt/ride-2.2.0/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
-fi
+export PATH=$PATH:~/.cabal/bin
 
 export GITHUB_HOST=github.scm.corp.ebay.com
 
@@ -79,7 +69,6 @@ BLUE='\e[0;34m'
 MAGENTA='\e[0;35m'
 CYAN='\e[0;36m'
 WHITE='\e[0;37m'
-
 
 function prompt_cmd() {
     if [ -n "$TMUX" ]
