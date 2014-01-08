@@ -1,4 +1,4 @@
-" Vundle
+" Vundle bootstrap settings
 set nocompatible
 
 filetype off
@@ -11,59 +11,16 @@ Bundle 'gmarik/vundle'
 " My Bundles
 Bundle 'wgibbs/vim-irblack'
 Bundle 'kml/vim-irblack-plus'
-Bundle 'davidhalter/jedi-vim'
 Bundle 's-urbaniak/xoria256'
-Bundle 'maksimr/vim-jsbeautify'
 Bundle 'godlygeek/tabular'
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'majutsushi/tagbar'
-
-" execute go get -u github.com/nsf/gocode
-Bundle 'Blackrush/vim-gocode'
-
-" execute go get -u github.com/jstemmer/gotags
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+Bundle 'scrooloose/nerdtree'
 
 colorscheme xoria256
 
 " C
 autocmd filetype c noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
 autocmd filetype cpp noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
-
-" CSS
-autocmd filetype css noremap <buffer> <LocalLeader>l :call CSSBeautify()<cr>
-
-" HTML
-autocmd filetype html noremap <buffer> <LocalLeader>l :call HtmlBeautify()<cr>
-
-" Javascript
-autocmd filetype javascript noremap <buffer> <LocalLeader>l :call JsBeautify()<cr>
 
 " Python
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
@@ -86,9 +43,16 @@ autocmd filetype go set makeprg=go\ install
 
 " Global settings
 
+" configure nerdtree to change directories
+let g:NERDTreeChDirMode=2
+
 " enable indentation for filetype plugins
 filetype on
 filetype plugin indent on
+
+" enable ruler and always turn on status bar
+set ruler
+set ls=2
 
 " show relative numbers in side bar
 set rnu
@@ -112,8 +76,4 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-nmap ; :
-
-let mapleader = ","
-let maplocalleader = ","
 nmap ; :

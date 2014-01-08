@@ -25,7 +25,7 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    alias mmvn="JAVA_HOME=$JDK6 ~/dev/opt/ride220/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
+    alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
     alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
 fi
 
