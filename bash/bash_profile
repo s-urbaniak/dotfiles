@@ -44,6 +44,12 @@ then
     export PATH=$PATH:~/.cabal/bin
 fi
 
+# ubuntu/debian linux
+if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]
+then
+    . /etc/bash_completion
+fi
+
 export PATH=$PATH:~/.cabal/bin
 
 export GITHUB_HOST=github.scm.corp.ebay.com
