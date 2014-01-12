@@ -86,7 +86,12 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$WHITE\]\nλ "
+    if [ -n "$VIRTUAL_ENV" ]
+    then
+        VIRTUAL_ENV_PROMPT=" (`basename \"$VIRTUAL_ENV\"`)"
+    fi
+
+    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$GREEN\]$VIRTUAL_ENV_PROMPT\[$WHITE\]\nλ "
 }
 
 PROMPT_COMMAND=prompt_cmd
