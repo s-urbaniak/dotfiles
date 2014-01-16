@@ -1,65 +1,4 @@
-platform=$(uname)
-
-# osx
-if [ $platform == 'Darwin' ] && which brew >/dev/null;
-then
-	export PATH=/usr/local/bin:$PATH
-
-    export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
-    export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
-    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
-
-    export JAVA_HOME=$JDK7
-    export PATH=$JAVA_HOME/bin:$PATH
-    export PATH=~/dev/opt/npm/node_modules/.bin:$PATH
-
-    export VAGRANT_HOME=~/dev/var/vagrant
-
-    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -XX:MaxPermSize=256M'
-
-	if [ -f $(brew --prefix)/etc/bash_completion ]; then
-		. $(brew --prefix)/etc/bash_completion
-	fi
-
-    alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
-fi
-
-# linux
-if [ $platform == 'Linux' ]
-then
-    export TERM=xterm-256color
-
-    alias ls="ls --color"
-    alias open=xdg-open
-    alias pbcopy="xclip -i -selection c"
-    alias pbpaste="xclip -o -selection c"
-
-    alias mmvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
-    export PATH=$PATH:~/.cabal/bin
-fi
-
-# ubuntu/debian linux
-if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]
-then
-    . /etc/bash_completion
-fi
-
-export PATH=$PATH:~/.cabal/bin
-
-export GITHUB_HOST=github.scm.corp.ebay.com
-
-# maven settings
-MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
-MVN_DEBUG_OPTS="-Xmx1024m -XX:MaxPermSize=128m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
-
-# java settings
-export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=512m"
-
-MAVEN_OPTS=$MVN_OPTS
-
-# bash settings
+# bash
 shopt -s globstar
 shopt -s nocaseglob
 
@@ -76,18 +15,116 @@ MAGENTA='\e[0;35m'
 CYAN='\e[0;36m'
 WHITE='\e[0;37m'
 
+PLATFORM=$(uname)
+
+if [ $PLATFORM == 'Darwin' ] && which brew >/dev/null;
+then
+    PLATFORM="homebrew"
+fi
+
+if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]
+then
+    PLATFORM="debian"
+fi
+
+# bash (ubuntu)
+if [ $PLATFORM == 'debian' ]
+then
+    . /etc/bash_completion
+fi
+
+# bash (osx)
+if [ $PLATFORM == 'homebrew' ]
+then
+	export PATH=/usr/local/bin:$PATH
+
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		. $(brew --prefix)/etc/bash_completion
+	fi
+fi
+
+# osx
+if [ $PLATFORM == 'homebrew' ]
+then
+    export PATH=~/dev/opt/npm/node_modules/.bin:$PATH
+    export VAGRANT_HOME=~/dev/var/vagrant
+fi
+
+# linux
+if [ $PLATFORM == 'Linux' ]
+then
+    export TERM=xterm-256color
+
+    alias ls="ls --color"
+
+    alias mmvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
+    alias smvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
+fi
+
+# golang (osx)
+if [ $PLATFORM == 'homebrew' ]
+then
+    export GOROOT=`go env GOROOT`
+    export PATH=$GOROOT/bin:$PATH
+fi
+
+# jvm (osx)
+if [ $PLATFORM == 'homebrew' ]
+then
+    export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
+    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
+
+    export JAVA_HOME=$JDK7
+    export PATH=$JAVA_HOME/bin:$PATH
+
+    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -XX:MaxPermSize=256M'
+
+    alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
+    alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
+fi
+
+# jvm
+MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+MVN_DEBUG_OPTS="-Xmx1024m -XX:MaxPermSize=128m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
+export MAVEN_OPTS=$MVN_OPTS
+export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=512m"
+
+# cabal
+export PATH=$PATH:~/.cabal/bin
+
+export GITHUB_HOST=github.scm.corp.ebay.com
+
+function ps1_gopath() {
+    if [ -n "$GOPATH" ]
+    then
+        echo -e "\[$BLUE\] (`basename \"$GOPATH\"`)"
+    fi
+}
+
+function ps1_venv() {
+    if [ -n "$VIRTUAL_ENV" ]
+    then
+       echo -e "\[$GREEN\](`basename \"$VIRTUAL_ENV\"`)"
+    fi
+}
+
+function ps1_lastcmd() {
+    if [ $? = 0 ]
+    then
+        echo -e "\[$GREEN\]:)"
+    else
+        echo -e "\[$RED\]:("
+    fi
+}
+
 function prompt_cmd() {
     if [ -n "$TMUX" ]
     then
         tmux rename-window ${PWD##*/}
     fi
 
-    if [ -n "$VIRTUAL_ENV" ]
-    then
-        VIRTUAL_ENV_PROMPT=" (`basename \"$VIRTUAL_ENV\"`)"
-    fi
-
-    PS1="\`if [ \$? = 0 ]; then echo -e '\[\e[01;32m\]:)'; else echo -e '\[\e[01;31m\]:('; fi\` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\[$YELLOW\]\w\[\033[m\]\[$MAGENTA\]\$(__git_ps1)\[$GREEN\]$VIRTUAL_ENV_PROMPT\[$WHITE\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
 }
 
 PROMPT_COMMAND=prompt_cmd

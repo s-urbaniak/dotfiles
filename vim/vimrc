@@ -11,26 +11,34 @@ Bundle 'gmarik/vundle'
 " My Bundles
 Bundle 'wgibbs/vim-irblack'
 Bundle 'kml/vim-irblack-plus'
-Bundle 's-urbaniak/xoria256'
 Bundle 'godlygeek/tabular'
-Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/nerdtree'
+Bundle 'Blackrush/vim-gocode'
+Bundle 's-urbaniak/xoria256'
+Bundle 'jonathanfilip/vim-lucius'
+Bundle 'altercation/vim-colors-solarized'
 
-colorscheme xoria256
+colorscheme solarized
 
-" C
-autocmd filetype c noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
-autocmd filetype cpp noremap <buffer> <LocalLeader>l :%!indent -kr -ts4 --no-tabs<cr>
+if colors_name == 'solarized'
+  if has('gui_macvim')
+    set transparency=0
+  endif
+
+  if !has('gui_running')
+    let g:solarized_termcolors = &t_Co
+    let g:solarized_termtrans = 1
+    colorscheme solarized
+  endif
+
+  call togglebg#map("<F2>")
+endif
 
 " Python
 autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
-
-" C
-autocmd filetype c map <LocalLeader>l :%!indent --no-tabs --indent-level 4 -kr<CR>
-autocmd filetype cpp map <LocalLeader>l :%!indent --no-tabs --indent-level 4 -kr<CR>
 
 " Google Go
 filetype off
@@ -39,12 +47,8 @@ set runtimepath+=$GODIST/misc/vim
 autocmd filetype go map K <Plug>(godoc-keyword)
 autocmd filetype go map <LocalLeader>l :Fmt<CR>
 autocmd filetype go set noexpandtab
-autocmd filetype go set makeprg=go\ install
 
 " Global settings
-
-" configure nerdtree to change directories
-let g:NERDTreeChDirMode=2
 
 " enable indentation for filetype plugins
 filetype on
@@ -76,4 +80,4 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-nmap ; :
+map ; :
