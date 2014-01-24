@@ -78,7 +78,7 @@ then
     export JAVA_HOME=$JDK7
     export PATH=$JAVA_HOME/bin:$PATH
 
-    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -XX:MaxPermSize=256M'
+    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M'
 
     alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
     alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
@@ -95,17 +95,24 @@ export PATH=$PATH:~/.cabal/bin
 
 export GITHUB_HOST=github.scm.corp.ebay.com
 
+function ps1_openstratus() {
+    if [ -n "$OS_TENANT_NAME" ]
+    then
+        echo -e "\[$RED\] (openstack: $OS_TENANT_NAME)"
+    fi
+}
+
 function ps1_gopath() {
     if [ -n "$GOPATH" ]
     then
-        echo -e "\[$BLUE\] (`basename \"$GOPATH\"`)"
+        echo -e "\[$BLUE\] (go: `basename \"$GOPATH\"`)"
     fi
 }
 
 function ps1_venv() {
     if [ -n "$VIRTUAL_ENV" ]
     then
-       echo -e "\[$GREEN\](`basename \"$VIRTUAL_ENV\"`)"
+       echo -e "\[$GREEN\] (venv: `basename \"$VIRTUAL_ENV\"`)"
     fi
 }
 
@@ -124,7 +131,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
 }
 
 PROMPT_COMMAND=prompt_cmd

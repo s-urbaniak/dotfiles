@@ -9,33 +9,26 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My Bundles
-Bundle 'wgibbs/vim-irblack'
-Bundle 'kml/vim-irblack-plus'
 Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdtree'
-Bundle 'Blackrush/vim-gocode'
 Bundle 's-urbaniak/xoria256'
-Bundle 'jonathanfilip/vim-lucius'
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'ervandew/supertab'
 
-colorscheme solarized
+" needs
+" go get github.com/nsf/gocode
+Bundle 'Blackrush/vim-gocode'
 
-if colors_name == 'solarized'
-  if has('gui_macvim')
-    set transparency=0
-  endif
+" needs
+" go get -v code.google.com/p/rog-go/exp/cmd/godef
+" go install -v code.google.com/p/rog-go/exp/cmd/godef
+Bundle 'dgryski/vim-godef'
 
-  if !has('gui_running')
-    let g:solarized_termcolors = &t_Co
-    let g:solarized_termtrans = 1
-    colorscheme solarized
-  endif
+" follow the instructions in :help command-t.txt
+Bundle 'wincent/Command-T'
 
-  call togglebg#map("<F2>")
-endif
+colorscheme xoria256
 
-" Python
-autocmd filetype python set listchars=tab:>.,trail:.,extends:#,nbsp:.
+map <LocalLeader>1 :NERDTreeToggle<CR>
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
@@ -45,8 +38,14 @@ filetype off
 set runtimepath+=$GODIST/misc/vim
 
 autocmd filetype go map K <Plug>(godoc-keyword)
-autocmd filetype go map <LocalLeader>l :Fmt<CR>
+
+" use real tabs instead of spaces
 autocmd filetype go set noexpandtab
+
+" before writing a file, store the current cursor in mark register 'c'
+autocmd filetype go autocmd BufWritePre <buffer> ks | %!goimports
+" after writing a file, restore the cursor posistion from mark register 'c'
+autocmd filetype go autocmd BufWritePost <buffer> normal 's
 
 " Global settings
 
@@ -58,8 +57,8 @@ filetype plugin indent on
 set ruler
 set ls=2
 
-" show relative numbers in side bar
-set rnu
+" show absolute line numbers in side bar
+set number
 
 " enable syntax highlighting
 syntax on
