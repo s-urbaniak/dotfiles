@@ -33,13 +33,15 @@ autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
 " Google Go
 filetype off
-set runtimepath+=$GODIST/misc/vim
+set runtimepath+=$GOROOT/misc/vim
 
 autocmd filetype go map K <Plug>(godoc-keyword)
 
 " use real tabs instead of spaces
 autocmd filetype go set noexpandtab
 
+" needs
+" go get code.google.com/p/go.tools/cmd/goimports
 " before writing a file, store the current cursor in mark register 'c'
 autocmd filetype go autocmd BufWritePre <buffer> ks | %!goimports
 " after writing a file, restore the cursor posistion from mark register 'c'
