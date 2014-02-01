@@ -18,7 +18,7 @@
 	prompt = false
 
 [merge]
-	tool = diffmerge
+	tool = vimdiff
 
 [alias]
     ls-commit-files = diff-tree --no-commit-id --name-only -r

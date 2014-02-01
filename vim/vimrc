@@ -28,8 +28,6 @@ Bundle 'wincent/Command-T'
 
 colorscheme xoria256
 
-map <LocalLeader>1 :NERDTreeToggle<CR>
-
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
@@ -80,3 +78,6 @@ set softtabstop=4
 set expandtab
 
 map ; :
+map <C-l> 3<C-W><
+map <C-h> 3<C-W>>
+map <LocalLeader>1 :NERDTreeToggle<CR>
