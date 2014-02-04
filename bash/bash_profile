@@ -56,12 +56,17 @@ then
 
     alias ls="ls --color"
 
-    alias mmvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=/home/surbaniak/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 ~/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
+    alias mmvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
+    alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
 
     # go
-    export PATH=$HOME/dev/opt/go/bin:$PATH
+    export PATH=$HOME/opt/go/bin:$PATH
     export GOROOT=`go env GOROOT`
+
+    function initgo() {
+        export GOPATH=$HOME/src/golang
+        export PATH=$GOPATH/bin:$PATH
+    }
 fi
 
 # jvm
