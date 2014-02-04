@@ -13,6 +13,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdtree'
 Bundle 's-urbaniak/xoria256'
 Bundle 'ervandew/supertab'
+Bundle 'vim-scripts/Auto-Pairs'
 
 " needs
 " go get github.com/nsf/gocode
@@ -39,13 +40,6 @@ autocmd filetype go map K <Plug>(godoc-keyword)
 
 " use real tabs instead of spaces
 autocmd filetype go set noexpandtab
-
-" needs
-" go get code.google.com/p/go.tools/cmd/goimports
-" before writing a file, store the current cursor in mark register 'c'
-autocmd filetype go autocmd BufWritePre <buffer> ks | %!goimports
-" after writing a file, restore the cursor posistion from mark register 'c'
-autocmd filetype go autocmd BufWritePost <buffer> normal 's
 
 " Global settings
 
@@ -83,3 +77,4 @@ map ; :
 map <C-l> 3<C-W><
 map <C-h> 3<C-W>>
 map <LocalLeader>1 :NERDTreeToggle<CR>
+map <C-e> :b#<CR>
