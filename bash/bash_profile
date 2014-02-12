@@ -3,7 +3,6 @@ shopt -s globstar
 shopt -s nocaseglob
 
 export EDITOR=vim
-export PAGER=most
 export LANG=en_US.UTF-8
 
 BLACK='\e[0;30m'
