@@ -67,6 +67,9 @@ then
         export GOPATH=$HOME/src/golang
         export PATH=$GOPATH/bin:$PATH
     }
+
+    # plan9
+    PLAN9=$HOME/opt/plan9port 
 fi
 
 # jvm
