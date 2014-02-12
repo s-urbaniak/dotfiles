@@ -14,6 +14,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 's-urbaniak/xoria256'
 Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/Auto-Pairs'
+Bundle 'altercation/vim-colors-solarized'
 
 " needs
 " go get github.com/nsf/gocode
@@ -27,7 +28,7 @@ Bundle 'dgryski/vim-godef'
 " follow the instructions in :help command-t.txt
 Bundle 'wincent/Command-T'
 
-colorscheme xoria256
+colorscheme solarized
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
