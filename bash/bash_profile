@@ -45,6 +45,9 @@ then
     alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
 
     export GITHUB_HOST=github.scm.corp.ebay.com
+
+    export PLAN9=$HOME/dev/opt/plan9port
+    export PATH=$PATH:$PLAN9/bin
 fi
 
 # linux
@@ -117,7 +120,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
 }
 
 PROMPT_COMMAND=prompt_cmd
