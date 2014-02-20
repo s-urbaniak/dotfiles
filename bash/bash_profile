@@ -2,7 +2,6 @@
 shopt -s globstar
 shopt -s nocaseglob
 
-export EDITOR=vim
 export LANG=en_US.UTF-8
 
 BLACK='\e[0;30m'
@@ -25,8 +24,8 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    export PATH=~/dev/opt/npm/node_modules/.bin:$PATH
-    export VAGRANT_HOME=~/dev/var/vagrant
+    export PATH=$HOME/dev/opt/npm/node_modules/.bin:$PATH
+    export VAGRANT_HOME=$HOME/dev/var/vagrant
 
     export GOROOT=`go env GOROOT`
     export PATH=$GOROOT/bin:$PATH
@@ -45,8 +44,12 @@ then
 
     export GITHUB_HOST=github.scm.corp.ebay.com
 
+    # go
+    export GOPATH=$HOME/dev/src/golang
+    export PATH=$PATH:$GOPATH/bin
+
+    # plan9
     export PLAN9=$HOME/dev/opt/plan9port
-    export PATH=$PATH:$PLAN9/bin
 fi
 
 # linux
@@ -65,14 +68,19 @@ then
     export PATH=$HOME/opt/go/bin:$PATH
     export GOROOT=`go env GOROOT`
 
-    function initgo() {
-        export GOPATH=$HOME/src/golang
-        export PATH=$GOPATH/bin:$PATH
-    }
+    export GOPATH=$HOME/src/golang
+    export PATH=$GOPATH/bin:$PATH
 
     # plan9
     PLAN9=$HOME/opt/plan9port 
 fi
+
+export PATH=$PATH:$PLAN9/bin:$HOME/lib/bin
+
+function plan9() {
+    plumber
+    fontsrv -m $PLAN9/mnt/font &
+}
 
 # jvm
 MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
@@ -86,30 +94,30 @@ export PATH=$HOME/.cabal/bin:$PATH
 function ps1_openstratus() {
     if [ -n "$OS_TENANT_NAME" ]
     then
-        echo -e "\[$RED\] (openstack: $OS_TENANT_NAME)"
+        echo -e " (openstack: $OS_TENANT_NAME)"
     fi
 }
 
 function ps1_gopath() {
     if [ -n "$GOPATH" ]
     then
-        echo -e "\[$BLUE\] (go: `basename \"$GOPATH\"`)"
+        echo -e " (go: `basename \"$GOPATH\"`)"
     fi
 }
 
 function ps1_venv() {
     if [ -n "$VIRTUAL_ENV" ]
     then
-       echo -e "\[$GREEN\] (venv: `basename \"$VIRTUAL_ENV\"`)"
+       echo -e " (venv: `basename \"$VIRTUAL_ENV\"`)"
     fi
 }
 
 function ps1_lastcmd() {
     if [ $? = 0 ]
     then
-        echo -e "\[$GREEN\]:)"
+        echo -e ":)"
     else
-        echo -e "\[$RED\]:("
+        echo -e ":("
     fi
 }
 
@@ -119,17 +127,24 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
 }
 
-PROMPT_COMMAND=prompt_cmd
+if [ -n "$winid" ]
+then
+    # redefine cd command for acme Win
+    function cd {
+        builtin cd $1 && awd $sysname
+    }
 
-function rcd {
-    tempfile='/tmp/chosendir'
-    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
-    test -f "$tempfile" &&
-    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-        cd -- "$(cat "$tempfile")"
-    fi
-    rm -f -- "$tempfile"
-}
+    # acme terminal settings
+    export EDITOR=E
+    export PAGER=nobs
+	PS1='$ '
+else
+    # regular terminal settings
+    export EDITOR=vim
+	PROMPT_COMMAND=prompt_cmd
+fi
+
+alias aacme="PAGER=nobs EDITOR=E acme -a -f $PLAN9/mnt/font/SourceCodePro-Regular/14a/font"

@@ -25,10 +25,9 @@ Bundle 'Blackrush/vim-gocode'
 " go install -v code.google.com/p/rog-go/exp/cmd/godef
 Bundle 'dgryski/vim-godef'
 
-" follow the instructions in :help command-t.txt
-Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 
-" colorscheme solarized
+colorscheme xoria256
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
@@ -73,6 +72,9 @@ set ts=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+" enable mouse in console
+set mouse=a
 
 map ; :
 map <C-l> 3<C-W><

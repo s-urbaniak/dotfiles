@@ -9,7 +9,7 @@
 	ui = true
 
 [gui]
-	fontdiff = -family Menlo -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family Menlo -size 12 -weight normal -slant roman -underline 0 -overstrike 0
 	fontui = -family \"Lucida Grande\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
 
 [mergetool]
