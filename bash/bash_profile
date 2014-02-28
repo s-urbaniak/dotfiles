@@ -41,6 +41,7 @@ then
 
     alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
     alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
+    alias r2m="JAVA_HOME=$JDK7 mvn -s /Users/surbaniak/dev/var/mvn/raptor2/settings.xml"
 
     export GITHUB_HOST=github.scm.corp.ebay.com
 
@@ -50,6 +51,8 @@ then
 
     # plan9
     export PLAN9=$HOME/dev/opt/plan9port
+
+    DOTFILES=$HOME/dev/src/dotfiles
 fi
 
 # linux
@@ -73,14 +76,12 @@ then
 
     # plan9
     PLAN9=$HOME/opt/plan9port 
+
+    DOTFILES=$HOME/src/dotfiles
 fi
 
-export PATH=$PATH:$PLAN9/bin:$HOME/lib/bin
-
-function plan9() {
-    plumber
-    fontsrv -m $PLAN9/mnt/font &
-}
+# plan9 globals
+export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
 # jvm
 MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
@@ -130,6 +131,15 @@ function prompt_cmd() {
     PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
 }
 
+function h() {
+	if [ -z "$1" ]
+	then
+		history
+	else
+		history | grep -i "$@"
+	fi
+}
+
 if [ -n "$winid" ]
 then
     # redefine cd command for acme Win
@@ -146,5 +156,3 @@ else
     export EDITOR=vim
 	PROMPT_COMMAND=prompt_cmd
 fi
-
-alias aacme="PAGER=nobs EDITOR=E acme -a -f $PLAN9/mnt/font/SourceCodePro-Regular/14a/font"

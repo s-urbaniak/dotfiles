@@ -1,0 +1,2 @@
+#!/bin/sh
+fold -sw $1

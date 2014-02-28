@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sel=`9p read acme/$winid/rdsel`
+godoc "$sel"

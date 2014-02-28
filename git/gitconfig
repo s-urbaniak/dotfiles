@@ -3,7 +3,7 @@
 
 [user]
 	name = Sergiusz Urbaniak
-	email = sergiusz.urbaniak@gmail.com
+	email = sergiusz.urbaniak@ebay.com
 
 [color]
 	ui = true
@@ -16,9 +16,6 @@
 	keepBackup = false
 	keepTemporaries = false
 	prompt = false
-
-[merge]
-	tool = vimdiff
 
 [alias]
     ls-commit-files = diff-tree --no-commit-id --name-only -r
@@ -39,4 +36,7 @@
 	excludesfile = ~/.gitignore_global
 
 [diff]
-	tool = vimdiff
+	tool = 9diff
+
+[difftool "9diff"]
+	cmd = 9 diff -n \"$LOCAL\" \"$REMOTE\"

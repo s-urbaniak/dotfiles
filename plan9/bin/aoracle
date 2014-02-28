@@ -1,0 +1,4 @@
+#!/bin/sh
+
+adr=`acmedot`
+oracle -pos $adr describe 'go'
