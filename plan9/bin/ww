@@ -1,2 +1,2 @@
 #!/bin/sh
-fold -sw $1
+tr '\n' ' ' | fold -sw $1 | sed 's/  / /g' | sed s'/^ //g'

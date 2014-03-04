@@ -128,7 +128,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
 }
 
 function h() {

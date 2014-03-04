@@ -25,7 +25,7 @@ Bundle 'Blackrush/vim-gocode'
 " go install -v code.google.com/p/rog-go/exp/cmd/godef
 Bundle 'dgryski/vim-godef'
 
-colorscheme xoria256
+colorscheme default
 
 if executable("ag")
     set grepprg=ag\ --nogroup\ --nocolor

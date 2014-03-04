@@ -8,4 +8,4 @@ TERM=dumb
 9p ls plumb >/dev/null 2>/dev/null || plumber
 9p ls font >/dev/null 2>/dev/null || fontsrv &
 
-exec acme -a -f /mnt/font/SourceCodePro-Regular/13a/font
+exec acme -a -f /mnt/font/SourceCodePro-Regular/13a/font "$@"
