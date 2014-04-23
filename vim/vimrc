@@ -1,30 +1,6 @@
 " Vundle bootstrap settings
 set nocompatible
 
-filetype off
-filetype plugin indent off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-
-" My Bundles
-Bundle 'scrooloose/nerdtree'
-Bundle 's-urbaniak/xoria256'
-Bundle 'ervandew/supertab'
-Bundle 'kien/ctrlp.vim'
-Bundle 'msanders/snipmate.vim'
-Bundle 'Lokaltog/vim-easymotion'
-
-" needs
-" go get github.com/nsf/gocode
-Bundle 'Blackrush/vim-gocode'
-
-" needs
-" go get -v code.google.com/p/rog-go/exp/cmd/godef
-" go install -v code.google.com/p/rog-go/exp/cmd/godef
-Bundle 'dgryski/vim-godef'
-
 colorscheme default
 
 if executable("ag")
@@ -34,14 +10,6 @@ endif
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
-
-" Google Go
-filetype off
-set runtimepath+=$GOROOT/misc/vim
-
-" source oracle vim plugin
-source $GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.vim
-let g:go_oracle_scope_file = "net"
 
 " use real tabs instead of spaces for go
 autocmd filetype go set noexpandtab
@@ -53,9 +21,6 @@ filetype plugin indent on
 " enable ruler and always turn on status bar
 set ruler
 set ls=2
-
-" show absolute line numbers in side bar
-set number
 
 " enable syntax highlighting
 syntax on

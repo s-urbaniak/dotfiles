@@ -68,14 +68,14 @@ then
     alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
 
     # go
-    export PATH=$HOME/opt/go/bin:$PATH
+    export PATH=$HOME/src/golang/bin:$PATH
     export GOROOT=`go env GOROOT`
 
-    export GOPATH=$HOME/src/golang
+    export GOPATH=$HOME/src/gopath
     export PATH=$GOPATH/bin:$PATH
 
     # plan9
-    PLAN9=$HOME/opt/plan9port 
+    PLAN9=$HOME/src/plan9
 
     DOTFILES=$HOME/src/dotfiles
 fi
@@ -128,7 +128,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$BLACK\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$BLACK\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
 }
 
 function h() {
