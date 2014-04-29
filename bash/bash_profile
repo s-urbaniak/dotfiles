@@ -64,18 +64,19 @@ then
 
     alias ls="ls --color"
 
-    alias mmvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/var/mvn/showdrift/settings.xml"
+    alias mmvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/meds/settings.xml"
+    alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/showdrift/settings.xml"
+    alias r2m="$HOME/opt/ride5/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/raptor2/settings.xml"
 
     # go
-    export PATH=$HOME/src/golang/bin:$PATH
+    export PATH=$HOME/src/golang/bin:$HOME/opt/node_modules/.bin:$PATH
     export GOROOT=`go env GOROOT`
 
-    export GOPATH=$HOME/src/gopath
+    export GOPATH=$HOME/src/go
     export PATH=$GOPATH/bin:$PATH
 
     # plan9
-    PLAN9=$HOME/src/plan9
+    export PLAN9=/usr/local/plan9
 
     DOTFILES=$HOME/src/dotfiles
 fi

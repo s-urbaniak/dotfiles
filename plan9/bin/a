@@ -6,8 +6,17 @@ PAGER=nobs
 EDITOR=E
 TERM=dumb
 
-[ "$1" = -n ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
-9p ls plumb >/dev/null 2>/dev/null || plumber
-9p ls font >/dev/null 2>/dev/null || fontsrv &
 
-exec acme -a -f /mnt/font/SourceCodePro-Regular/13a/font "$@"
+[ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
+
+SIZE=14
+[ "$1" = "-s" ] && { SIZE="$2"; shift 2; }
+
+FONTNAME="droidsansmono"
+[ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
+FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
+
+9p ls plumb >/dev/null 2>/dev/null || plumber
+# 9p ls font >/dev/null 2>/dev/null || fontsrv &
+
+exec acme -a -f "$FONTARG" "$@"
