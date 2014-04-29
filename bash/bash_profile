@@ -32,7 +32,7 @@ then
 
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
-    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
+    export JDK8=$HOME/dev/opt/jdk1.8.0.jdk/Contents/Home
 
     export JAVA_HOME=$JDK7
     export PATH=$JAVA_HOME/bin:$PATH
@@ -41,7 +41,7 @@ then
 
     alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
     alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
-    alias r2m="JAVA_HOME=$JDK7 mvn -s /Users/surbaniak/dev/var/mvn/raptor2/settings.xml"
+    alias r2m="JAVA_HOME=$JDK7 ~/dev/opt/ride5/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/raptor2/settings.xml"
 
     export GITHUB_HOST=github.scm.corp.ebay.com
 
@@ -53,6 +53,9 @@ then
     export PLAN9=$HOME/dev/opt/plan9port
 
     DOTFILES=$HOME/dev/src/dotfiles
+
+    # jisql
+    export JISQL=$HOME/dev/opt/jisql-2.0.11
 fi
 
 # linux
