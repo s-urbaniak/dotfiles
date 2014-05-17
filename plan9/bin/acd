@@ -1,0 +1,3 @@
+#!/bin/sh
+
+plumb -d edit $1

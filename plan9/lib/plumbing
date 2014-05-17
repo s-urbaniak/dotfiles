@@ -1,4 +1,5 @@
-# to update: cat $HOME/lib/plumbing | 9p write plumb/rules
+# to update: `cat $HOME/lib/plumbing | 9p write plumb/rules`
+# to check:  `9p read plumb/rules`
 
 editor=acme
 
@@ -8,6 +9,11 @@ include basic
 type is text
 data matches '([0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])'
 plumb start open 'http://www.amazon.com/s/?field-keywords='$1
+
+# git commit hash
+type is text
+data matches '([a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]*)'
+plumb start rc -c 'cd '$wdir' && git show '$1' | plumb -i -d edit -a ''action=showdata filename=+git-'$1'''
 
 # RFC's from one of the nicer-looking repositories.
 type is text

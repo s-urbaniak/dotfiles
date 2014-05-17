@@ -1,4 +1,9 @@
 #!/bin/sh
 
 adr=`apl dot`
-oracle -pos $adr describe 'go'
+(oracle -pos $adr describe 'go' | awk '
+	{
+		printf "%s\n", $1
+		$1=""
+		printf "%s\n---\n", $0
+	}') 2>&1 | plumb -i -d edit -a 'action=showdata filename=+oracle'

@@ -9,7 +9,7 @@ TERM=dumb
 
 [ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 
-SIZE=14
+SIZE=13
 [ "$1" = "-s" ] && { SIZE="$2"; shift 2; }
 
 FONTNAME="droidsansmono"
