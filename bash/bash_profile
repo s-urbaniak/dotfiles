@@ -27,9 +27,6 @@ then
     export PATH=$HOME/dev/opt/npm/node_modules/.bin:$PATH
     export VAGRANT_HOME=$HOME/dev/var/vagrant
 
-    export GOROOT=`go env GOROOT`
-    export PATH=$GOROOT/bin:$PATH
-
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
     export JDK8=$HOME/dev/opt/jdk1.8.0.jdk/Contents/Home
@@ -46,6 +43,9 @@ then
     export GITHUB_HOST=github.scm.corp.ebay.com
 
     # go
+    export GOROOT=$HOME/dev/opt/go3rc1
+    export PATH=$GOROOT/bin:$PATH
+
     export GOPATH=$HOME/dev/src/golang
     export PATH=$PATH:$GOPATH/bin
 
@@ -54,8 +54,13 @@ then
 
     DOTFILES=$HOME/dev/src/dotfiles
 
+    # camlistore
+    export PATH=$PATH:$HOME/dev/opt/camlistore/bin
+
     # jisql
     export JISQL=$HOME/dev/opt/jisql-2.0.11
+
+    export CDPATH=.:$HOME/dev/src:$HOME/dev:$GOPATH/src
 fi
 
 # linux
