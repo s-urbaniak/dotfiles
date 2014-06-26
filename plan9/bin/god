@@ -7,10 +7,10 @@ then
 	CMD="$1"
 fi
 
-PKG=`curgopkg`
+PKG=`apl pkg`
+ADR=`apl dot`
 
-adr=`apl dot`
-(oracle -pos $adr "$CMD" "$PKG" | awk '
+(oracle -pos "$ADR" "$CMD" "$PKG" | awk '
 	{
 		printf "%s\n", $1
 		$1=""

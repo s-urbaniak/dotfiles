@@ -77,14 +77,17 @@ then
     export PATH=$HOME/opt/node_modules/.bin:$PATH
 
     # go
-    export GOPATH=$HOME/src/go
-    export PATH=`go env GOROOT`/bin:$PATH
+    export GOPATH=$HOME/src/golang
+    export GOROOT=$HOME/opt/go1.3
+    export PATH=$GOROOT/bin:$PATH
     export PATH=$GOPATH/bin:$PATH
 
     # plan9
     export PLAN9=/usr/local/plan9
 
     DOTFILES=$HOME/src/dotfiles
+
+    export CDPATH=.:$HOME/src/java:$HOME/src:$GOPATH/src
 fi
 
 # plan9 globals
