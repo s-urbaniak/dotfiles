@@ -1,7 +1,16 @@
 #!/bin/sh
+set -e
+
+CMD="describe"
+if [ -n "$1" ]
+then
+	CMD="$1"
+fi
+
+PKG=`curgopkg`
 
 adr=`apl dot`
-(oracle -pos $adr describe 'go' | awk '
+(oracle -pos $adr "$CMD" "$PKG" | awk '
 	{
 		printf "%s\n", $1
 		$1=""

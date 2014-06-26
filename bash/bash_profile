@@ -43,10 +43,8 @@ then
     export GITHUB_HOST=github.scm.corp.ebay.com
 
     # go
-    export GOROOT=$HOME/dev/opt/go3rc1
-    export PATH=$GOROOT/bin:$PATH
-
     export GOPATH=$HOME/dev/src/golang
+    export PATH=`go env GOROOT`/bin:$PATH
     export PATH=$PATH:$GOPATH/bin
 
     # plan9
@@ -60,7 +58,7 @@ then
     # jisql
     export JISQL=$HOME/dev/opt/jisql-2.0.11
 
-    export CDPATH=.:$HOME/dev/src:$HOME/dev:$GOPATH/src
+    export CDPATH=.:$HOME/dev/src/java:$HOME/dev/src:$HOME/dev:$GOPATH/src
 fi
 
 # linux
@@ -76,11 +74,11 @@ then
     alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/showdrift/settings.xml"
     alias r2m="$HOME/opt/ride5/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/raptor2/settings.xml"
 
-    # go
-    export PATH=$HOME/src/golang/bin:$HOME/opt/node_modules/.bin:$PATH
-    export GOROOT=`go env GOROOT`
+    export PATH=$HOME/opt/node_modules/.bin:$PATH
 
+    # go
     export GOPATH=$HOME/src/go
+    export PATH=`go env GOROOT`/bin:$PATH
     export PATH=$GOPATH/bin:$PATH
 
     # plan9
