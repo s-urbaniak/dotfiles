@@ -74,13 +74,11 @@ then
     alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/showdrift/settings.xml"
     alias r2m="$HOME/opt/ride5/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/raptor2/settings.xml"
 
-    export PATH=$HOME/opt/node_modules/.bin:$PATH
-
     # go
-    export GOPATH=$HOME/src/golang
-    export GOROOT=$HOME/opt/go1.3
-    export PATH=$GOROOT/bin:$PATH
+    export PATH=$HOME/src/golang/bin:$HOME/opt/node_modules/.bin:$PATH
+    export GOPATH=$HOME/src/go
     export PATH=$GOPATH/bin:$PATH
+    export CDPATH=$HOME/src/go/src:.
 
     # plan9
     export PLAN9=/usr/local/plan9

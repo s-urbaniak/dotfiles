@@ -1,7 +1,5 @@
-" Vundle bootstrap settings
-set nocompatible
 
-colorscheme default
+colorscheme koehler
 
 if executable("ag")
     set grepprg=ag\ --nogroup\ --nocolor
@@ -13,6 +11,15 @@ autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
 " use real tabs instead of spaces for go
 autocmd filetype go set noexpandtab
+
+" initialize go runtime
+if exists("g:did_load_filetypes")
+  filetype off
+  filetype plugin indent off
+endif
+set runtimepath+=$HOME/src/golang/misc/vim
+filetype plugin indent on
+syntax on
 
 " enable indentation for filetype plugins
 filetype on
