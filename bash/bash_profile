@@ -70,15 +70,14 @@ then
 
     alias ls="ls --color"
 
-    alias mmvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=$HOME/opt/ride3/ibm-java-sdk-7.0-4.2-linux-x86_64 $HOME/opt/ride3/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/showdrift/settings.xml"
-    alias r2m="$HOME/opt/ride5/apache-maven-3.0.5/bin/mvn -s $HOME/var/mvn/raptor2/settings.xml"
-
     # go
     export PATH=$HOME/src/golang/bin:$HOME/opt/node_modules/.bin:$PATH
     export GOPATH=$HOME/src/go
     export PATH=$GOPATH/bin:$PATH
     export CDPATH=$HOME/src/go/src:.
+
+    # scala
+    export PATH=$HOME/opt/scala2112/bin:$HOME/opt/sbt0135/bin:$PATH
 
     # plan9
     export PLAN9=/usr/local/plan9
@@ -92,10 +91,10 @@ fi
 export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
 # jvm
-MVN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
-MVN_DEBUG_OPTS="-Xmx1024m -XX:MaxPermSize=128m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
+MVN_OPTS="-Xmx512m"
+MVN_DEBUG_OPTS="-Xmx1024m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
 export MAVEN_OPTS=$MVN_OPTS
-export JAVA_OPTS="-Xmx1024m -XX:MaxPermSize=512m"
+export JAVA_OPTS="-Xmx1024m"
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
