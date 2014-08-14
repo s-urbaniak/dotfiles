@@ -6,7 +6,6 @@ PAGER=nobs
 EDITOR=E
 TERM=dumb
 
-
 [ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 
 SIZE=13

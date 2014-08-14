@@ -34,11 +34,10 @@ then
     export JAVA_HOME=$JDK7
     export PATH=$JAVA_HOME/bin:$PATH
 
-    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M'
-
-    alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
-    alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
-    alias r2m="JAVA_HOME=$JDK7 ~/dev/opt/ride5/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/raptor2/settings.xml"
+    alias mmvn="JAVA_HOME=$JDK7 $HOME/dev/opt/mobile-maven/bin/mvn -s $HOME/dev/var/mvn/mobile.de/settings.xml"
+    # alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
+    # alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
+    # alias r2m="JAVA_HOME=$JDK7 ~/dev/opt/ride5/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/raptor2/settings.xml"
 
     export GITHUB_HOST=github.scm.corp.ebay.com
 
@@ -90,11 +89,35 @@ fi
 # plan9 globals
 export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
+function sbtenv() {
+    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M'
+}
+
+function sbtdebug() {
+    if [ -z "$2" ]
+    then
+        SUSPEND="n"
+    else
+        SUSPEND="$2"
+    fi
+    export SBT_OPTS="$SBT_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=$SUSPEND,address=$1"
+}
+
+function playlog() {
+    if [ -z "$1" ]
+    then
+        LOGFILE="conf/application-logger-dev.xml"
+    fi
+    export SBT_OPTS="$SBT_OPTS -Dlogger.file=$LOGFILE"
+}
+
 # jvm
 MVN_OPTS="-Xmx512m"
 MVN_DEBUG_OPTS="-Xmx1024m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
 export MAVEN_OPTS=$MVN_OPTS
 export JAVA_OPTS="-Xmx1024m"
+sbtenv
+playlog
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH

@@ -51,9 +51,6 @@ set expandtab
 set mouse=a
 set autoread
 
-" remap keys
-map ; :
-
 " enable visual bell
 set vb
 
