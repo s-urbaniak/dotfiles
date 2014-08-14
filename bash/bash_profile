@@ -24,7 +24,8 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    export PATH=$HOME/dev/opt/npm/node_modules/.bin:$PATH
+    export SECP=dev
+
     export VAGRANT_HOME=$HOME/dev/var/vagrant
 
     export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
@@ -34,30 +35,13 @@ then
     export JAVA_HOME=$JDK7
     export PATH=$JAVA_HOME/bin:$PATH
 
-    alias mmvn="JAVA_HOME=$JDK7 $HOME/dev/opt/mobile-maven/bin/mvn -s $HOME/dev/var/mvn/mobile.de/settings.xml"
-    # alias mmvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/meds/settings.xml"
-    # alias smvn="JAVA_HOME=$JDK7 ~/dev/opt/ride3/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/showdrift/settings.xml"
-    # alias r2m="JAVA_HOME=$JDK7 ~/dev/opt/ride5/apache-maven-3.0.5/bin/mvn -s ~/dev/var/mvn/raptor2/settings.xml"
-
     export GITHUB_HOST=github.scm.corp.ebay.com
-
-    # go
-    export GOPATH=$HOME/dev/src/golang
-    export PATH=`go env GOROOT`/bin:$PATH
-    export PATH=$PATH:$GOPATH/bin
 
     # plan9
     export PLAN9=$HOME/dev/opt/plan9port
 
-    DOTFILES=$HOME/dev/src/dotfiles
-
-    # camlistore
-    export PATH=$PATH:$HOME/dev/opt/camlistore/bin
-
     # jisql
     export JISQL=$HOME/dev/opt/jisql-2.0.11
-
-    export CDPATH=.:$HOME/dev/src/java:$HOME/dev/src:$HOME/dev:$GOPATH/src
 fi
 
 # linux
@@ -65,32 +49,31 @@ if [ $PLATFORM == 'Linux' ]
 then
     . /etc/bash_completion
 
+    export SECP=.
     export TERM=xterm-256color
-
     alias ls="ls --color"
-
-    # go
-    export PATH=$HOME/src/golang/bin:$HOME/opt/node_modules/.bin:$PATH
-    export GOPATH=$HOME/src/go
-    export PATH=$GOPATH/bin:$PATH
-    export CDPATH=$HOME/src/go/src:.
-
-    # scala
-    export PATH=$HOME/opt/scala2112/bin:$HOME/opt/sbt0135/bin:$PATH
-
-    # plan9
     export PLAN9=/usr/local/plan9
-
-    DOTFILES=$HOME/src/dotfiles
-
-    export CDPATH=.:$HOME/src/java:$HOME/src:$GOPATH/src
 fi
+
+DOTFILES=$HOME/$SECP/src/dotfiles
+
+alias mmvn="JAVA_HOME=$JDK7 $HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
+
+# npm
+export PATH=$HOME/$SECP/opt/npm/node_modules/.bin:$PATH
+
+# go
+export GOPATH=$HOME/$SECP/src/golang
+export PATH=$GOPATH/$SECP/bin:$PATH
 
 # plan9 globals
 export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
+# cd tab completion paths
+export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src
+
 function sbtenv() {
-    export SBT_OPTS='-Dsbt.global.base=/Users/surbaniak/dev/var/sbt -Dsbt.ivy.home=/Users/surbaniak/dev/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M'
+    export SBT_OPTS="-Dsbt.global.base=$HOME/$SECP/var/sbt -Dsbt.ivy.home=$HOME/$SECP/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
 }
 
 function sbtdebug() {
@@ -122,24 +105,10 @@ playlog
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
 
-function ps1_openstratus() {
-    if [ -n "$OS_TENANT_NAME" ]
-    then
-        echo -e " (openstack: $OS_TENANT_NAME)"
-    fi
-}
-
 function ps1_gopath() {
     if [ -n "$GOPATH" ]
     then
         echo -e " (go: `basename \"$GOPATH\"`)"
-    fi
-}
-
-function ps1_venv() {
-    if [ -n "$VIRTUAL_ENV" ]
-    then
-       echo -e " (venv: `basename \"$VIRTUAL_ENV\"`)"
     fi
 }
 
@@ -158,7 +127,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_openstratus``ps1_venv``ps1_gopath`\[$WHITE\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_gopath`\[$WHITE\]\nλ "
 }
 
 function h() {
