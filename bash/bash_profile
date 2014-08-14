@@ -9,7 +9,7 @@ RED='\e[0;31m'
 GREEN='\e[0;32m'
 YELLOW='\e[0;33m'
 BLUE='\e[0;34m'
-MAGENTA='\e[0;35m'
+MAGENTA='\e[01;35m'
 CYAN='\e[0;36m'
 WHITE='\e[0;37m'
 
@@ -127,7 +127,7 @@ function prompt_cmd() {
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$WHITE\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_gopath`\[$WHITE\]\nλ "
+    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_gopath`\[\033[00m\]\nλ "
 }
 
 function h() {
