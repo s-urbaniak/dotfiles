@@ -73,25 +73,36 @@ export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src
 
 function sbtenv() {
-    export SBT_OPTS="-Dsbt.global.base=$HOME/$SECP/var/sbt -Dsbt.ivy.home=$HOME/$SECP/var/ivy -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
-}
+LOGFILE="conf/application-logger-dev.xml"
+SUSPEND="n"
 
-function sbtdebug() {
-    if [ -z "$2" ]
-    then
-        SUSPEND="n"
-    else
-        SUSPEND="$2"
-    fi
-    export SBT_OPTS="$SBT_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=$SUSPEND,address=$1"
-}
+while getopts ":d:sl:" opt
+do
+    case $opt in
+        s)
+            SUSPEND="y"
+            ;;
+        d)
+            DEBUG_PORT="$OPTARG"
+            ;;
+        l)
+            LOGFILE="$OPTARG"
+            ;;
+    esac
+done
 
-function playlog() {
-    if [ -z "$1" ]
-    then
-        LOGFILE="conf/application-logger-dev.xml"
-    fi
-    export SBT_OPTS="$SBT_OPTS -Dlogger.file=$LOGFILE"
+SBT_OPTS="-Dsbt.global.base=$HOME/$SECP/var/sbt -Dsbt.ivy.home=$HOME/$SECP/var/ivy"
+SBT_OPTS="$SBT_OPTS -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
+SBT_OPTS="$SBT_OPTS -Dlogger.file=$LOGFILE"
+
+if [ -n "$DEBUG_PORT" ]
+then
+    SBT_OPTS="$SBT_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=$SUSPEND,address=$DEBUG_PORT"
+fi
+export SBT_OPTS
+
+# reset getopts
+OPTIND=1
 }
 
 # jvm
@@ -100,7 +111,6 @@ MVN_DEBUG_OPTS="-Xmx1024m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:trans
 export MAVEN_OPTS=$MVN_OPTS
 export JAVA_OPTS="-Xmx1024m"
 sbtenv
-playlog
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
