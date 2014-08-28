@@ -28,12 +28,9 @@ then
 
     export VAGRANT_HOME=$HOME/dev/var/vagrant
 
-    export JDK6=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    export JDK6=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
     export JDK8=$HOME/dev/opt/jdk1.8.0.jdk/Contents/Home
-
-    export JAVA_HOME=$JDK7
-    export PATH=$JAVA_HOME/bin:$PATH
 
     export GITHUB_HOST=github.scm.corp.ebay.com
 
@@ -57,14 +54,14 @@ fi
 
 DOTFILES=$HOME/$SECP/src/dotfiles
 
-alias mmvn="JAVA_HOME=$JDK7 $HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
+alias mmvn="JAVA_HOME=$JDK8 $HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
 
 # npm
 export PATH=$HOME/$SECP/opt/npm/node_modules/.bin:$PATH
 
 # go
 export GOPATH=$HOME/$SECP/src/golang
-export PATH=$GOPATH/$SECP/bin:$PATH
+export PATH=$GOPATH/bin:$PATH
 
 # plan9 globals
 export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
@@ -72,9 +69,31 @@ export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 # cd tab completion paths
 export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src
 
+export _PATH="$PATH"
+function jenv() {
+
+case $1 in
+    '6')
+        JAVA_HOME=$JDK6
+        ;;
+    '7')
+        JAVA_HOME=$JDK7
+        ;;
+    '8')
+        JAVA_HOME=$JDK8
+        ;;
+esac
+
+export JAVA_HOME
+export PATH=$JAVA_HOME/bin:$_PATH
+
+# reset getopts
+OPTIND=1
+}
+
 function sbtenv() {
-LOGFILE="conf/application-logger-dev.xml"
-SUSPEND="n"
+local LOGFILE="conf/application-logger-dev.xml"
+local SUSPEND="n"
 
 while getopts ":d:sl:" opt
 do
@@ -105,11 +124,44 @@ export SBT_OPTS
 OPTIND=1
 }
 
+function mvnenv() {
+local MVN_MEM="-Xmx2048m -Xms512m"
+local SUSPEND="n"
+local DEBUG_PORT
+while getopts ":m:d:s" opt
+do
+    case $opt in
+        m)
+            MVN_MEM="$OPTARG"
+            ;;
+        d)
+            DEBUG_PORT="$OPTARG"
+            ;;
+        s)
+            SUSPEND="y"
+            ;;
+        d)
+            DEBUG_PORT="$OPTARG"
+            ;;
+    esac
+done
+
+if [ -n "$DEBUG_PORT" ]
+then
+    MVN_DEBUG="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=$SUSPEND"
+else
+    unset MVN_DEBUG
+fi
+
+# reset getopts
+OPTIND=1
+
+export MAVEN_OPTS="$MVN_MEM $MVN_DEBUG"
+}
+
 # jvm
-MVN_OPTS="-Xmx512m"
-MVN_DEBUG_OPTS="-Xmx1024m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
-export MAVEN_OPTS=$MVN_OPTS
 export JAVA_OPTS="-Xmx1024m"
+mvnenv
 sbtenv
 
 # cabal
