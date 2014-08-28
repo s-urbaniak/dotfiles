@@ -3,14 +3,10 @@
 
 [user]
 	name = Sergiusz Urbaniak
-	email = sergiusz.urbaniak@ebay.com
+	email = sergiusz.urbaniak@gmail.com
 
 [color]
 	ui = true
-
-[gui]
-	fontdiff = -family Menlo -size 12 -weight normal -slant roman -underline 0 -overstrike 0
-	fontui = -family \"Lucida Grande\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
 
 [mergetool]
 	keepBackup = false
@@ -22,22 +18,10 @@
     loggdo = log --graph --decorate --oneline
 	stat = status -sb
 
-	sync = ! git fetch -v && git rebase origin/master
-	publish = ! git checkout master && git merge @{-1} && git push && git checkout @{-1}
-    rr = ! git fetch -v origin && git checkout master && git rebase origin/master && git checkout @{-1} && git rebase origin/master
-
-	wdiff = !sh -c 'git difftool -- '**/*$1*'' -
-	wadd = !sh -c 'git add -- '**/*$1*'' -
-
     ignore = update-index --assume-unchanged
     unignore = update-index --no-assume-unchanged
     ignored = !git ls-files -v | grep "^[[:lower:]]"
 
-[core]
-	excludesfile = ~/.gitignore_global
-
-[diff]
-	tool = 9diff
-
 [difftool "9diff"]
 	cmd = 9 diff -n \"$LOCAL\" \"$REMOTE\"
+
