@@ -17,4 +17,5 @@ fi
 
 ln -s "$PWD"/vim/vimrc ~/.vimrc
 ln -s "$PWD"/git/gitconfig ~/.gitconfig
+ln -s "$PWD"/plan9/lib ~/lib
 
