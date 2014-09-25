@@ -44,7 +44,8 @@ fi
 # linux
 if [ $PLATFORM == 'Linux' ]
 then
-    . /etc/bash_completion
+    . /usr/share/bash-completion/bash_completion
+    source /usr/share/git/git-prompt.sh
 
     export SECP=.
     export TERM=xterm-256color
