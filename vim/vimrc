@@ -21,7 +21,7 @@ set ruler
 set ls=2
 
 " enable syntax highlighting
-syntax on
+syntax off
 
 " enable ignore case and smartcase
 set ic

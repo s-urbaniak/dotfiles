@@ -50,7 +50,7 @@ then
     export SECP=.
     export TERM=xterm-256color
     alias ls="ls --color"
-    export PLAN9=/usr/local/plan9
+    source /etc/profile.d/plan9.sh
 fi
 
 DOTFILES=$HOME/$SECP/src/dotfiles
