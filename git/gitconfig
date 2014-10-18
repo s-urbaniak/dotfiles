@@ -6,7 +6,7 @@
 	email = sergiusz.urbaniak@gmail.com
 
 [color]
-	ui = true
+	ui = false
 
 [mergetool]
 	keepBackup = false

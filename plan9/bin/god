@@ -7,7 +7,7 @@ then
 	CMD="$1"
 fi
 
-PKG=`apl pkg`
+PKG=`go list`
 ADR=`apl dot`
 
 (oracle -pos "$ADR" "$CMD" "$PKG" | awk '

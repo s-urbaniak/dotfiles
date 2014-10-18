@@ -2,9 +2,9 @@
 
 # an acme startup helper
 
-PAGER=nobs
-EDITOR=E
-TERM=dumb
+export PAGER=nobs
+export EDITOR=E
+export TERM=dumb
 
 [ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 

@@ -1,4 +1,2 @@
 #!/bin/sh
-DIR="$1"
-shift
-find "$DIR" -not -path '*/\.*' "$@"
+find . -not -path '*/\.*' "$@"
