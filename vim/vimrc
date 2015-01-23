@@ -10,7 +10,7 @@ autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
 " use real tabs instead of spaces for go
 autocmd filetype go set noexpandtab
-autocmd filetype go map <LocalLeader>i :%!goimports "%" 2>goimports.log<CR>
+autocmd filetype go map <LocalLeader>i :%!goimports<CR>
 
 " enable indentation for filetype plugins
 filetype on

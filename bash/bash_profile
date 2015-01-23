@@ -30,15 +30,15 @@ then
 
     export JDK6=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
-    export JDK8=$HOME/dev/opt/jdk1.8.0.jdk/Contents/Home
+    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
 
-    export GITHUB_HOST=github.scm.corp.ebay.com
+    export GITHUB_HOST=github.corp.ebay.com
 
     # plan9
     export PLAN9=$HOME/dev/opt/plan9port
 
-    # jisql
-    export JISQL=$HOME/dev/opt/jisql-2.0.11
+    # go
+    export PATH=$PATH:/usr/local/opt/go/libexec/bin
 fi
 
 # linux
@@ -56,9 +56,10 @@ then
     source /etc/profile.d/plan9.sh
 fi
 
-DOTFILES=$HOME/$SECP/src/dotfiles
+export DOTFILES=$HOME/$SECP/src/dotfiles
 
-alias mmvn="JAVA_HOME=$JDK8 $HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
+alias mmvn="$HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
+alias mgradle="GRADLE_USER_HOME=$HOME/dev/var/gradle gradle"
 
 # npm
 export PATH=$HOME/$SECP/opt/npm/node_modules/.bin:$PATH
@@ -66,9 +67,6 @@ export PATH=$HOME/$SECP/opt/npm/node_modules/.bin:$PATH
 # go
 export GOPATH=$HOME/$SECP/src/golang
 export PATH=$GOPATH/bin:$PATH
-
-# plan9 globals
-export PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
 # cd tab completion paths
 export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src

@@ -2,9 +2,10 @@
 
 # an acme startup helper
 
-export PAGER=nobs
-export EDITOR=E
-export TERM=dumb
+PAGER=nobs
+EDITOR=E
+TERM=dumb
+PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 
 [ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 
@@ -16,6 +17,5 @@ FONTNAME="droidsansmono"
 FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
 
 9p ls plumb >/dev/null 2>/dev/null || plumber
-# 9p ls font >/dev/null 2>/dev/null || fontsrv &
 
 exec acme -a -f "$FONTARG" "$@"
