@@ -49,7 +49,7 @@ then
 
     export SECP=.
     export TERM=xterm-256color
-    export JDK7=/usr/lib/jvm/oraclejdk7-64
+    export JDK7=/usr/lib/jvm/java-7-jdk
     export JDK8=/usr/lib/jvm/java-8-jdk
 
     alias ls="ls --color"
@@ -58,7 +58,7 @@ fi
 
 export DOTFILES=$HOME/$SECP/src/dotfiles
 
-alias mmvn="$HOME/$SECP/opt/mobile-maven/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
+alias mmvn="$HOME/$SECP/opt/maven-mobile/bin/mvn"
 alias mgradle="GRADLE_USER_HOME=$HOME/dev/var/gradle gradle"
 
 # npm
@@ -93,7 +93,7 @@ export PATH=$JAVA_HOME/bin:$_PATH
 OPTIND=1
 }
 
-jenv 7
+jenv 8
 
 function sbtenv() {
 local LOGFILE="conf/application-logger-dev.xml"
@@ -187,7 +187,7 @@ function ps1_lastcmd() {
     fi
 }
 
-function prompt_cmd() {
+function prompt() {
     if [ -n "$TMUX" ]
     then
         tmux rename-window ${PWD##*/}
@@ -205,6 +205,10 @@ function h() {
 	fi
 }
 
+function show_cmd() {
+    echo -ne "\033]0;${PWD} ${BASH_COMMAND}\007"
+}
+
 if [ -n "$winid" ]
 then
     # redefine cd command for acme Win
@@ -220,5 +224,9 @@ then
 else
     # regular terminal settings
     export EDITOR=vim
-	PROMPT_COMMAND=prompt_cmd
+	PROMPT_COMMAND=prompt
+
+    # see http://www.davidpashley.com/articles/xterm-titles-with-bash/
+    trap show_cmd DEBUG
 fi
+
