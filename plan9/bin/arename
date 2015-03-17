@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gorename -offset `apl dot` -to $1
