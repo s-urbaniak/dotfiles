@@ -30,7 +30,7 @@ then
 
     export JDK6=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
-    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
+    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
 
     export GITHUB_HOST=github.corp.ebay.com
 
