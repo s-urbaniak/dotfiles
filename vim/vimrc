@@ -50,4 +50,5 @@ set vb
 nnoremap Q <nop>
 
 " Avoiding the "Hit ENTER to continue" prompts
-set shortmess=a
+set shortmess=aoOtI
+
