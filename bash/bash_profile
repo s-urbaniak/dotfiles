@@ -61,12 +61,12 @@ export DOTFILES=$HOME/$SECP/src/dotfiles
 alias mmvn="$HOME/$SECP/opt/maven-mobile/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
 alias mgradle="GRADLE_USER_HOME=$HOME/dev/var/gradle gradle"
 
-# npm
-export PATH=$HOME/$SECP/opt/npm/node_modules/.bin:$PATH
-
 # go
 export GOPATH=$HOME/$SECP/src/golang
 export PATH=$GOPATH/bin:$PATH
+
+# vim
+export PATH=$PATH:$HOME/$SECP/src/dotfiles/vim/bin
 
 # cd tab completion paths
 export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src

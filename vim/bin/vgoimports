@@ -1,0 +1,17 @@
+#!/bin/sh
+
+input="-"
+tmp=$(mktemp)
+out=$(mktemp)
+
+cat $input >$tmp
+goimports $tmp >$out
+
+if [ $? -eq 0 ]; then
+    cat $out
+else
+    cat $out && cat $tmp
+fi
+
+rm $out
+rm $tmp
