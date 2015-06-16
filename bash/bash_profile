@@ -62,7 +62,7 @@ alias mmvn="$HOME/$SECP/opt/maven-mobile/bin/mvn -s $HOME/$SECP/var/mvn/mobile.d
 alias mgradle="GRADLE_USER_HOME=$HOME/dev/var/gradle gradle"
 
 # go
-export GOPATH=$HOME/$SECP/src/golang
+export GOPATH=$HOME/$SECP/src/go
 export PATH=$GOPATH/bin:$PATH
 
 # vim
