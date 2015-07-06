@@ -21,3 +21,5 @@
 
 [difftool "9diff"]
 	cmd = 9 diff -n \"$LOCAL\" \"$REMOTE\"
+[push]
+	default = simple

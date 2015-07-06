@@ -1,9 +1,10 @@
-colorscheme delek
-
 if executable("ag")
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+" ace
+autocmd BufNewFile,BufRead *.ace setl sw=2 sts=2 et
 
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
@@ -18,10 +19,11 @@ filetype plugin indent on
 
 " enable ruler and always turn on status bar
 set ruler
-set ls=2
+set laststatus=2
+set statusline=%F%m%r%h%w\ [%l,%v#%o]\ %p%%
 
 " enable syntax highlighting
-syntax off
+syntax on
 
 " enable ignore case and smartcase
 set ic
@@ -43,6 +45,8 @@ set expandtab
 set mouse=a
 set autoread
 
+set nu
+
 " enable visual bell
 set vb
 
@@ -51,4 +55,7 @@ nnoremap Q <nop>
 
 " Avoiding the "Hit ENTER to continue" prompts
 set shortmess=aoOtI
+
+set background=dark
+colorscheme hemisu
 
