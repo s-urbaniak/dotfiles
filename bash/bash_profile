@@ -24,10 +24,6 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    export SECP=dev
-
-    export VAGRANT_HOME=$HOME/dev/var/vagrant
-
     export JDK6=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
     export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
     export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
@@ -47,7 +43,6 @@ then
     . /usr/share/bash-completion/bash_completion
     source /usr/share/git/git-prompt.sh
 
-    export SECP=.
     export TERM=xterm-256color
     export JDK7=/usr/lib/jvm/java-7-jdk
     export JDK8=/usr/lib/jvm/java-8-jdk
@@ -56,20 +51,17 @@ then
     source /etc/profile.d/plan9.sh
 fi
 
-export DOTFILES=$HOME/$SECP/src/dotfiles
-
-alias mmvn="$HOME/$SECP/opt/maven-mobile/bin/mvn -s $HOME/$SECP/var/mvn/mobile.de/settings.xml"
-alias mgradle="GRADLE_USER_HOME=$HOME/dev/var/gradle gradle"
+export DOTFILES=$HOME/src/dotfiles
 
 # go
-export GOPATH=$HOME/$SECP/src/go
+export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
 
 # vim
-export PATH=$PATH:$HOME/$SECP/src/dotfiles/vim/bin
+export PATH=$PATH:$HOME/src/dotfiles/vim/bin
 
 # cd tab completion paths
-export CDPATH=.:$HOME/$SECP/src/java:$HOME/$SECP/src:$HOME/$SECP:$GOPATH/src
+export CDPATH=.:$HOME/src/java:$HOME/src:$GOPATH/src
 
 export _PATH="$PATH"
 function jenv() {
@@ -95,105 +87,27 @@ OPTIND=1
 
 jenv 8
 
-function sbtenv() {
-local LOGFILE="conf/application-logger-dev.xml"
-local SUSPEND="n"
-
-while getopts ":d:sl:" opt
-do
-    case $opt in
-        s)
-            SUSPEND="y"
-            ;;
-        d)
-            DEBUG_PORT="$OPTARG"
-            ;;
-        l)
-            LOGFILE="$OPTARG"
-            ;;
-    esac
-done
-
-SBT_OPTS="-Dsbt.global.base=$HOME/$SECP/var/sbt -Dsbt.ivy.home=$HOME/$SECP/var/ivy"
-SBT_OPTS="$SBT_OPTS -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
-SBT_OPTS="$SBT_OPTS -Dlogger.file=$LOGFILE"
-
-if [ -n "$DEBUG_PORT" ]
-then
-    SBT_OPTS="$SBT_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=$SUSPEND,address=$DEBUG_PORT"
-fi
-export SBT_OPTS
-
-# reset getopts
-OPTIND=1
-}
-
-function mvnenv() {
-local MVN_MEM="-Xmx2048m -Xms512m"
-local SUSPEND="n"
-local DEBUG_PORT
-while getopts ":m:d:s" opt
-do
-    case $opt in
-        m)
-            MVN_MEM="$OPTARG"
-            ;;
-        d)
-            DEBUG_PORT="$OPTARG"
-            ;;
-        s)
-            SUSPEND="y"
-            ;;
-        d)
-            DEBUG_PORT="$OPTARG"
-            ;;
-    esac
-done
-
-if [ -n "$DEBUG_PORT" ]
-then
-    MVN_DEBUG="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=$SUSPEND"
-else
-    unset MVN_DEBUG
-fi
-
-# reset getopts
-OPTIND=1
-
-export MAVEN_OPTS="$MVN_MEM $MVN_DEBUG"
-}
-
-# jvm
-export JAVA_OPTS="-Xmx1024m"
-mvnenv
-sbtenv
-
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
-
-function ps1_gopath() {
-    if [ -n "$GOPATH" ]
-    then
-        echo -e " (go: `basename \"$GOPATH\"`)"
-    fi
-}
 
 function ps1_lastcmd() {
     if [ $? = 0 ]
     then
-        echo -e ":)"
+        echo -e "\[$GREEN\]✔"
     else
-        echo -e ":("
+        echo -e "\[$RED\]✘"
     fi
 }
 
 function prompt() {
+    STATUS=`ps1_lastcmd`
+
     if [ -n "$TMUX" ]
     then
         tmux rename-window ${PWD##*/}
     fi
 
-    PS1="`ps1_lastcmd` \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)`ps1_gopath`\[\033[00m\]\nλ "
+    PS1="$STATUS \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
 function h() {
