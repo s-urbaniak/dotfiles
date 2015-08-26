@@ -1,0 +1,10 @@
+#!/bin/sh
+
+rev="HEAD"
+
+if [ -n "$1" ]
+then
+	rev="$1^"
+fi
+
+git blame -s "$rev" -- "$(apl name)" | plumb -i -d edit -a 'action=showdata filename=+git-blame'
