@@ -9,10 +9,6 @@ autocmd BufNewFile,BufRead *.ace setl sw=2 sts=2 et
 " XML
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
-" use real tabs instead of spaces for go
-autocmd filetype go set noexpandtab
-autocmd filetype go map <LocalLeader>i :%!vgoimports<CR>
-
 " enable indentation for filetype plugins
 filetype on
 filetype plugin indent on
@@ -56,6 +52,17 @@ nnoremap Q <nop>
 " Avoiding the "Hit ENTER to continue" prompts
 set shortmess=aoOtI
 
+call plug#begin()
+Plug 'fatih/vim-go'
+Plug 'chriskempson/vim-tomorrow-theme'
+call plug#end()
+
 set background=dark
-colorscheme hemisu
+colorscheme Tomorrow-Night
+
+" use goimports
+let g:go_fmt_command = "goimports"
+
+" enable go fmt on save
+let g:go_fmt_autosave = 1
 

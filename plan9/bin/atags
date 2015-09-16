@@ -1,0 +1,8 @@
+#!/bin/sh
+
+path=$(apl dot | cut -d ':' -f1)
+dir=$(dirname "$path")
+file=$(basename "$path")
+cd "$dir"
+
+egrep -Hn '^type|^func|^package|^const|^var' "$file" | plumb -i -d edit -a "filename=$dir/+tags"

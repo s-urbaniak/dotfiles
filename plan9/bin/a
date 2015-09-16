@@ -12,10 +12,22 @@ PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
 SIZE=13
 [ "$1" = "-s" ] && { SIZE="$2"; shift 2; }
 
-FONTNAME="droidsansmono"
-[ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
-FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
+PLATFORM=$(uname)
+
+if [ $PLATFORM == 'Linux' ]
+then
+    FONTNAME="droidsansmono"
+    [ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
+    FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
+fi
+
+if [ $PLATFORM == 'Darwin' ]
+then
+    FONTARG="/mnt/font/Menlo-Regular/11a/font"
+fi
 
 9p ls plumb >/dev/null 2>/dev/null || plumber
 
-exec acme -a -f "$FONTARG" "$@"
+export acmeshell="bash"
+
+exec acme -a -f $FONTARG "$@"

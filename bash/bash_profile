@@ -24,17 +24,14 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    export JDK6=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
-    export JDK7=/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home
-    export JDK8=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
-
-    export GITHUB_HOST=github.corp.ebay.com
-
     # plan9
-    export PLAN9=$HOME/dev/opt/plan9port
+    export PLAN9=$HOME/src/plan9port
+    export PATH=$PATH:"$PLAN9/bin"
 
     # go
     export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+    alias dm=docker-machine
 fi
 
 # linux
@@ -43,7 +40,6 @@ then
     . /usr/share/bash-completion/bash_completion
     source /usr/share/git/git-prompt.sh
 
-    export TERM=xterm-256color
     export JDK7=/usr/lib/jvm/java-7-jdk
     export JDK8=/usr/lib/jvm/java-8-jdk
 
@@ -62,30 +58,6 @@ export PATH=$PATH:$HOME/src/dotfiles/vim/bin
 
 # cd tab completion paths
 export CDPATH=.:$HOME/src/java:$HOME/src:$GOPATH/src
-
-export _PATH="$PATH"
-function jenv() {
-
-case $1 in
-    '6')
-        JAVA_HOME=$JDK6
-        ;;
-    '7')
-        JAVA_HOME=$JDK7
-        ;;
-    '8')
-        JAVA_HOME=$JDK8
-        ;;
-esac
-
-export JAVA_HOME
-export PATH=$JAVA_HOME/bin:$_PATH
-
-# reset getopts
-OPTIND=1
-}
-
-jenv 8
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
@@ -107,6 +79,11 @@ function prompt() {
         tmux rename-window ${PWD##*/}
     fi
 
+    # Save and reload the history after each command finishes
+    history -a
+    history -c
+    history -r
+
     PS1="$STATUS \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
@@ -117,10 +94,6 @@ function h() {
 	else
 		history | grep -i "$@"
 	fi
-}
-
-function show_cmd() {
-    echo -ne "\033]0;${PWD} ${BASH_COMMAND}\007"
 }
 
 if [ -n "$winid" ]
@@ -139,8 +112,19 @@ else
     # regular terminal settings
     export EDITOR=vim
 	PROMPT_COMMAND=prompt
-
-    # see http://www.davidpashley.com/articles/xterm-titles-with-bash/
-    trap show_cmd DEBUG
 fi
 
+alias vb=VBoxManage
+
+function 9ns() {
+    export NAMESPACE="/tmp/ns.$USER.$1"
+}
+
+9ns 1
+
+export TERM="screen-256color"
+
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+shopt -s histappend                      # append to history, don't overwrite it

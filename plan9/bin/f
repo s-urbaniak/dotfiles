@@ -1,2 +1,2 @@
 #!/bin/sh
-find . -not -path '*/\.*' "$@"
+find . -not -path '*/\.*' -name "$1*"
