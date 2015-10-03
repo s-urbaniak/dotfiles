@@ -8,6 +8,11 @@ then
 fi
 
 PKG=""
+if [ -n "$2" ]
+then
+	PKG="$2"
+fi
+
 ADR=`apl dot`
 
 (oracle -pos "$ADR" "$CMD" "$PKG" | awk '

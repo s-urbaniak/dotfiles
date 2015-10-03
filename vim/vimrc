@@ -55,6 +55,10 @@ set shortmess=aoOtI
 call plug#begin()
 Plug 'fatih/vim-go'
 Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-fugitive'
+Plug 'majutsushi/tagbar'
+Plug 'kien/ctrlp.vim'
 call plug#end()
 
 set background=dark
@@ -66,3 +70,8 @@ let g:go_fmt_command = "goimports"
 " enable go fmt on save
 let g:go_fmt_autosave = 1
 
+" disable gopath autodetect
+let go_autodetect_gopath=0
+
+" my gometalinter cmd
+let g:go_metalinter_command="gometalinter --cyclo-over=12 --deadline=60s"

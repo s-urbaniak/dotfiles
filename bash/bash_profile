@@ -47,6 +47,8 @@ then
     source /etc/profile.d/plan9.sh
 fi
 
+alias vim=nvim
+
 export DOTFILES=$HOME/src/dotfiles
 
 # go
@@ -57,7 +59,7 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$HOME/src/dotfiles/vim/bin
 
 # cd tab completion paths
-export CDPATH=.:$HOME/src/java:$HOME/src:$GOPATH/src
+export CDPATH=.:$GOPATH/src:$HOME/k8s/src/k8s.io/kubernetes
 
 # cabal
 export PATH=$HOME/.cabal/bin:$PATH
@@ -84,7 +86,7 @@ function prompt() {
     history -c
     history -r
 
-    PS1="$STATUS \[$CYAN\]\h \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
+    PS1="$STATUS \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
 function h() {
@@ -94,6 +96,24 @@ function h() {
 	else
 		history | grep -i "$@"
 	fi
+}
+
+function k8s-dev {
+    K8S_SRC="$HOME/k8s"
+    export GOPATH="$K8S_SRC:$K8S_SRC/src/k8s.io/kubernetes/Godeps/_workspace"
+    export KUBERNETES_CONTRIB="mesos"
+    export KUBERNETES_PROVIDER="mesos/docker"
+
+    if [ $(docker-machine status k8s) != "Running" ]
+    then
+        echo "Starting k8s VM, sudo password may be required..."
+        VBoxManage modifyvm k8s --nicpromisc2 allow-all
+        sudo route delete 172.17.0.0
+        docker-machine restart k8s
+        sudo route -n add -net 172.17.0.0 $(docker-machine ip k8s)
+    fi
+
+    eval $(docker-machine env k8s)
 }
 
 if [ -n "$winid" ]
@@ -124,7 +144,12 @@ function 9ns() {
 
 export TERM="screen-256color"
 
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+export HISTFILE=~/.bash_eternal_history
+
 shopt -s histappend                      # append to history, don't overwrite it
