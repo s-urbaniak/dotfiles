@@ -32,6 +32,8 @@ then
     export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
     alias dm=docker-machine
+
+    export TERM="screen-256color"
 fi
 
 # linux
@@ -40,11 +42,10 @@ then
     . /usr/share/bash-completion/bash_completion
     source /usr/share/git/git-prompt.sh
 
-    export JDK7=/usr/lib/jvm/java-7-jdk
-    export JDK8=/usr/lib/jvm/java-8-jdk
-
     alias ls="ls --color"
-    source /etc/profile.d/plan9.sh
+
+    # personal go installation
+    export PATH=$HOME/docker1.7.1:$PATH:"$HOME/go1.5.1/bin"
 fi
 
 alias vim=nvim
@@ -104,7 +105,7 @@ function k8s-dev {
     export KUBERNETES_CONTRIB="mesos"
     export KUBERNETES_PROVIDER="mesos/docker"
 
-    if [ $(docker-machine status k8s) != "Running" ]
+    if [ $PLATFORM == 'Darwin' ] && [ $(docker-machine status k8s) != "Running" ]
     then
         echo "Starting k8s VM, sudo password may be required..."
         VBoxManage modifyvm k8s --nicpromisc2 allow-all
@@ -113,7 +114,10 @@ function k8s-dev {
         sudo route -n add -net 172.17.0.0 $(docker-machine ip k8s)
     fi
 
-    eval $(docker-machine env k8s)
+    if [ $PLATFORM == 'Darwin' ]
+    then
+        eval $(docker-machine env k8s)
+    fi
 }
 
 if [ -n "$winid" ]
@@ -142,8 +146,6 @@ function 9ns() {
 
 9ns 1
 
-export TERM="screen-256color"
-
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
 export HISTFILESIZE=
@@ -151,5 +153,7 @@ export HISTSIZE=
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
+
+export TERM=screen-256color
 
 shopt -s histappend                      # append to history, don't overwrite it
