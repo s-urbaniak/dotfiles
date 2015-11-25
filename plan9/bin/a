@@ -14,12 +14,9 @@ SIZE=13
 
 PLATFORM=$(uname)
 
-if [ $PLATFORM == 'Linux' ]
-then
-    FONTNAME="droidsansmono"
-    [ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
-    FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
-fi
+FONTNAME="droidsansmono"
+[ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
+FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
 
 if [ $PLATFORM == 'Darwin' ]
 then

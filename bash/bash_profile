@@ -87,7 +87,7 @@ function prompt() {
     history -c
     history -r
 
-    PS1="$STATUS \[$GREEN\]\A \[$YELLOW\]\w\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
+    PS1="$STATUS \[$GREEN\]\A \[$YELLOW\]\w\[$BLUE\]$PRJ\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
 function h() {
@@ -99,13 +99,8 @@ function h() {
 	fi
 }
 
-function k8s-dev {
-    K8S_SRC="$HOME/k8s"
-    export GOPATH="$K8S_SRC:$K8S_SRC/src/k8s.io/kubernetes/Godeps/_workspace"
-    export KUBERNETES_CONTRIB="mesos"
-    export KUBERNETES_PROVIDER="mesos/docker"
-
-    if [ $PLATFORM == 'Darwin' ] && [ $(docker-machine status k8s) != "Running" ]
+function k8s-vm {
+    if [ $(docker-machine status k8s) != "Running" ]
     then
         echo "Starting k8s VM, sudo password may be required..."
         VBoxManage modifyvm k8s --nicpromisc2 allow-all
@@ -113,9 +108,19 @@ function k8s-dev {
         docker-machine restart k8s
         sudo route -n add -net 172.17.0.0 $(docker-machine ip k8s)
     fi
+}
 
-    if [ $PLATFORM == 'Darwin' ]
+function k8s-dev {
+    K8S_SRC="$HOME/k8s"
+    export GOPATH="$K8S_SRC:$K8S_SRC/src/k8s.io/kubernetes/Godeps/_workspace"
+    export KUBERNETES_CONTRIB="mesos"
+    export KUBERNETES_PROVIDER="mesos/docker"
+    export PATH=${K8S_SRC}/src/k8s.io/kubernetes/_output/local/bin/darwin/amd64:$PATH
+    PRJ=' k8s'
+
+    if [ $(docker-machine status k8s) == "Running" ]
     then
+        PRJ="$PRJ-vm"
         eval $(docker-machine env k8s)
     fi
 }
