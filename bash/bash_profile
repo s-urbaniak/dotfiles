@@ -48,7 +48,7 @@ then
     export PATH=$HOME/docker1.7.1:$PATH:"$HOME/go1.5.1/bin"
 fi
 
-alias vim=nvim
+alias ls="ls -G"
 
 export DOTFILES=$HOME/src/dotfiles
 

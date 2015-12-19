@@ -21,6 +21,7 @@
 (require 'magit-find-file)
 (require 'yasnippet)
 
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (load-theme 'zenburn t)
 (yas-global-mode 1)
