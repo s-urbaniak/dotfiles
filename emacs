@@ -3,7 +3,7 @@
 (package-initialize)
 
 (setq package-list
-	  '(find-file-in-project swiper go-autocomplete auto-complete popup go-rename go-mode gotest go-mode f dash s s magit-find-file dash magit magit-popup dash async git-commit dash async dash with-editor dash async dash async magit-popup dash async multiple-cursors neotree popup s swiper tango-plus-theme with-editor dash async yasnippet zenburn-theme))
+	  '(find-file-in-project go-autocomplete auto-complete go-rename go-mode gotest go-mode magit yasnippet zenburn-theme))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -16,9 +16,7 @@
 
 (require 'auto-complete-config)
 (require 'go-autocomplete)
-(require 'multiple-cursors)
 (require 'ido)
-(require 'magit-find-file)
 (require 'yasnippet)
 
 (set-frame-font "Monospace-9")
