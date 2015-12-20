@@ -87,7 +87,7 @@ function prompt() {
     history -c
     history -r
 
-    PS1="$STATUS \[$GREEN\]\A \[$YELLOW\]\w\[$BLUE\]$PRJ\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
+    PS1="$STATUS \[$GREEN\]\A \[$MAGENTA\]\h ($(uname)/$(uname -m)) \[$YELLOW\]\w\[$BLUE\]$PRJ\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
 function h() {
