@@ -24,16 +24,10 @@ then
 		. $(brew --prefix)/etc/bash_completion
 	fi
 
-    # plan9
-    export PLAN9=$HOME/src/plan9port
-    export PATH=$PATH:"$PLAN9/bin"
-
     # go
     export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
     alias dm=docker-machine
-
-    export TERM="screen-256color"
 fi
 
 # linux
@@ -56,14 +50,8 @@ export DOTFILES=$HOME/src/dotfiles
 export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
 
-# vim
-export PATH=$PATH:$HOME/src/dotfiles/vim/bin
-
 # cd tab completion paths
 export CDPATH=.:$GOPATH/src:$HOME/k8s/src/k8s.io/kubernetes
-
-# cabal
-export PATH=$HOME/.cabal/bin:$PATH
 
 function ps1_lastcmd() {
     if [ $? = 0 ]
@@ -90,71 +78,15 @@ function prompt() {
     PS1="$STATUS \[$GREEN\]\A \[$MAGENTA\]\h ($(uname)/$(uname -m)) \[$YELLOW\]\w\[$BLUE\]$PRJ\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
-function h() {
-	if [ -z "$1" ]
-	then
-		history
-	else
-		history | grep -i "$@"
-	fi
-}
-
-function k8s-vm {
-    if [ $(docker-machine status k8s) != "Running" ]
-    then
-        echo "Starting k8s VM, sudo password may be required..."
-        VBoxManage modifyvm k8s --nicpromisc2 allow-all
-        sudo route delete 172.17.0.0
-        docker-machine restart k8s
-        sudo route -n add -net 172.17.0.0 $(docker-machine ip k8s)
-    fi
-}
-
-function k8s-dev {
-    K8S_SRC="$HOME/k8s"
-    export GOPATH="$K8S_SRC:$K8S_SRC/src/k8s.io/kubernetes/Godeps/_workspace"
-    export KUBERNETES_CONTRIB="mesos"
-    export KUBERNETES_PROVIDER="mesos/docker"
-    export PATH=${K8S_SRC}/src/k8s.io/kubernetes/_output/local/bin/darwin/amd64:$PATH
-    PRJ=' k8s'
-
-    if [ $(docker-machine status k8s) == "Running" ]
-    then
-        PRJ="$PRJ-vm"
-        eval $(docker-machine env k8s)
-    fi
-}
-
-if [ -n "$winid" ]
-then
-    # redefine cd command for acme Win
-    function cd {
-        builtin cd $1 && awd $sysname
-    }
-
-    # acme terminal settings
-    export EDITOR=E
-    export PAGER=nobs
-    export TERM=dumb
-	PS1='$ '
-else
-    # regular terminal settings
-    export EDITOR=vim
-	PROMPT_COMMAND=prompt
-fi
+PROMPT_COMMAND=prompt
 
 alias vb=VBoxManage
-
-function 9ns() {
-    export NAMESPACE="/tmp/ns.$USER.$1"
-}
-
-9ns 1
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
 export HISTFILESIZE=
 export HISTSIZE=
+
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
