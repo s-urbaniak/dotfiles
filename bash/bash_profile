@@ -162,3 +162,5 @@ export HISTFILE=~/.bash_eternal_history
 export TERM=screen-256color
 
 shopt -s histappend                      # append to history, don't overwrite it
+
+[[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
