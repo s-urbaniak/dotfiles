@@ -37,15 +37,10 @@ then
     source /usr/share/git/git-prompt.sh
 
     alias ls="ls --color"
-
-    # personal go installation
-    export PATH=$HOME/docker1.7.1:$PATH:"$HOME/go1.5.1/bin"
 fi
 
 # colored ls
 alias ls="ls -G"
-
-export DOTFILES=$HOME/src/dotfiles
 
 # go
 export GOPATH=$HOME/src/go
@@ -53,9 +48,6 @@ export PATH=$GOPATH/bin:$PATH
 
 # npm
 export PATH=$HOME/.npm_packages/bin:$PATH
-
-# cd tab completion paths
-export CDPATH=.:$GOPATH/src:$HOME/k8s/src/k8s.io/kubernetes
 
 function ps1_lastcmd() {
     if [ $? = 0 ]
@@ -68,11 +60,6 @@ function ps1_lastcmd() {
 
 function prompt() {
     STATUS=`ps1_lastcmd`
-
-    if [ -n "$TMUX" ]
-    then
-        tmux rename-window ${PWD##*/}
-    fi
 
     # Save and reload the history after each command finishes
     history -a
@@ -90,7 +77,6 @@ alias vb=VBoxManage
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
 export HISTFILESIZE=
 export HISTSIZE=
-
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
