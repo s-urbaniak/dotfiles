@@ -23,6 +23,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (load-theme 'zenburn t)
+;; (load-theme 'faff t)
 (yas-global-mode 1)
 (ido-mode t)
 (show-paren-mode 1)

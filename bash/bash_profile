@@ -42,6 +42,7 @@ then
     export PATH=$HOME/docker1.7.1:$PATH:"$HOME/go1.5.1/bin"
 fi
 
+# colored ls
 alias ls="ls -G"
 
 export DOTFILES=$HOME/src/dotfiles
@@ -49,6 +50,9 @@ export DOTFILES=$HOME/src/dotfiles
 # go
 export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
+
+# npm
+export PATH=$HOME/.npm_packages/bin:$PATH
 
 # cd tab completion paths
 export CDPATH=.:$GOPATH/src:$HOME/k8s/src/k8s.io/kubernetes
@@ -93,6 +97,9 @@ export HISTFILE=~/.bash_eternal_history
 
 export TERM=screen-256color
 
-shopt -s histappend                      # append to history, don't overwrite it
+# append to history, don't overwrite it
+shopt -s histappend
+
+export EDITOR=vim
 
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"

@@ -10,7 +10,7 @@ autocmd BufNewFile,BufRead *.ace setl sw=2 sts=2 et
 autocmd filetype xml map <LocalLeader>l :%!xmllint --format -<CR>
 
 " Golang
-autocmd filetype go map <LocalLeader>l :%!goimports<CR>
+autocmd filetype go map <LocalLeader>f :%!goimports<CR>
 
 " enable indentation for filetype plugins
 filetype on
@@ -43,8 +43,6 @@ set expandtab
 " enable mouse in console
 set mouse=a
 set autoread
-
-set nu
 
 " disable entering ex mode
 nnoremap Q <nop>
