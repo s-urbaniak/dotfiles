@@ -34,6 +34,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
+# focus last
+bindsym $mod+Tab exec "~/src/dotfiles/i3/focus-last.py --switch"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -154,9 +157,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym XF86AudioRaiseVolume exec "pamixer --increase 5"
-bindsym XF86AudioLowerVolume exec "pamixer --decrease 5"
-bindsym XF86AudioMute exec "pamixer --toggle-mute"
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%"
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%"
+bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -172,11 +175,14 @@ bar {
 	}
 }
 
-exec xss-lock -- i3lock -c 40000 &
-exec start-pulseaudio-x11
-exec xcalib /usr/share/color/icc/colord/lenovo-s400.icc
-exec rofi -font Monospace\ 10 -key mod4+F12
-exec nm-applet
+exec --no-startup-id synclient HorizTwoFingerScroll=1
+exec --no-startup-id xinput set-prop 'SynPS/2 Synaptics TouchPad' 'Synaptics Scrolling Distance' -100 -100
+exec --no-startup-id ~/.fehbg
+exec --no-startup-id "~/src/dotfiles/i3/focus-last.py"
+exec --no-startup-id xss-lock -- i3lock -c 40000 &
+exec --no-startup-id start-pulseaudio-x11
+exec --no-startup-id rofi -font Monospace\ 10 -key-window SuperL+F12
+exec --no-startup-id compton --backend glx --sw-opti --vsync opengl-swc --paint-on-overlay 
 
 new_window 1pixel
 new_float 1pixel

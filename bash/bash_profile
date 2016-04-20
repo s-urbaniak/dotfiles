@@ -37,10 +37,13 @@ then
     source /usr/share/git/git-prompt.sh
 
     alias ls="ls --color"
+    alias pbcopy="xclip -sel clip"
 fi
 
-# colored ls
-alias ls="ls -G"
+# virtualbox
+alias vb=VBoxManage
+# emacs
+alias e="emacsclient -n"
 
 # go
 export GOPATH=$HOME/src/go
@@ -71,8 +74,6 @@ function prompt() {
 
 PROMPT_COMMAND=prompt
 
-alias vb=VBoxManage
-
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
 export HISTFILESIZE=
@@ -89,3 +90,5 @@ shopt -s histappend
 export EDITOR=vim
 
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
+
+eval $(direnv hook bash)

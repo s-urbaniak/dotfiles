@@ -1,11 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # an acme startup helper
+
+d=$(dirname ${BASH_SOURCE[0]})
+
+echo dir "${d}"
 
 PAGER=nobs
 EDITOR=E
 TERM=dumb
-PATH=$PATH:$PLAN9/bin:$DOTFILES/plan9/bin
+PATH=$PATH:$PLAN9/bin:$d
 
 [ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 
