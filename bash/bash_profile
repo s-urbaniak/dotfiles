@@ -82,8 +82,6 @@ export HISTSIZE=
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
 
-export TERM=screen-256color
-
 # append to history, don't overwrite it
 shopt -s histappend
 

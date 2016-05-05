@@ -22,10 +22,7 @@ FONTNAME="droidsansmono"
 [ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
 FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
 
-if [ $PLATFORM == 'Darwin' ]
-then
-    FONTARG="/mnt/font/Menlo-Regular/11a/font"
-fi
+FONTARG='/mnt/font/DejaVu\ Sans\ Mono/22a'
 
 9p ls plumb >/dev/null 2>/dev/null || plumber
 

@@ -15,7 +15,7 @@ fi
 
 ADR=`apl dot`
 
-(oracle -pos "$ADR" "$CMD" "$PKG" | awk '
+(guru -scope "$PKG" "$CMD" "$ADR" | awk '
 	{
 		printf "%s\n", $1
 		$1=""

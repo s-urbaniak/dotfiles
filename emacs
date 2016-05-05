@@ -12,7 +12,7 @@
 	(package-install package)))
 
 (setq use-package-always-ensure t)
-(set-frame-font "Monospace-10.5")
+(set-frame-font "Monospace-9")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -23,7 +23,7 @@
 (set-fringe-mode 0)
 (scroll-bar-mode -1)
 
-(global-font-lock-mode t)
+(global-font-lock-mode nil)
 (global-auto-revert-mode t)
 
 (setq js-indent-level 4)
