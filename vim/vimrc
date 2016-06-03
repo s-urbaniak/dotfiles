@@ -22,7 +22,7 @@ set laststatus=2
 set statusline=%F%m%r%h%w\ [%l,%v#%o]\ %p%%
 
 " enable syntax highlighting
-syntax off
+syntax on
 
 " enable ignore case and smartcase
 set ic
@@ -50,4 +50,4 @@ nnoremap Q <nop>
 " Avoiding the "Hit ENTER to continue" prompts
 set shortmess=aoOtI
 
-set background=dark
+set background=light

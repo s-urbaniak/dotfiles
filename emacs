@@ -12,6 +12,7 @@
 	(package-install package)))
 
 (setq use-package-always-ensure t)
+
 (set-frame-font "Monospace-9")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -26,27 +27,33 @@
 (global-font-lock-mode nil)
 (global-auto-revert-mode t)
 
-(setq js-indent-level 4)
-
+;; configure mouse scrolling
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
+
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
-
 (setq locate-command "mdfind")
 (setq ring-bell-function 'ignore)
+(setq set-mark-command-repeat-pop t)
+(setq indent-line-function 'insert-tab)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+(bind-key "<M-up>" 'windmove-up)
+(bind-key "<M-down>" 'windmove-down)
+(bind-key "<M-left>" 'windmove-left)
+(bind-key "<M-right>" 'windmove-right)
 
 (custom-set-variables '(speedbar-show-unknown-files t))
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(autoload 'ibuffer "ibuffer" "List buffers." t)
+
 (use-package colorsarenice-theme)
-
-;; (load-theme 'colorsarenice-light t)
-(load-theme 'colorsarenice-dark t)
-;; (load-theme 'zenburn t)
-;; (load-theme 'noctilux t)
-;; (load-theme 'ample-light t)
-;; (load-theme 'hydandata-light t)
-
+(load-theme 'colorsarenice-light t)
+    
 (use-package yasnippet)
 
 (use-package ido
@@ -76,18 +83,19 @@
   :init
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
+(use-package smart-mode-line
+  :config
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/theme 'respectful)
+  (sml/setup))
+
 (use-package go-mode
   :defer t
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
   (setq gofmt-command "goimports")
   :config
-  (bind-key "M-." 'godef-jump)
-  (add-hook 'go-mode-hook '(lambda()
-							 (load-file "~/src/go/src/golang.org/x/tools/cmd/guru/go-guru.el")
-							 (subword-mode)
-							 (eldoc-mode)
-							 (company-mode))))
+  (add-hook 'go-mode-hook 'su/go-mode-hook))
 
 (use-package company
   :init
@@ -111,24 +119,39 @@
   :config
   (rtags-diagnostics))
 
-(add-hook 'html-mode-hook 
-		  '(lambda() 
-			 (set (make-local-variable 'sgml-basic-offset) 4)))
+(use-package zoom-frm
+  :config
+  (define-key ctl-x-map [(control ?+)] 'zoom-in/out)
+  (define-key ctl-x-map [(control ?-)] 'zoom-in/out)
+  (define-key ctl-x-map [(control ?=)] 'zoom-in/out)
+  (define-key ctl-x-map [(control ?0)] 'zoom-in/out))
 
+(add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'c++-mode-hook 'su/cxx-mode-hook)
+(add-hook 'c-mode-hook 'su/cxx-mode-hook)
+(add-hook 'js-mode-hook 'su/js-mode-hook)
+
+(defun su/go-mode-hook ()
+  (load-file "~/src/go/src/golang.org/x/tools/cmd/guru/go-guru.el")
+  (subword-mode)
+  (eldoc-mode)
+  (company-mode)
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "C-h f") 'godoc-at-point))
+
+(defun su/js-mode-hook()
+  (subword-mode)
+  (setq js-indent-level 4)
+  (setq indent-tabs-mode t))
 
 (defun su/cxx-mode-hook()
   (bind-key "M-." 'rtags-find-symbol-at-point)
   (company-mode)
   (setq indent-tabs-mode nil))
 
-(add-hook 'c++-mode-hook 'su/cxx-mode-hook)
-(add-hook 'c-mode-hook 'su/cxx-mode-hook)
-(add-hook 'js-mode-hook '(lambda()
-                           (setq indent-tabs-mode t)))
-
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
+(defun su/html-mode-hook()
+  (set (make-local-variable 'sgml-basic-offset) 4))
+(put 'dired-find-alternate-file 'disabled nil)
