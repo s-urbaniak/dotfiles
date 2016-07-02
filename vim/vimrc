@@ -50,4 +50,4 @@ nnoremap Q <nop>
 " Avoiding the "Hit ENTER to continue" prompts
 set shortmess=aoOtI
 
-set background=light
+set background=dark

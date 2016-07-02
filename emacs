@@ -13,7 +13,7 @@
 
 (setq use-package-always-ensure t)
 
-(set-frame-font "Monospace-9")
+(set-frame-font "Monospace-10")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -31,6 +31,7 @@
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
+(setq mouse-autoselect-window t)
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
 (setq locate-command "mdfind")
@@ -52,7 +53,7 @@
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
 (use-package colorsarenice-theme)
-(load-theme 'colorsarenice-light t)
+(load-theme 'colorsarenice-dark t)
     
 (use-package yasnippet)
 

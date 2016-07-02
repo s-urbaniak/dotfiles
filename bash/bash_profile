@@ -33,7 +33,7 @@ fi
 # linux
 if [ $PLATFORM == 'Linux' ]
 then
-    . /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
     source /usr/share/git/git-prompt.sh
 
     alias ls="ls --color"
@@ -49,8 +49,7 @@ alias e="emacsclient -n"
 export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
 
-# npm
-export PATH=$HOME/.npm_packages/bin:$PATH
+source /etc/profile.d/vte.sh
 
 function ps1_lastcmd() {
     if [ $? = 0 ]
