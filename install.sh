@@ -18,4 +18,5 @@ ln -s "$PWD"/tmux.conf ~/.tmux.conf
 ln -s "$PWD"/vim/vimrc ~/.vimrc
 ln -s "$PWD"/git/gitconfig ~/.gitconfig
 ln -s "$PWD"/plan9/lib ~/lib
-
+ln -s "$PWD"/i3 ~/.config/i3
+ln -s "$PWD"/i3status ~/.config/i3status

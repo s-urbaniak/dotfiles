@@ -42,6 +42,8 @@ client.focused_inactive $base02 $base02    $base03 $base0F
 client.unfocused        $base02 $base02    $base03 $base0F
 client.urgent           $base02 $base08    $base00 $base0F
 
+workspace_auto_back_and_forth yes
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -93,7 +95,7 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-#
+
 # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
@@ -132,6 +134,8 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+bindsym $mod+Shift+s exec ~/.local/share/i3/ws-switch.py
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -143,6 +147,9 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+
+bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Ctrl+Right workspace next
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -222,7 +229,7 @@ exec --no-startup-id feh --bg-fill /home/sur/Pictures/mossy-forest-hd-wallpaper_
 exec --no-startup-id /home/sur/src/go/bin/i3-focus-last
 exec --no-startup-id start-pulseaudio-x11
 #exec --no-startup-id compton --backend glx --sw-opti --vsync opengl-swc --paint-on-overlay 
-exec --no-startup-id dunst
+exec --no-startup-id dunst -fn 'font pango: Helvetica Neue, FontAwesome 20' -lf "#7780a1" -nf "#ffffff" -cf "#ee829f" -lb "#1f222d" -nb "#1f222d" -cb "#1f222d"
 
 new_window 1pixel
 new_float 1pixel

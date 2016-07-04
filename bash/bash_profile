@@ -54,7 +54,7 @@ source /etc/profile.d/vte.sh
 function ps1_lastcmd() {
     if [ $? = 0 ]
     then
-        echo -e "\[$GREEN\]✔"
+        echo -e "\[$GREEN\]✓"
     else
         echo -e "\[$RED\]✘"
     fi
