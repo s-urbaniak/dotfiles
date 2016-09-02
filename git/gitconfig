@@ -19,6 +19,8 @@
     unignore = update-index --no-assume-unchanged
     ignored = !git ls-files -v | grep "^[[:lower:]]"
 
+    copr = "!f() { git fetch --force $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
+
 [difftool "9diff"]
 	cmd = 9 diff -n \"$LOCAL\" \"$REMOTE\"
 [push]

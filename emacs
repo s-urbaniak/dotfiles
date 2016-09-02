@@ -37,7 +37,6 @@
 (setq locate-command "mdfind")
 (setq ring-bell-function 'ignore)
 (setq set-mark-command-repeat-pop t)
-(setq indent-line-function 'insert-tab)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -49,13 +48,22 @@
 
 (custom-set-variables '(speedbar-show-unknown-files t))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(autoload 'ibuffer "ibuffer" "List buffers." t)
+(global-set-key (kbd "C-x C-b") 'buffer-menu)
 
 (use-package colorsarenice-theme)
 (load-theme 'colorsarenice-dark t)
-    
-(use-package yasnippet)
+
+(use-package markdown-mode+)
+
+(use-package yaml-mode)
+
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
 
 (use-package ido
   :config
@@ -140,6 +148,7 @@
   (subword-mode)
   (eldoc-mode)
   (company-mode)
+  (go-guru-hl-identifier-mode)
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "C-h f") 'godoc-at-point))
 
@@ -156,3 +165,11 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; some useful functions for the rest of this init file
+(defun apm-camelize (s &optional delim)
+  "Convert under_score string S to CamelCase string with optional DELIM."
+  (interactive "s")
+  (mapconcat 'identity (mapcar
+                        #'(lambda (word) (capitalize (downcase word)))
+                        (split-string s (if delim delim "_"))) ""))

@@ -11,21 +11,13 @@ EDITOR=E
 TERM=dumb
 PATH=$PATH:$PLAN9/bin:$d
 
-[ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
+#[ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
 
-SIZE=13
-[ "$1" = "-s" ] && { SIZE="$2"; shift 2; }
-
-PLATFORM=$(uname)
-
-FONTNAME="droidsansmono"
-[ "$1" = "-fn" ] && { FONTNAME="$2"; shift 2; }
-FONTARG="$HOME/lib/font/$FONTNAME/$FONTNAME.$SIZE.font"
-
-FONTARG='/mnt/font/DejaVu\ Sans\ Mono/22a'
+FONTARG='/mnt/font/DejaVu Sans Mono/22a/font'
 
 9p ls plumb >/dev/null 2>/dev/null || plumber
+9p ls font >/dev/null 2>/dev/null || fontsrv &
 
 export acmeshell="bash"
 
-exec acme -a -f $FONTARG "$@"
+exec acme -a -f "$FONTARG" "$@"

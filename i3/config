@@ -85,8 +85,8 @@ bindsym $mod+minus scratchpad show
 #bindsym $mod+l focus up
 #bindsym $mod+semicolon focus right
 
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -208,7 +208,7 @@ bindsym $mod+Tab exec ~/src/go/bin/i3-focus-last switch
 # finds out, if available)
 
 bar {
-    tray_output eDP1
+    tray_output eDP-1
     status_command i3status
     position bottom
     colors {
