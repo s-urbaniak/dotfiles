@@ -13,7 +13,7 @@
 
 (setq use-package-always-ensure t)
 
-(set-frame-font "Monospace-10")
+(set-frame-font "Monospace-11")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -38,8 +38,15 @@
 (setq ring-bell-function 'ignore)
 (setq set-mark-command-repeat-pop t)
 
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+;; (setq indent-line-function 'tab-to-tab-stop) ;; indent using tab stops
+;; (setq tab-stop-list (number-sequence 8 200 8)) ;; define tab stops
+
+(setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
+(setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
+;; (setq electric-indent-mode nil) ;; disable electric indent mode
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
 
 (bind-key "<M-up>" 'windmove-up)
 (bind-key "<M-down>" 'windmove-down)
@@ -50,8 +57,15 @@
 
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
+(defun my-goto-match-beginning ()
+  (when (and isearch-forward isearch-other-end)
+    (goto-char isearch-other-end)))
+
+(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+
 (use-package colorsarenice-theme)
-(load-theme 'colorsarenice-dark t)
+(use-package color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
 
 (use-package markdown-mode+)
 
@@ -64,6 +78,18 @@
 (use-package page-break-lines
   :config
   (global-page-break-lines-mode))
+
+(use-package smartparens
+  :config
+  (progn
+    (require 'smartparens-config)
+    (smartparens-global-strict-mode t)))
+
+(use-package yasnippet)
+
+(use-package powerline
+  :config
+  (powerline-default-theme))
 
 (use-package ido
   :config
