@@ -51,27 +51,16 @@ export PATH=$GOPATH/bin:$PATH
 
 source /etc/profile.d/vte.sh
 
-function ps1_lastcmd() {
-    if [ $? = 0 ]
-    then
-        echo -e "\[$GREEN\]✓"
-    else
-        echo -e "\[$RED\]✘"
-    fi
-}
-
 function prompt() {
-    STATUS=`ps1_lastcmd`
-
     # Save and reload the history after each command finishes
     history -a
     history -c
     history -r
-
-    PS1="$STATUS \[$GREEN\]\A \[$MAGENTA\]\h ($(uname)/$(uname -m)) \[$YELLOW\]\w\[$BLUE\]$PRJ\[$MAGENTA\]\$(__git_ps1)\[\033[00m\]\nλ "
 }
 
-PROMPT_COMMAND=prompt
+#PROMPT_COMMAND=prompt
+
+PS1="$? \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history

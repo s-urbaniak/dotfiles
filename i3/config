@@ -208,7 +208,7 @@ bindsym $mod+Tab exec ~/src/go/bin/i3-focus-last switch
 # finds out, if available)
 
 bar {
-    tray_output LVDS-1
+    tray_output eDP-1
     status_command i3status
     position bottom
     colors {

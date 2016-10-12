@@ -13,7 +13,7 @@
 
 (setq use-package-always-ensure t)
 
-(set-frame-font "Monospace-11")
+(set-frame-font "Monospace-10")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -53,8 +53,6 @@
 (bind-key "<M-left>" 'windmove-left)
 (bind-key "<M-right>" 'windmove-right)
 
-(custom-set-variables '(speedbar-show-unknown-files t))
-
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
 (defun my-goto-match-beginning ()
@@ -63,9 +61,22 @@
 
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
 
+(use-package sr-speedbar
+  :init
+  (setq helm-alive-p nil)
+  :config
+  (global-set-key (kbd "C-c b") 'sr-speedbar-toggle)
+  (setq sr-speedbar-right-side nil
+        sr-speedbar-auto-refresh nil
+        speedbar-hide-button-brackets-flag t
+        speedbar-show-unknown-files t
+        speedbar-use-images nil
+        speedbar-smart-directory-expand-flag t))
+
 (use-package colorsarenice-theme)
 (use-package color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
+;(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'colorsarenice-dark t)
 
 (use-package markdown-mode+)
 
@@ -79,17 +90,7 @@
   :config
   (global-page-break-lines-mode))
 
-(use-package smartparens
-  :config
-  (progn
-    (require 'smartparens-config)
-    (smartparens-global-strict-mode t)))
-
 (use-package yasnippet)
-
-(use-package powerline
-  :config
-  (powerline-default-theme))
 
 (use-package ido
   :config
@@ -191,11 +192,31 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 (put 'dired-find-alternate-file 'disabled nil)
-
-;; some useful functions for the rest of this init file
-(defun apm-camelize (s &optional delim)
-  "Convert under_score string S to CamelCase string with optional DELIM."
-  (interactive "s")
-  (mapconcat 'identity (mapcar
-                        #'(lambda (word) (capitalize (downcase word)))
-                        (split-string s (if delim delim "_"))) ""))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((eval c-set-offset
+           (quote arglist-close)
+           0)
+     (eval c-set-offset
+           (quote arglist-intro)
+           (quote ++))
+     (eval c-set-offset
+           (quote case-label)
+           0)
+     (eval c-set-offset
+           (quote statement-case-open)
+           0)
+     (eval c-set-offset
+           (quote substatement-open)
+           0)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
