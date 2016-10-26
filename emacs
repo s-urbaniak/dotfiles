@@ -141,6 +141,10 @@
   :config
   (add-hook 'go-mode-hook 'su/go-mode-hook))
 
+(use-package go-guru
+  :config
+  (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode))
+
 (use-package company
   :init
   (setq company-tooltip-limit 20)                       ; bigger popup window
@@ -179,7 +183,6 @@
 (add-hook 'js-mode-hook 'su/js-mode-hook)
 
 (defun su/go-mode-hook ()
-  (load-file "~/src/go/src/golang.org/x/tools/cmd/guru/go-guru.el")
   (subword-mode)
   (eldoc-mode)
   (company-mode)
