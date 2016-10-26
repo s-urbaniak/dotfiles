@@ -31,6 +31,14 @@
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
+(global-set-key (kbd "<mouse-7>") '(lambda ()
+                                     (interactive)
+                                     (scroll-left 4)))
+
+(global-set-key (kbd "<mouse-6>") '(lambda ()
+                                     (interactive)
+                                     (scroll-right 4)))
+
 (setq mouse-autoselect-window t)
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
@@ -191,32 +199,3 @@
 
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
-(put 'dired-find-alternate-file 'disabled nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   (quote
-    ((eval c-set-offset
-           (quote arglist-close)
-           0)
-     (eval c-set-offset
-           (quote arglist-intro)
-           (quote ++))
-     (eval c-set-offset
-           (quote case-label)
-           0)
-     (eval c-set-offset
-           (quote statement-case-open)
-           0)
-     (eval c-set-offset
-           (quote substatement-open)
-           0)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

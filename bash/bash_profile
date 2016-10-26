@@ -60,7 +60,7 @@ function prompt() {
 
 #PROMPT_COMMAND=prompt
 
-PS1="$? \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
+PS1="\$(echo \$?) \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
