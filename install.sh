@@ -21,3 +21,4 @@ ln -s "$PWD"/git/gitconfig ~/.gitconfig
 ln -s "$PWD"/plan9/lib ~/lib
 ln -s "$PWD"/i3 ~/.config/i3
 ln -s "$PWD"/i3status ~/.config/i3status
+ln -s "$PWD"/local/share/i3 ~/.local/share/i3
