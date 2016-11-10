@@ -1,3 +1,0 @@
-#!/bin/sh
-
-godef -acme -t | sed -n 3p | plumb -i -d edit -a 'action=showdata filename=+info'

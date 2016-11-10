@@ -1,6 +1,0 @@
-#!/bin/sh
-
-node=$(echo "$2" | tr -d '\n')
-echo $node
-
-digraph "$1" "$node" <callgraph.digraph
