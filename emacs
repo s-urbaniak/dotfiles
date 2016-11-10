@@ -86,6 +86,11 @@
 ;(load-theme 'sanityinc-tomorrow-night t)
 (load-theme 'colorsarenice-dark t)
 
+(use-package direnv
+  :init
+  (add-hook 'find-file-hook 'direnv-load-environment)
+  (add-hook 'buffer-list-update-hook 'direnv-load-environment))
+
 (use-package markdown-mode+)
 
 (use-package yaml-mode)
@@ -121,6 +126,8 @@
 (use-package expand-region
   :config
   (bind-key "C-=" 'er/expand-region))
+
+(use-package go-rename)
 
 (use-package go-eldoc
   :defer t
@@ -187,6 +194,7 @@
   (eldoc-mode)
   (company-mode)
   (go-guru-hl-identifier-mode)
+  (local-set-key (kbd "C-c C-r") 'go-guru-referrers)
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "C-h f") 'godoc-at-point))
 
@@ -197,8 +205,11 @@
 
 (defun su/cxx-mode-hook()
   (bind-key "M-." 'rtags-find-symbol-at-point)
+  (bind-key "C-c C-r" 'rtags-find-references)
+  (eldoc-mode)
   (company-mode)
-  (setq indent-tabs-mode nil))
+  (setq indent-tabs-mode nil)
+  (setq eldoc-documentation-function 'rtags-eldoc))
 
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))

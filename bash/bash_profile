@@ -26,8 +26,6 @@ then
 
     # go
     export PATH=$PATH:/usr/local/opt/go/libexec/bin
-
-    alias dm=docker-machine
 fi
 
 # linux
@@ -38,6 +36,7 @@ then
 
     alias ls="ls --color"
     alias pbcopy="xclip -sel clip"
+    alias grm=gvfs-trash
 fi
 
 # virtualbox
@@ -51,16 +50,16 @@ export PATH=$GOPATH/bin:$PATH
 
 source /etc/profile.d/vte.sh
 
-function prompt() {
+function __prompt() {
     # Save and reload the history after each command finishes
     history -a
     history -c
     history -r
 }
 
-#PROMPT_COMMAND=prompt
+PROMPT_COMMAND=__prompt
 
-PS1="\$(echo \$?) \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
+PS1="$(echo \$?) \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
@@ -78,3 +77,6 @@ export EDITOR=vim
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
 
 eval $(direnv hook bash)
+
+source <(kubectl completion bash)
+
