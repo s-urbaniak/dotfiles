@@ -24,10 +24,13 @@ def i3clients():
         workspace = workspace[0]
         windows = i3.filter(workspace, nodes=[])
         instances = {}
+
         # Adds windows and their ids to the clients dictionary
         for window in windows:
-            print(window)
-            win_str = '[%s] %s (%s)' % (workspace['name'], window['window_properties']['class'], window['name'])
+            winprops = window.get("window_properties", {})
+            cls = winprops.get("class", "empty")
+
+            win_str = '[%s] %s "%s"' % (workspace['name'], cls, window['name'])
             # Appends an instance number if other instances are present
             if win_str in instances:
                 instances[win_str] += 1

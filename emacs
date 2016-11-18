@@ -45,6 +45,7 @@
 (setq locate-command "mdfind")
 (setq ring-bell-function 'ignore)
 (setq set-mark-command-repeat-pop t)
+(setq frame-title-format '("" " %b"))
 
 ;; (setq indent-line-function 'tab-to-tab-stop) ;; indent using tab stops
 ;; (setq tab-stop-list (number-sequence 8 200 8)) ;; define tab stops
@@ -52,6 +53,7 @@
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
 ;; (setq electric-indent-mode nil) ;; disable electric indent mode
+(set-default 'truncate-lines t)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
@@ -81,10 +83,8 @@
         speedbar-use-images nil
         speedbar-smart-directory-expand-flag t))
 
-(use-package colorsarenice-theme)
 (use-package color-theme-sanityinc-tomorrow)
-;(load-theme 'sanityinc-tomorrow-night t)
-(load-theme 'colorsarenice-dark t)
+(load-theme 'sanityinc-tomorrow-night t)
 
 (use-package direnv
   :init
@@ -144,7 +144,7 @@
   :defer t
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (setq gofmt-command "goimports")
+  (setq gofmt-command "gofmt")
   :config
   (add-hook 'go-mode-hook 'su/go-mode-hook))
 
