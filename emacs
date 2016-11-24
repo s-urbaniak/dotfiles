@@ -86,11 +86,6 @@
 (use-package danneskjold-theme)
 (load-theme 'danneskjold t)
 
-(use-package direnv
-  :init
-  (add-hook 'find-file-hook 'direnv-load-environment)
-  (add-hook 'buffer-list-update-hook 'direnv-load-environment))
-
 (use-package markdown-mode+)
 
 (use-package yaml-mode)
@@ -214,7 +209,9 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 
-(load "~/.emacs.d/emacs_local.el")
+(add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
+(require 'direnv)
+(load (expand-file-name "emacs_local.el" user-emacs-directory))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
