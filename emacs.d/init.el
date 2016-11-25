@@ -1,4 +1,7 @@
 (require 'package)
+
+(setq package-user-dir "~/.cache/emacs/elpa")
+
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -12,6 +15,14 @@
 	(package-install package)))
 
 (setq use-package-always-ensure t)
+
+(add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
+(require 'direnv)
+
+(load (expand-file-name "local.el" user-emacs-directory))
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (set-frame-font "Monospace-10")
 (tool-bar-mode -1)
@@ -104,11 +115,6 @@
 (use-package linum
   :init
   (setq linum-format "%d "))
-
-(use-package magit
-  :config
-  (bind-key "C-x g" 'magit-status)
-  (bind-key "C-c p" 'magit-find-file-completing-read))
 
 (use-package find-file-in-project
   :config
@@ -205,11 +211,3 @@
 
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
-
-(add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
-(require 'direnv)
-
-(load (expand-file-name "local.el" user-emacs-directory))
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)

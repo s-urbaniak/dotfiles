@@ -1,1 +1,3 @@
 *.swp
+emacs.d/custom.el
+emacs.d/local.el
