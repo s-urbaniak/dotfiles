@@ -47,9 +47,6 @@
 (setq set-mark-command-repeat-pop t)
 (setq frame-title-format '("" " %b"))
 
-;; (setq indent-line-function 'tab-to-tab-stop) ;; indent using tab stops
-;; (setq tab-stop-list (number-sequence 8 200 8)) ;; define tab stops
-
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
 ;; (setq electric-indent-mode nil) ;; disable electric indent mode
