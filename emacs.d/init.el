@@ -19,8 +19,6 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 
-(load (expand-file-name "local.el" user-emacs-directory))
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -179,6 +177,8 @@
   (define-key ctl-x-map [(control ?=)] 'zoom-in/out)
   (define-key ctl-x-map [(control ?0)] 'zoom-in/out))
 
+(use-package magit)
+
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
@@ -211,3 +211,5 @@
 
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
+
+(load (expand-file-name "local.el" user-emacs-directory))
