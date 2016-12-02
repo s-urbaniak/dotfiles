@@ -19,8 +19,7 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+(load (expand-file-name "local.el" user-emacs-directory))
 
 (set-frame-font "Monospace-10")
 (tool-bar-mode -1)
@@ -77,17 +76,12 @@
 
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
 
-(use-package sr-speedbar
-  :init
-  (setq helm-alive-p nil)
+(use-package neotree
   :config
-  (global-set-key (kbd "C-c b") 'sr-speedbar-toggle)
-  (setq sr-speedbar-right-side nil
-        sr-speedbar-auto-refresh nil
-        speedbar-hide-button-brackets-flag t
-        speedbar-show-unknown-files t
-        speedbar-use-images nil
-        speedbar-smart-directory-expand-flag t))
+  (setq neo-window-width 40)
+  (setq neo-window-fixed-size nil)
+  (setq neo-theme 'arrow)
+  (global-set-key (kbd "C-c b") 'neotree-toggle))
 
 (use-package danneskjold-theme)
 (load-theme 'danneskjold t)
@@ -140,13 +134,15 @@
   :defer t
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (setq gofmt-command "gofmt")
+  (setq gofmt-command "goimports")
   :config
   (add-hook 'go-mode-hook 'su/go-mode-hook))
 
 (use-package go-guru
   :config
-  (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode))
+  (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+  (set-face-attribute 'go-guru-hl-identifier-face nil
+                      :inherit 'custom-comment))
 
 (use-package company
   :init
@@ -212,4 +208,5 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 
-(load (expand-file-name "local.el" user-emacs-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
