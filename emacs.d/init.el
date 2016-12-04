@@ -16,11 +16,6 @@
 
 (setq use-package-always-ensure t)
 
-(add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
-(require 'direnv)
-
-(load (expand-file-name "local.el" user-emacs-directory))
-
 (set-frame-font "Monospace-10")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -57,7 +52,6 @@
 
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
-;; (setq electric-indent-mode nil) ;; disable electric indent mode
 (set-default 'truncate-lines t)
 
 (setq browse-url-browser-function 'browse-url-generic
@@ -74,7 +68,8 @@
   (when (and isearch-forward isearch-other-end)
     (goto-char isearch-other-end)))
 
-(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+(add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
+(require 'direnv)
 
 (use-package neotree
   :config
@@ -92,7 +87,7 @@
 
 (use-package yasnippet
   :config
-  (yas-global-mode 1))
+  (yas-global-mode t))
 
 (use-package page-break-lines
   :config
@@ -102,10 +97,34 @@
 
 (use-package ido
   :config
-  (ido-mode t))
+  (ido-mode t)
+  (ido-everywhere t))
+
+(use-package ido-ubiquitous
+  :config
+  (ido-ubiquitous-mode t))
+
+(use-package smex
+  :config
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;; This is your old M-x.
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+
+(use-package flx-ido
+  :config
+  (setq ido-enable-flex-matching t)
+  (setq ido-use-faces nil)
+  (flx-ido-mode t))
+
+(use-package ido-vertical-mode
+  :config
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
+  (ido-vertical-mode t))
 
 (use-package linum
-  :init
+  :config
   (setq linum-format "%d "))
 
 (use-package find-file-in-project
@@ -120,8 +139,7 @@
 (use-package go-rename)
 
 (use-package go-eldoc
-  :defer t
-  :init
+  :config
   (add-hook 'go-mode-hook 'go-eldoc-setup))
 
 (use-package smart-mode-line
@@ -131,11 +149,9 @@
   (sml/setup))
 
 (use-package go-mode
-  :defer t
-  :init
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (setq gofmt-command "goimports")
   :config
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'su/go-mode-hook))
 
 (use-package go-guru
@@ -145,25 +161,23 @@
                       :inherit 'custom-comment))
 
 (use-package company
-  :init
+  :config
   (setq company-tooltip-limit 20)                       ; bigger popup window
   (setq company-idle-delay .3)                          ; decrease delay before autocompletion popup shows
   (setq company-echo-delay 0)                           ; remove annoying blinking
   (setq company-begin-commands '(self-insert-command))  ; start autocompletion only after typing
   (bind-key "M-/" 'company-complete-common)
-  :config
   (add-hook 'lisp-mode-hook 'company-mode))
 
 (use-package company-go
-  :init
+  :config
   (add-to-list 'company-backends 'company-go))
 
 (use-package rtags
-  :init
+  :config
   (setq rtags-autostart-diagnostics t)
   (setq rtags-completions-enabled t)
   (add-to-list 'company-backends 'company-rtags)
-  :config
   (rtags-diagnostics))
 
 (use-package zoom-frm
@@ -173,15 +187,29 @@
   (define-key ctl-x-map [(control ?=)] 'zoom-in/out)
   (define-key ctl-x-map [(control ?0)] 'zoom-in/out))
 
+(use-package tide
+  :config
+  (add-hook 'typescript-mode-hook 'su/tide-mode-hook))
+
 (use-package magit)
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'su/cxx-mode-hook)
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
 (add-hook 'js-mode-hook 'su/js-mode-hook)
+(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+
+(defun su/tide-mode-hook()
+  (tide-setup)
+  (flycheck-mode t)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode t)
+  (tide-hl-identifier-mode t)
+  (company-mode t))
 
 (defun su/go-mode-hook ()
   (subword-mode)
@@ -210,3 +238,5 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+(load (expand-file-name "local.el" user-emacs-directory))
