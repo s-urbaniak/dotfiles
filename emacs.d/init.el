@@ -21,14 +21,15 @@
 (menu-bar-mode -1)
 
 (show-paren-mode 1)
-(blink-cursor-mode 0)
+(blink-cursor-mode -1)
 
 ;; disable fringes and scrollbars
 (set-fringe-mode 0)
 (scroll-bar-mode -1)
 
 (global-font-lock-mode nil)
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
+(delete-selection-mode 1)
 
 ;; configure mouse scrolling
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
@@ -71,15 +72,15 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 
+(use-package danneskjold-theme)
+(load-theme 'danneskjold t)
+
 (use-package neotree
   :config
   (setq neo-window-width 40)
   (setq neo-window-fixed-size nil)
   (setq neo-theme 'arrow)
   (global-set-key (kbd "C-c b") 'neotree-toggle))
-
-(use-package danneskjold-theme)
-(load-theme 'danneskjold t)
 
 (use-package markdown-mode+)
 
@@ -94,34 +95,6 @@
   (global-page-break-lines-mode))
 
 (use-package yasnippet)
-
-(use-package ido
-  :config
-  (ido-mode t)
-  (ido-everywhere t))
-
-(use-package ido-ubiquitous
-  :config
-  (ido-ubiquitous-mode t))
-
-(use-package smex
-  :config
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
-
-(use-package flx-ido
-  :config
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil)
-  (flx-ido-mode t))
-
-(use-package ido-vertical-mode
-  :config
-  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)
-  (ido-vertical-mode t))
 
 (use-package linum
   :config
@@ -191,17 +164,49 @@
   :config
   (add-hook 'typescript-mode-hook 'su/tide-mode-hook))
 
+(use-package ivy
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (ivy-mode 1)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume))
+
+(use-package counsel
+  :config
+  (counsel-mode 1)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+  (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
+
+(use-package swiper
+  :config
+  (global-set-key "\C-s" 'swiper))
+
 (use-package magit)
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
+(add-hook 'lisp-mode-hook 'su/lisp-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'su/cxx-mode-hook)
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
 (add-hook 'js-mode-hook 'su/js-mode-hook)
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+
+(defun su/lisp-mode-hook()
+  (company-mode)
+  (turn-on-eldoc-mode))
 
 (defun su/tide-mode-hook()
   (tide-setup)
