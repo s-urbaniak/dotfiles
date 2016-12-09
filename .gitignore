@@ -1,5 +1,2 @@
 *.swp
-emacs.d/custom.el
-emacs.d/local.el
-emacs.d/ido.last
-emacs.d/auto-save-list
+emacs.d/*
