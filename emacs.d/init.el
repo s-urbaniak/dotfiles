@@ -1,5 +1,4 @@
 (require 'package)
-
 (setq package-user-dir "~/.cache/emacs/elpa")
 
 (setq package-enable-at-startup nil)
