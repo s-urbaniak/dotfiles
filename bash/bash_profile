@@ -97,7 +97,7 @@ function enterpod() {
 }
 
 function runningpod() {
-    rkt l --no-legend | grep running | cut -f1 | head -1
+    rkt l --no-legend --full | grep running | cut -f1 | head -1
 }
 
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"

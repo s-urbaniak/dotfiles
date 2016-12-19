@@ -15,7 +15,7 @@
 
 (setq use-package-always-ensure t)
 
-(set-frame-font "Monospace-10")
+(set-frame-font "Monospace-9")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -71,8 +71,8 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 
-(use-package danneskjold-theme)
-(load-theme 'danneskjold t)
+(use-package darktooth-theme)
+(load-theme 'darktooth t)
 
 (use-package neotree
   :config
