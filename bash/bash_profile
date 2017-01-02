@@ -34,7 +34,8 @@ fi
 # linux
 if [ $PLATFORM == 'Linux' ]
 then
-    source /usr/share/git/git-prompt.sh
+    [[ -f /usr/share/git/git-prompt.sh ]] && /usr/share/git/git-prompt.sh
+    [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 
     alias ls="ls --color"
     alias pbcopy="xclip -sel clip"

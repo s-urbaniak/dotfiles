@@ -5,20 +5,27 @@ PWD=$(pwd)
 
 if [ "$PLATFORM" == 'Darwin' ]
 then
-    ln -s "$PWD"/bash/bash_profile ~/.bash_profile
+    ln -sf "$PWD"/bash/bash_profile ~/.bash_profile
 fi
 
 if [ "$PLATFORM" == 'Linux' ]
 then
-    ln -s "$PWD"/bash/bash_profile ~/.bashrc
-    ln -s "$PWD"/profile ~/.profile
-    mkdir -p ~/.config/gtk-3.0 && ln -s "$PWD/config/gtk-3.0/gtk.css" ~/.config/gtk-3.0/gtk.css
+    ln -sf "$PWD"/bash/bash_profile ~/.bashrc
+    ln -sf "$PWD"/profile ~/.profile
+    mkdir -p ~/.config/gtk-3.0 && ln -sf "$PWD/config/gtk-3.0/gtk.css" ~/.config/gtk-3.0/gtk.css
 fi
 
-ln -s "$PWD"/tmux.conf ~/.tmux.conf
-ln -s "$PWD"/vim/vimrc ~/.vimrc
-ln -s "$PWD"/git/gitconfig ~/.gitconfig
-ln -s "$PWD"/plan9/lib ~/lib
-ln -s "$PWD"/i3 ~/.config/i3
-ln -s "$PWD"/i3status ~/.config/i3status
-ln -s "$PWD"/local/share/i3 ~/.local/share/i3
+ln -sf "$PWD"/tmux.conf ~/.tmux.conf
+ln -sf "$PWD"/vim/vimrc ~/.vimrc
+ln -sf "$PWD"/git/gitconfig ~/.gitconfig
+
+mkdir -p ~/.config
+ln -sf "$PWD"/i3 ~/.config/i3
+ln -sf "$PWD"/i3status ~/.config/i3status
+mkdir -p ~/.local/share
+ln -sf "$PWD"/local/share/i3 ~/.local/share/i3
+
+mkdir -p ~/.cache/emacs/elpa
+ln -sf $PWD/emacs.d ~/.emacs.d
+touch ~/.emacs.d/local.el
+touch ~/.emacs.d/custom.el

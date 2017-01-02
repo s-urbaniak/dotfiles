@@ -170,6 +170,8 @@
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
   (global-set-key (kbd "<f6>") 'ivy-resume))
 
+(use-package smex)
+
 (use-package counsel
   :config
   (counsel-mode 1)
