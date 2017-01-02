@@ -230,7 +230,7 @@ bar {
 }
 
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-# exec --no-startup-id /usr/bin/compton --no-fading-openclose --no-dock-shadow --backend glx --vsync opengl-swc --glx-no-stencil
+exec --no-startup-id /usr/bin/compton --backend=glx --glx-swap-method=buffer-age --no-fading-openclose --no-dock-shadow --vsync opengl-swc
 exec --no-startup-id /usr/bin/xsetroot -cursor_name left_ptr
 exec --no-startup-id /usr/bin/hsetroot  -solid '#090909'
 exec --no-startup-id /home/sur/src/go/bin/i3-focus-last
