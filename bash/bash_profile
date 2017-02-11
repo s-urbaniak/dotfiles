@@ -34,7 +34,7 @@ fi
 # linux
 if [ $PLATFORM == 'Linux' ]
 then
-    [[ -f /usr/share/git/git-prompt.sh ]] && /usr/share/git/git-prompt.sh
+    [[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
     [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 
     alias ls="ls --color"
@@ -67,6 +67,7 @@ function __prompt() {
     history -a
     history -c
     history -r
+    echo -ne "\033]0;$(dirs -0)\007"
 }
 
 PROMPT_COMMAND=__prompt
@@ -81,6 +82,9 @@ shopt -s histappend
 # configure glob
 shopt -s globstar
 shopt -s nocaseglob
+
+# disable XON/XOFF flow control, to enable C-s forward history search
+[[ $- == *i* ]] && stty -ixon
 
 # register direnv
 eval $(direnv hook bash)

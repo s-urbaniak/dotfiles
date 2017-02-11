@@ -15,7 +15,7 @@
 
 (setq use-package-always-ensure t)
 
-(set-frame-font "Monospace-9")
+(set-frame-font "Monospace-10")
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
@@ -52,7 +52,9 @@
 
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
-(set-default 'truncate-lines t)
+;;(set-default 'truncate-lines nil)
+(setq global-visual-line-mode t)
+
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
@@ -70,6 +72,7 @@
 
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
+(require 'find-refs)
 
 (use-package darktooth-theme)
 (load-theme 'darktooth t)
@@ -145,13 +148,6 @@
   :config
   (add-to-list 'company-backends 'company-go))
 
-(use-package rtags
-  :config
-  (setq rtags-autostart-diagnostics t)
-  (setq rtags-completions-enabled t)
-  (add-to-list 'company-backends 'company-rtags)
-  (rtags-diagnostics))
-
 (use-package zoom-frm
   :config
   (define-key ctl-x-map [(control ?+)] 'zoom-in/out)
@@ -171,6 +167,8 @@
   (global-set-key (kbd "<f6>") 'ivy-resume))
 
 (use-package smex)
+
+(use-package ag)
 
 (use-package counsel
   :config
@@ -204,6 +202,10 @@
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
 (add-hook 'js-mode-hook 'su/js-mode-hook)
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+
+(defun su/toggle-selective-display ()
+  (interactive)
+  (set-selective-display (if selective-display nil 1)))
 
 (defun su/lisp-mode-hook()
   (company-mode)
@@ -242,7 +244,26 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 
+(global-set-key
+ "\C-n"
+ (lambda ()
+   (interactive)
+   (scroll-up 4)))
+
+(global-set-key
+ "\C-p"
+ (lambda ()
+   (interactive)
+   (scroll-down 4)))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
 (load (expand-file-name "local.el" user-emacs-directory))
+
+;; installed locally
+(require 'rtags)
+(setq rtags-(and )utostart-diagnostics t)
+(setq rtags-completions-enabled t)
+(add-to-list 'company-backends 'company-rtags)
+(rtags-diagnostics)

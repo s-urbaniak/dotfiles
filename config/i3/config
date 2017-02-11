@@ -230,12 +230,11 @@ bar {
 }
 
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-exec --no-startup-id /usr/bin/compton --backend=glx --glx-swap-method=buffer-age --no-fading-openclose --no-dock-shadow --vsync opengl-swc
+#exec --no-startup-id /usr/bin/compton --backend=glx --glx-swap-method=buffer-age --no-fading-openclose --no-dock-shadow --vsync opengl-swc
 exec --no-startup-id /usr/bin/xsetroot -cursor_name left_ptr
 exec --no-startup-id /usr/bin/hsetroot  -solid '#090909'
 exec --no-startup-id /home/sur/src/go/bin/i3-focus-last
 exec --no-startup-id /usr/bin/start-pulseaudio-x11
-exec --no-startup-id /usr/bin/redshift-gtk
 exec --no-startup-id /usr/bin/dunst -fn 'font pango: Helvetica Neue, FontAwesome 20' -lf "#7780a1" -nf "#ffffff" -cf "#ee829f" -lb "#1f222d" -nb "#1f222d" -cb "#1f222d"
 
 new_window pixel 1
