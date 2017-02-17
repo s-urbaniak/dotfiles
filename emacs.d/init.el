@@ -193,6 +193,11 @@
 
 (use-package magit)
 
+(use-package spaceline
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
+
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
 (add-hook 'lisp-mode-hook 'su/lisp-mode-hook)
