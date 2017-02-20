@@ -72,10 +72,13 @@
 
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
-(require 'find-refs)
 
 (use-package darktooth-theme)
-(load-theme 'darktooth t)
+(use-package leuven-theme)
+(use-package solarized-theme)
+(use-package color-theme-sanityinc-tomorrow)
+(use-package spacemacs-theme)
+(load-theme 'spacemacs-dark t)
 
 (use-package neotree
   :config
@@ -263,7 +266,8 @@
 
 ;; installed locally
 (require 'rtags)
-(setq rtags-(and )utostart-diagnostics t)
+(setq rtags-autostart-diagnostics t)
 (setq rtags-completions-enabled t)
+(setq rtags-rc-log-enabled t)
 (add-to-list 'company-backends 'company-rtags)
 (rtags-diagnostics)

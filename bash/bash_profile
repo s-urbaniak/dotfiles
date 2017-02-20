@@ -42,7 +42,7 @@ then
     alias grm=gvfs-trash
 
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
-    echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2&>1
+#    echo "UPDATESTARTUPTTY" | gpg-connect-agent
 fi
 
 ### aliases
