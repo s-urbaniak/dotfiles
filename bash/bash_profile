@@ -7,6 +7,9 @@ export PATH=$GOPATH/bin:$PATH
 export EDITOR=vim # default editor
 export LANG=en_US.UTF-8
 
+# libvirt
+export VIRSH_DEFAULT_CONNECT_URI=qemu:///system
+
 BLACK='\e[0;30m'
 RED='\e[0;31m'
 GREEN='\e[0;32m'
