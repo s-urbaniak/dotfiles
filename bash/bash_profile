@@ -67,6 +67,8 @@ export HISTFILE=~/.bash_eternal_history
 # enable colors in hh
 export HH_CONFIG=hicolor         # get more colors
 
+export TERM=xterm-256color
+
 ### prompt setup
 
 function __prompt() {

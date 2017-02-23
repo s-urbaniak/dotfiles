@@ -79,7 +79,8 @@
 (use-package solarized-theme)
 (use-package color-theme-sanityinc-tomorrow)
 (use-package spacemacs-theme)
-(load-theme 'spacemacs-dark t)
+(use-package color-theme-sanityinc-tomorrow)
+(load-theme 'solarized-light t)
 
 (use-package neotree
   :config
@@ -200,7 +201,7 @@
 (use-package spaceline
   :config
   (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
+  (spaceline-emacs-theme))
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
@@ -247,6 +248,7 @@
   (bind-key "C-c C-r" 'rtags-find-references)
   (eldoc-mode)
   (company-mode)
+  (gnome-c-style-mode)
   (setq indent-tabs-mode nil)
   (setq eldoc-documentation-function 'rtags-eldoc))
 
