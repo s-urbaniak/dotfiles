@@ -57,7 +57,7 @@
 
 
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium")
+      browse-url-generic-program "google-chrome-stable")
 
 (bind-key "<M-up>" 'windmove-up)
 (bind-key "<M-down>" 'windmove-down)
@@ -72,6 +72,7 @@
 
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
+(autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
 (use-package darktooth-theme)
 (use-package leuven-theme)
@@ -195,6 +196,11 @@
   (global-set-key "\C-s" 'swiper))
 
 (use-package magit)
+
+(use-package spaceline
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme))
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)

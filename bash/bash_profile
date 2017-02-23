@@ -1,7 +1,7 @@
 ### environment
 
 # go
-export GOPATH=$HOME/src/go
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
 export EDITOR=vim # default editor
@@ -37,12 +37,14 @@ then
     [[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
     [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]] && source /usr/share/git-core/contrib/completion/git-prompt.sh
 
+    alias rm="rm -I"
     alias ls="ls --color"
     alias pbcopy="xclip -sel clip"
     alias grm=gvfs-trash
+    alias open=xdg-open
 
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
-#    echo "UPDATESTARTUPTTY" | gpg-connect-agent
+    # echo "UPDATESTARTUPTTY" | gpg-connect-agent
 fi
 
 ### aliases
@@ -59,6 +61,8 @@ export HISTSIZE=
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
+# enable colors in hh
+export HH_CONFIG=hicolor         # get more colors
 
 ### prompt setup
 
@@ -87,10 +91,10 @@ shopt -s nocaseglob
 [[ $- == *i* ]] && stty -ixon
 
 # register direnv
-eval $(direnv hook bash)
+# eval $(direnv hook bash)
 
 # register kubectl completion
-source <(kubectl completion bash)
+# source <(kubectl completion bash)
 
 ### helper functions
 
