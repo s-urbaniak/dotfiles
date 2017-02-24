@@ -1,0 +1,26 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gobject-h
+# key: gobject-h
+# --
+#ifndef __${1:`(su/yas/g/functify (upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))`$(upcase yas-text)}_H__
+#define __$1_H__
+
+#include ${4:<glib-object.h>}
+
+G_BEGIN_DECLS
+
+#define ${1:$(su/yas/g/namespace yas-text)}_TYPE_${1:$(su/yas/g/class yas-text)} (${1:$(downcase yas-text)}_get_type())
+
+G_DECLARE_DERIVABLE_TYPE (${2:${1:$(su/yas/camelize yas-text)}}, ${1:$(downcase yas-text)}, ${1:$(su/yas/g/namespace yas-text)}, ${1:$(su/yas/g/class yas-text)}, ${3:GObject})
+
+struct _$2Class
+{
+  $3Class parent;
+};
+
+$2 *
+${1:$(downcase yas-text)}_new (void);
+$0
+G_END_DECLS
+
+#endif /* $1_H */

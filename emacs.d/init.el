@@ -72,15 +72,17 @@
 
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
+(require 'yas)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
-(use-package darktooth-theme)
-(use-package leuven-theme)
-(use-package solarized-theme)
-(use-package color-theme-sanityinc-tomorrow)
-(use-package spacemacs-theme)
-(use-package color-theme-sanityinc-tomorrow)
-(load-theme 'solarized-light t)
+;(use-package darktooth-theme)
+;(use-package leuven-theme)
+;(use-package solarized-theme)
+;(use-package color-theme-sanityinc-tomorrow)
+;(use-package spacemacs-theme)
+;(use-package color-theme-sanityinc-solarized)
+(use-package danneskjold-theme)
+(load-theme 'danneskjold t)
 
 (use-package neotree
   :config

@@ -1,0 +1,79 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gobject-c
+# key: gobject-c
+# --
+#include "${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}.h"
+
+typedef struct
+{
+  $0
+} ${2:${1:$(su/yas/camelize (su/yas/g/functify yas-text))}}Private;
+
+G_DEFINE_TYPE_WITH_PRIVATE ($2, ${3:${1:$(su/yas/g/functify yas-text)}}, ${4:G_TYPE_OBJECT})
+
+enum {
+  PROP_0,
+  N_PROPS
+};
+
+static GParamSpec *properties [N_PROPS];
+
+$2 *
+$3_new (void)
+{
+  return g_object_new (${1:$(upcase (su/yas/g/namespace (su/yas/g/functify yas-text)))}_TYPE_${1:$(upcase (su/yas/g/class (su/yas/g/functify yas-text)))}, NULL);
+}
+
+static void
+$3_finalize (GObject *object)
+{
+  $2 *self = ($2 *)object;
+  $2Private *priv = $3_get_instance_private (self);
+
+  G_OBJECT_CLASS ($3_parent_class)->finalize (object);
+}
+
+static void
+$3_get_property (GObject    *object,
+${3:$(su/yas/space yas-text)}               guint       prop_id,
+${3:$(su/yas/space yas-text)}               GValue     *value,
+${3:$(su/yas/space yas-text)}               GParamSpec *pspec)
+{
+  $2 *self = ${3:$(upcase yas-text)} (object);
+
+  switch (prop_id)
+    {
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    }
+}
+
+static void
+$3_set_property (GObject      *object,
+${3:$(su/yas/space yas-text)}               guint       prop_id,
+${3:$(su/yas/space yas-text)}               GValue     *value,
+${3:$(su/yas/space yas-text)}               GParamSpec *pspec)
+{
+  $2 *self = ${3:$(upcase yas-text)} (object);
+
+  switch (prop_id)
+    {
+	default:
+	  G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    }
+}
+
+static void
+$3_class_init ($2Class *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+	object_class->finalize = $3_finalize;
+	object_class->get_property = $3_get_property;
+	object_class->set_property = $3_set_property;
+}
+
+static void
+$3_init ($2 *self)
+{
+}
