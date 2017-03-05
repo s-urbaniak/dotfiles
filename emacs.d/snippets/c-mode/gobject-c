@@ -50,9 +50,9 @@ ${3:$(su/yas/space yas-text)}               GParamSpec *pspec)
 
 static void
 $3_set_property (GObject      *object,
-${3:$(su/yas/space yas-text)}               guint       prop_id,
-${3:$(su/yas/space yas-text)}               GValue     *value,
-${3:$(su/yas/space yas-text)}               GParamSpec *pspec)
+${3:$(su/yas/space yas-text)}               guint         prop_id,
+${3:$(su/yas/space yas-text)}               const GValue *value,
+${3:$(su/yas/space yas-text)}               GParamSpec   *pspec)
 {
   $2 *self = ${3:$(upcase yas-text)} (object);
 
