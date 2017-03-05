@@ -81,14 +81,15 @@
 ;(use-package color-theme-sanityinc-tomorrow)
 ;(use-package spacemacs-theme)
 ;(use-package color-theme-sanityinc-solarized)
-(use-package danneskjold-theme)
-(load-theme 'danneskjold t)
+(use-package zenburn-theme)
+(load-theme 'zenburn t)
 
 (use-package neotree
   :config
   (setq neo-window-width 40)
   (setq neo-window-fixed-size nil)
   (setq neo-theme 'arrow)
+  (setq neo-force-change-root t)
   (global-set-key (kbd "C-c b") 'neotree-toggle))
 
 (use-package markdown-mode+)
