@@ -8,7 +8,13 @@
                         (split-string s (if delim delim "_"))) ""))
 
 (defun su/yas/g/functify (s)
-  (replace-regexp-in-string "-" "_" s))
+  (let ((case-fold-search nil))
+    (replace-regexp-in-string
+     "^_" ""
+     (replace-regexp-in-string
+      "\\([A-Z]\\)" "_\\1"
+      (replace-regexp-in-string
+       "-" "_" s)))))
 
 (defun su/yas/g/namespace (s)
   (let* ((parts (split-string s "_")))
