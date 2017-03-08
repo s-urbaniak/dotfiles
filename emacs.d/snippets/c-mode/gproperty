@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gproperty
+# key: gproperty
+# --
+properties [PROP_${1:NAME$(upcase yas-text)}] =
+  g_param_spec_${2:object} ("${3:${1:$(downcase yas-text)}}",
+               ${3:$(su/yas/space yas-text)}  "${4:${3:$(su/yas/camelize yas-text "-")}}",
+               ${3:$(su/yas/space yas-text)}  "${5:${3:$(su/yas/camelize yas-text "-")}}",
+               ${3:$(su/yas/space yas-text)}  $6,
+               ${3:$(su/yas/space yas-text)}  (G_PARAM_${7:READWRITE} |
+               ${3:$(su/yas/space yas-text)}   G_PARAM_STATIC_STRINGS));
+
+g_object_class_install_property (object_class, PROP_$1,
+                                 properties [PROP_$1]);

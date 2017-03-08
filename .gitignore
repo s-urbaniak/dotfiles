@@ -1,2 +1,8 @@
 *.swp
-emacs.d/*
+emacs.d/session*
+emacs.d/auto-save-list/
+emacs.d/bookmarks
+emacs.d/custom.el
+emacs.d/local.el
+emacs.d/recentf
+emacs.d/smex-items

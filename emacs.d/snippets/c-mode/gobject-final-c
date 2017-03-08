@@ -9,7 +9,7 @@ struct _${2:${1:$(su/yas/camelize yas-text "-")}}
 	${4:GObject} parent_instance;
 };
 
-G_DEFINE_TYPE ($2, ${3:${1:$(su/yas/g/functify yas-text)}}, ${1:$(upcase (su/yas/g/namespace (su/yas/g/functify yas-text)))}_TYPE_${1:$(upcase (su/yas/g/class (su/yas/g/functify yas-text)))})
+G_DEFINE_TYPE ($2, ${3:${1:$(su/yas/g/functify yas-text)}}, ${4:$(upcase (su/yas/g/namespace (su/yas/g/functify yas-text)))}_TYPE_${4:$(upcase (su/yas/g/class (su/yas/g/functify yas-text)))})
 
 enum {
 	PROP_0,

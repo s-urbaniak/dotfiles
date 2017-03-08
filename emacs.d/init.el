@@ -75,12 +75,6 @@
 (require 'yas)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
-;(use-package darktooth-theme)
-;(use-package leuven-theme)
-;(use-package solarized-theme)
-;(use-package color-theme-sanityinc-tomorrow)
-;(use-package spacemacs-theme)
-;(use-package color-theme-sanityinc-solarized)
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
 
@@ -205,6 +199,8 @@
   :config
   (require 'spaceline-config)
   (spaceline-emacs-theme))
+
+(use-package systemd)
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
