@@ -202,6 +202,10 @@
 
 (use-package systemd)
 
+(use-package terraform-mode
+  :config
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
 (add-hook 'lisp-mode-hook 'su/lisp-mode-hook)

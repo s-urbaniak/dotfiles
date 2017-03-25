@@ -13,6 +13,7 @@ then
     ln -sf "$PWD"/bash/bash_profile ~/.bashrc
     ln -sf "$PWD"/profile ~/.profile
     mkdir -p ~/.config/gtk-3.0 && ln -sf "$PWD/config/gtk-3.0/gtk.css" ~/.config/gtk-3.0/gtk.css
+    mkdir -p ~/.themes && ln -s "$PWD/themes/small" ~/.themes/small
 fi
 
 ln -sf "$PWD"/tmux.conf ~/.tmux.conf

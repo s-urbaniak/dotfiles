@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: gobject-signal
+# key: gobject-signal
+# --
+
+signals [${1:signal$(upcase yas-text)}] =
+  g_signal_new ("${2:${1:$(downcase yas-text)}}",
+                G_TYPE_FROM_CLASS (klass),
+                ${3:G_SIGNAL_RUN_LAST},
+                ${4:0},
+                ${5:NULL},
+                ${6:NULL},
+                ${7:g_cclosure_marshal_generic},
+                ${8:G_TYPE_NONE},
+                ${9:0});

@@ -1,0 +1,6 @@
+[Service]
+ExecStart=/home/sur/src/dotfiles/systemd/notifier.sh
+
+[Install]
+WantedBy=default.target
+
