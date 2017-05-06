@@ -5,14 +5,9 @@
 [color]
 	ui = true
 
-[mergetool]
-	keepBackup = false
-	keepTemporaries = false
-	prompt = false
-
 [alias]
     ls-commit-files = diff-tree --no-commit-id --name-only -r
-    loggdo = log --graph --decorate --oneline
+    logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 	stat = status -sb
 
     ignore = update-index --assume-unchanged
@@ -21,15 +16,16 @@
 
     copr = "!f() { git fetch --force $1 pull/$2/head:pr-$2 && git checkout pr-$2; }; f"
 
-[difftool "9diff"]
-	cmd = 9 diff -n \"$LOCAL\" \"$REMOTE\"
 [push]
 	default = simple
+
 [merge]
 	conflictstyle = diff3
-[gui]
-	fontui = -family \"Helvetica Neue\" -size 13 -weight normal -slant roman -underline 0 -overstrike 0
-	fontdiff = -family Menlo -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+
 [commit]
     gpgsign = true
 
+[core]
+	excludesfile = ~/.gitignore
+[gpg]
+	program = gpg2

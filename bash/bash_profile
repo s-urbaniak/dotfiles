@@ -4,7 +4,7 @@
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
-export EDITOR=vim # default editor
+export EDITOR=nvim # default editor
 export LANG=en_US.UTF-8
 
 # libvirt
@@ -71,15 +71,17 @@ export TERM=xterm-256color
 
 ### prompt setup
 
-function __prompt() {
+function _prompt() {
     # Save and reload the history after each command finishes
     history -a
     history -c
     history -r
     echo -ne "\033]0;$(dirs -0)\007"
+
+    pwd > "${HOME}/.cwd"
 }
 
-PROMPT_COMMAND=__prompt
+PROMPT_COMMAND=_prompt
 
 PS1="$(echo \$?) \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
 
@@ -96,10 +98,10 @@ shopt -s nocaseglob
 [[ $- == *i* ]] && stty -ixon
 
 # register direnv
-# eval $(direnv hook bash)
+eval $(direnv hook bash)
 
 # register kubectl completion
-# source <(kubectl completion bash)
+source <(kubectl completion bash)
 
 ### helper functions
 
@@ -115,3 +117,5 @@ function runningpod() {
 }
 
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
+[[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
+

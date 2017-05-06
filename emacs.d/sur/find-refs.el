@@ -13,5 +13,4 @@
       (shell-command cmd buf-name))
     (switch-to-buffer-other-window buf-name)
     (special-mode)
-    (compilation-mode)
-    ))
+    (compilation-mode)))

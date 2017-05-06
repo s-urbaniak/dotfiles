@@ -2,7 +2,7 @@
 # name: gobject-h
 # key: gobject-h
 # --
-#ifndef __${1:`(su/yas/g/functify (upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))`$(upcase yas-text)}_H__
+#ifndef __${1:`(upcase (su/yas/g/functify (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))`$(upcase yas-text)}_H__
 #define __$1_H__
 
 #include ${4:<glib-object.h>}
@@ -18,8 +18,7 @@ struct _$2Class
   $3Class parent;
 };
 
-$2 *
-${1:$(downcase yas-text)}_new (void);
+$2 *${1:$(downcase yas-text)}_new (void);
 $0
 G_END_DECLS
 

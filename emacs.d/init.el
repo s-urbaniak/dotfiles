@@ -75,8 +75,12 @@
 (require 'yas)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
-(use-package zenburn-theme)
-(load-theme 'zenburn t)
+(use-package spacemacs-theme)
+(load-theme 'spacemacs-dark t)
+
+(use-package list-register
+  :config
+  (global-set-key (kbd "C-x r v") 'list-register))
 
 (use-package neotree
   :config
@@ -198,13 +202,30 @@
 (use-package spaceline
   :config
   (require 'spaceline-config)
-  (spaceline-emacs-theme))
+  (spaceline-spacemacs-theme))
 
 (use-package systemd)
 
 (use-package terraform-mode
   :config
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+
+(use-package js2-mode
+  :mode
+  ("\\.js$" . js2-mode)
+  :config
+  (add-hook 'js-mode-hook 'js2-minor-mode)
+  (setq js2-basic-offset 2
+        js2-bounce-indent-p t
+        js2-strict-missing-semi-warning nil
+        js2-concat-multiline-strings nil
+        js2-include-node-externs t
+        js2-skip-preprocessor-directives t
+        js2-strict-inconsistent-return-warning nil))
+
+(use-package rjsx-mode
+  :mode
+  ("/\\([[:upper:]]\\w+\\)\\(/index\\)?\\.js$" . rjsx-mode))
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
@@ -213,7 +234,6 @@
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'su/cxx-mode-hook)
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
-(add-hook 'js-mode-hook 'su/js-mode-hook)
 (add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
 
 (defun su/toggle-selective-display ()
@@ -240,11 +260,6 @@
   (local-set-key (kbd "C-c C-r") 'go-guru-referrers)
   (local-set-key (kbd "M-.") 'godef-jump)
   (local-set-key (kbd "C-h f") 'godoc-at-point))
-
-(defun su/js-mode-hook()
-  (subword-mode)
-  (setq js-indent-level 4)
-  (setq indent-tabs-mode t))
 
 (defun su/cxx-mode-hook()
   (bind-key "M-." 'rtags-find-symbol-at-point)
@@ -282,3 +297,4 @@
 (setq rtags-rc-log-enabled t)
 (add-to-list 'company-backends 'company-rtags)
 (rtags-diagnostics)
+(put 'dired-find-alternate-file 'disabled nil)

@@ -13,8 +13,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (${2:${1:$(su/yas/camelize yas-text)}}, ${1:$(downcase yas-text)}, ${1:$(su/yas/g/namespace yas-text)}, ${1:$(su/yas/g/class yas-text)}, ${3:GObject})
 
-$2 *
-${1:$(downcase yas-text)}_new (void);
+$2 *${1:$(downcase yas-text)}_new (void);
 $0
 
 G_END_DECLS
