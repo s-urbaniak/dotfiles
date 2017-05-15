@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: resource
+# key: res
+# --
+resource "$1" "$2" {
+  $0
+}

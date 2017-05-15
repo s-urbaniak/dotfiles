@@ -1,10 +1,25 @@
+;; kill scratch buffer at the very beginning, I barely need it and it prevents auto-loading of packages
+(kill-buffer "*scratch*")
+
+;; use the Emacs' package infrastructure, like melpa
 (require 'package)
+
+;; store downloaded packages in the cache directory rather than in ~/.emacs.d/elpa
 (setq package-user-dir "~/.cache/emacs/elpa")
 
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+;; use https rather than the default http locations
+(defvar gnu '("gnu" . "https://elpa.gnu.org/packages/"))
+(defvar melpa '("melpa" . "https://melpa.org/packages/"))
+(defvar melpa-stable '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(defvar org-elpa '("org" . "http://orgmode.org/elpa/"))
 
+(setq package-archives nil)
+(add-to-list 'package-archives melpa-stable t)
+(add-to-list 'package-archives melpa t)
+(add-to-list 'package-archives gnu t)
+(add-to-list 'package-archives org-elpa t)
+
+(package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -14,21 +29,26 @@
 	(package-install package)))
 
 (setq use-package-always-ensure t)
+(setq use-package-verbose nil)
 
 (set-frame-font "Monospace-10")
-(tool-bar-mode -1)
 (menu-bar-mode -1)
 
+;; highlight matching parens
 (show-paren-mode 1)
+;; no blinking cursor
 (blink-cursor-mode -1)
 
-;; disable fringes and scrollbars
+;; this is only applicable if started in a graphical environment
+(tool-bar-mode -1)
 (set-fringe-mode 0)
 (scroll-bar-mode -1)
 
-(global-font-lock-mode nil)
-(global-auto-revert-mode 1)
-(delete-selection-mode 1)
+;; if a file changed on disk, load (revert) its content
+(global-auto-revert-mode t)
+
+;; typed text replaces selected text
+(delete-selection-mode t)
 
 ;; configure mouse scrolling
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
@@ -42,8 +62,15 @@
                                      (interactive)
                                      (scroll-right 4)))
 
+;; select on focus for buffers
 (setq mouse-autoselect-window t)
+
+;; disable startup screen
 (setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq initial-buffer-choice "*notes*")
+
+;; disable automatic backups
 (setq make-backup-files nil)
 (setq locate-command "mdfind")
 (setq ring-bell-function 'ignore)
@@ -52,9 +79,7 @@
 
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
-;;(set-default 'truncate-lines nil)
 (setq global-visual-line-mode t)
-
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome-stable")
@@ -66,33 +91,42 @@
 
 (global-set-key (kbd "C-x C-b") 'buffer-menu)
 
-(defun my-goto-match-beginning ()
-  (when (and isearch-forward isearch-other-end)
-    (goto-char isearch-other-end)))
-
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 (require 'yas)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
+(use-package esup
+  :defer t)
+
 (use-package spacemacs-theme)
-(load-theme 'spacemacs-dark t)
+(load-theme 'spacemacs-light t)
+
+(use-package protobuf-mode
+  :mode "\\.proto\\'")
 
 (use-package list-register
-  :config
-  (global-set-key (kbd "C-x r v") 'list-register))
+  :bind
+  ("C-x r v" . list-register))
 
 (use-package neotree
+  :bind
+  ("C-c b" . neotree-toggle)
   :config
   (setq neo-window-width 40)
   (setq neo-window-fixed-size nil)
   (setq neo-theme 'arrow)
-  (setq neo-force-change-root t)
-  (global-set-key (kbd "C-c b") 'neotree-toggle))
+  (setq neo-force-change-root t))
 
-(use-package markdown-mode+)
+(use-package markdown-mode+
+  :mode ("\\.markdown\\'" "\\.md\\'"))
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
+
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
 
 (use-package yasnippet
   :config
@@ -102,130 +136,135 @@
   :config
   (global-page-break-lines-mode))
 
-(use-package yasnippet)
-
 (use-package linum
+  :defer t
   :config
   (setq linum-format "%d "))
 
 (use-package find-file-in-project
+  :bind
+  ("C-x f" . find-file-in-project)  
   :config
-  (setq ffip-find-options "-not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'")
-  (bind-key "C-x f" 'find-file-in-project))
+  (setq ffip-find-options "-not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'"))
 
 (use-package expand-region
-  :config
-  (bind-key "C-=" 'er/expand-region))
+  :bind
+  ("C-=" . er/expand-region)
+  ("C-v" . er/expand-region))
 
-(use-package go-rename)
+(use-package go-rename
+  :defer t)
 
 (use-package go-eldoc
-  :config
-  (add-hook 'go-mode-hook 'go-eldoc-setup))
+  :after go-mode)
 
-(use-package smart-mode-line
+(use-package go-guru
+  :after go-mode
   :config
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/theme 'respectful)
-  (sml/setup))
+  (set-face-attribute 'go-guru-hl-identifier-face nil
+                      :inherit 'isearch))
 
 (use-package go-mode
+  :mode "\\.go\\'"
+  :bind
+  ("C-h f" . godoc-at-point)
+  ("M-." . godef-jump)
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'su/go-mode-hook))
 
-(use-package go-guru
-  :config
-  (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
-  (set-face-attribute 'go-guru-hl-identifier-face nil
-                      :inherit 'custom-comment))
-
 (use-package company
+  :bind
+  ("M-/" . company-complete-common)
   :config
   (setq company-tooltip-limit 20)                       ; bigger popup window
   (setq company-idle-delay .3)                          ; decrease delay before autocompletion popup shows
   (setq company-echo-delay 0)                           ; remove annoying blinking
   (setq company-begin-commands '(self-insert-command))  ; start autocompletion only after typing
-  (bind-key "M-/" 'company-complete-common)
   (add-hook 'lisp-mode-hook 'company-mode))
 
 (use-package company-go
+  :after go-mode
   :config
   (add-to-list 'company-backends 'company-go))
 
 (use-package zoom-frm
-  :config
-  (define-key ctl-x-map [(control ?+)] 'zoom-in/out)
-  (define-key ctl-x-map [(control ?-)] 'zoom-in/out)
-  (define-key ctl-x-map [(control ?=)] 'zoom-in/out)
-  (define-key ctl-x-map [(control ?0)] 'zoom-in/out))
+  :bind
+  ("C-x C--" . zoom-in/out)
+  ("C-x C-=" . zoom-in/out))
 
 (use-package tide
+  :mode ("\\.ts\\'" "\\.tsx\\'")
   :config
   (add-hook 'typescript-mode-hook 'su/tide-mode-hook))
 
 (use-package ivy
+  :bind
+  ("C-x b" . ivy-switch-buffer)
+  ("C-c C-r" . ivy-resume)
+  ("<f6>" . ivy-resume)
   :config
   (setq ivy-use-virtual-buffers t)
-  (ivy-mode 1)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume))
+  (ivy-mode 1))
 
-(use-package smex)
+(use-package smex
+  :defer t)
 
-(use-package ag)
+(use-package ag
+  :defer t)
 
 (use-package counsel
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("<f1> f" . counsel-describe-function)
+  ("<f1> v" . counsel-describe-variable)
+  ("<f1> l" . counsel-find-library)
+  ("<f2> i" . counsel-info-lookup-symbol)
+  ("<f2> u" . counsel-unicode-char)
+  ("C-c g" . counsel-git)
+  ("C-c j" . counsel-git-grep)
+  ("C-c k" . counsel-ag)
+  ("C-x l" . counsel-locate)
+  ("C-S-o" . counsel-rhythmbox)
   :config
   (counsel-mode 1)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
 (use-package swiper
-  :config
-  (global-set-key "\C-s" 'swiper))
+  :bind
+  ("\C-s" . swiper))
 
-(use-package magit)
+(use-package magit
+  :defer t)
 
 (use-package spaceline
   :config
   (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
+  (spaceline-emacs-theme))
 
-(use-package systemd)
+(use-package systemd
+  :mode
+  ("/systemd/\\(?:.\\|\n\\)+?\\.d/[^/]+?\\.conf\\'" . systemd-mode))
 
 (use-package terraform-mode
+  :mode "\\.tf\\(vars\\)?\\'"
   :config
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
 (use-package js2-mode
-  :mode
-  ("\\.js$" . js2-mode)
+  :mode "\\.jsm?\\'"
+  :interpreter "node"
   :config
-  (add-hook 'js-mode-hook 'js2-minor-mode)
-  (setq js2-basic-offset 2
-        js2-bounce-indent-p t
-        js2-strict-missing-semi-warning nil
-        js2-concat-multiline-strings nil
-        js2-include-node-externs t
-        js2-skip-preprocessor-directives t
-        js2-strict-inconsistent-return-warning nil))
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
 
-(use-package rjsx-mode
-  :mode
-  ("/\\([[:upper:]]\\w+\\)\\(/index\\)?\\.js$" . rjsx-mode))
+;; installed locally
+(when (require 'rtags nil 'noerror)
+  (setq rtags-autostart-diagnostics t)
+  (setq rtags-completions-enabled t)
+  (setq rtags-rc-log-enanabled t))
 
 (add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
@@ -234,7 +273,12 @@
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'su/cxx-mode-hook)
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
-(add-hook 'isearch-mode-end-hook 'my-goto-match-beginning)
+(add-hook 'js-mode-hook 'su/js-mode-hook)
+(add-hook 'isearch-mode-end-hook 'su/goto-match-beginning)
+
+(defun su/goto-match-beginning ()
+  (when (and isearch-forward isearch-other-end)
+    (goto-char isearch-other-end)))
 
 (defun su/toggle-selective-display ()
   (interactive)
@@ -256,19 +300,19 @@
   (subword-mode)
   (eldoc-mode)
   (company-mode)
-  (go-guru-hl-identifier-mode)
-  (local-set-key (kbd "C-c C-r") 'go-guru-referrers)
-  (local-set-key (kbd "M-.") 'godef-jump)
-  (local-set-key (kbd "C-h f") 'godoc-at-point))
+  (go-eldoc-setup)
+  (go-guru-hl-identifier-mode))
+
+(defun su/js-mode-hook()
+  (subword-mode)
+  (setq js-indent-level 2)
+  (setq indent-tabs-mode t))
 
 (defun su/cxx-mode-hook()
-  (bind-key "M-." 'rtags-find-symbol-at-point)
-  (bind-key "C-c C-r" 'rtags-find-references)
   (eldoc-mode)
   (company-mode)
   (gnome-c-style-mode)
-  (setq indent-tabs-mode nil)
-  (setq eldoc-documentation-function 'rtags-eldoc))
+  (setq indent-tabs-mode nil))
 
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
@@ -290,11 +334,6 @@
 
 (load (expand-file-name "local.el" user-emacs-directory))
 
-;; installed locally
-(require 'rtags)
-(setq rtags-autostart-diagnostics t)
-(setq rtags-completions-enabled t)
-(setq rtags-rc-log-enabled t)
-(add-to-list 'company-backends 'company-rtags)
-(rtags-diagnostics)
-(put 'dired-find-alternate-file 'disabled nil)
+(require 'server)
+(if (not (server-running-p))
+    (server-start))

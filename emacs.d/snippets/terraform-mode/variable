@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: variable
+# key: var
+# --
+variable "$1" {
+  type    = "${2:$$(yas-choose-value '("string" "list" "map"))}"${3:
+  default = "$4"
+}${5:
+  description = <<EOF
+$6
+EOF}
+}
