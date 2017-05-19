@@ -35,7 +35,7 @@
 (menu-bar-mode -1)
 
 ;; highlight matching parens
-(show-paren-mode 1)
+(show-paren-mode t)
 ;; no blinking cursor
 (blink-cursor-mode -1)
 
@@ -68,7 +68,6 @@
 ;; disable startup screen
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-(setq initial-buffer-choice "*notes*")
 
 ;; disable automatic backups
 (setq make-backup-files nil)
@@ -96,11 +95,15 @@
 (require 'yas)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
+(use-package pinentry
+  :config
+  (pinentry-start))
+
 (use-package esup
   :defer t)
 
 (use-package spacemacs-theme)
-(load-theme 'spacemacs-light t)
+(load-theme 'spacemacs-dark t)
 
 (use-package protobuf-mode
   :mode "\\.proto\\'")
@@ -118,8 +121,7 @@
   (setq neo-theme 'arrow)
   (setq neo-force-change-root t))
 
-(use-package markdown-mode+
-  :mode ("\\.markdown\\'" "\\.md\\'"))
+(use-package markdown-mode+)
 
 (use-package yaml-mode
   :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
@@ -178,6 +180,8 @@
   :bind
   ("M-/" . company-complete-common)
   :config
+  (setq company-dabbrev-code-modes t)
+  (setq company-dabbrev-code-everywhere t)
   (setq company-tooltip-limit 20)                       ; bigger popup window
   (setq company-idle-delay .3)                          ; decrease delay before autocompletion popup shows
   (setq company-echo-delay 0)                           ; remove annoying blinking
@@ -251,7 +255,7 @@
 (use-package terraform-mode
   :mode "\\.tf\\(vars\\)?\\'"
   :config
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+  (add-hook 'terraform-mode-hook 'su/terraform-mode-hook))
 
 (use-package js2-mode
   :mode "\\.jsm?\\'"
@@ -317,6 +321,10 @@
 (defun su/html-mode-hook()
   (set (make-local-variable 'sgml-basic-offset) 4))
 
+(defun su/terraform-mode-hook()
+  (company-mode)
+  (terraform-format-on-save-mode))
+
 (global-set-key
  "\C-n"
  (lambda ()
@@ -337,3 +345,5 @@
 (require 'server)
 (if (not (server-running-p))
     (server-start))
+
+(xterm-mouse-mode t)
