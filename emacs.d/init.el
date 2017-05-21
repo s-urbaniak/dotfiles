@@ -102,8 +102,8 @@
 (use-package esup
   :defer t)
 
-(use-package spacemacs-theme)
-(load-theme 'spacemacs-dark t)
+(use-package zenburn-theme)
+(load-theme 'zenburn t)
 
 (use-package protobuf-mode
   :mode "\\.proto\\'")
