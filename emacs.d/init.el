@@ -39,10 +39,12 @@
 ;; no blinking cursor
 (blink-cursor-mode -1)
 
-;; this is only applicable if started in a graphical environment
-;; (tool-bar-mode -1)
-;; (set-fringe-mode 0)
-;; (scroll-bar-mode -1)
+;; these settings is only applicable if started in a graphical environment
+(when (display-graphic-p)
+  (progn
+    (tool-bar-mode -1)
+    (set-fringe-mode 0)
+    (scroll-bar-mode -1)))
 
 ;; if a file changed on disk, load (revert) its content
 (global-auto-revert-mode t)
