@@ -64,8 +64,8 @@
                                      (interactive)
                                      (scroll-right 4)))
 
-;; select on focus for buffers
-(setq mouse-autoselect-window t)
+;; disable select on focus for buffers
+(setq mouse-autoselect-window nil)
 
 ;; disable startup screen
 (setq inhibit-startup-message t)
@@ -84,6 +84,17 @@
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome-stable")
+
+; from enberg on #emacs
+(setq compilation-finish-functions
+  (lambda (buf str)
+    (if (null (string-match ".*exited abnormally.*" str))
+        ;;no errors, make the compilation window go away in a few seconds
+        (progn
+          (run-at-time
+           "2 sec" nil 'delete-windows-on
+           (get-buffer-create "*compilation*"))
+          (message "No Compilation Errors!")))))
 
 (bind-key "<M-up>" 'windmove-up)
 (bind-key "<M-down>" 'windmove-down)
@@ -106,6 +117,9 @@
 
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
+
+;; (use-package spacemacs-theme)
+;; (load-theme 'spacemacs-light t)
 
 (use-package protobuf-mode
   :mode "\\.proto\\'")
@@ -172,7 +186,7 @@
   :mode "\\.go\\'"
   :bind
   ("C-h f" . godoc-at-point)
-  ("M-." . godef-jump)
+  ("M-." . go-guru-definition)
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
@@ -268,6 +282,8 @@
 
 ;; installed locally
 (when (require 'rtags nil 'noerror)
+  (require 'company)
+  (push 'company-rtags company-backends)
   (setq rtags-autostart-diagnostics t)
   (setq rtags-completions-enabled t)
   (setq rtags-rc-log-enanabled t))
@@ -312,12 +328,12 @@
 (defun su/js-mode-hook()
   (subword-mode)
   (setq js-indent-level 2)
-  (setq indent-tabs-mode t))
+  (setq indent-tabs-mode nil))
 
 (defun su/cxx-mode-hook()
   (eldoc-mode)
   (company-mode)
-  (gnome-c-style-mode)
+  (setq eldoc-documentation-function 'rtags-eldoc)
   (setq indent-tabs-mode nil))
 
 (defun su/html-mode-hook()

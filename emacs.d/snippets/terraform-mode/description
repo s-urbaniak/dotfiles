@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: description
+# key: desc
+# --
+  description = <<EOF
+$1
+EOF

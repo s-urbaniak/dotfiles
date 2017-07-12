@@ -6,3 +6,5 @@ emacs.d/custom.el
 emacs.d/local.el
 emacs.d/recentf
 emacs.d/smex-items
+emacs.d/.#recentf
+emacs.d/eshell
