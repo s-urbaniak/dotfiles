@@ -7,6 +7,9 @@ export PATH=$GOPATH/bin:$PATH
 # rust
 export PATH=$PATH:$HOME/.cargo/bin
 
+# npm
+export PATH=$PATH:$HOME/.npm/bin
+
 export EDITOR="emacsclient -c" # default editor
 export LANG=en_US.UTF-8
 
@@ -60,6 +63,7 @@ alias vb=VBoxManage
 # emacs
 alias en="emacsclient -n"
 alias et="emacsclient -t"
+alias ec="emacsclient -c"
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
@@ -76,6 +80,13 @@ export TERM=xterm-256color
 ### prompt setup
 
 function _prompt() {
+    exit_code=$?
+#    if [ "$exit_code" -ne 0 ]; then
+#        cmd=$(fc -l -n -1 | cut -f 2)
+#        notify-send -t 2000 -i face-worried "command failure" "${cmd}
+# exit code: ${exit_code}"
+#    fi
+
     # Save and reload the history after each command finishes
     history -a
     history -c
@@ -118,6 +129,16 @@ function enterpod() {
 
 function runningpod() {
     rkt l --no-legend --full | grep running | cut -f1 | head -1
+}
+
+function n() {
+    wd=$(pwd)
+    start=$(date +%s)
+    "$@"
+    exit_code=$?
+    notify-send "Command" "
+$wd $(echo $@)\r
+duration: $(($(date +%s) - start))s, exit code: $exit_code"
 }
 
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"

@@ -31,7 +31,7 @@
 (setq use-package-always-ensure t)
 (setq use-package-verbose nil)
 
-(set-frame-font "Monospace-10")
+(set-frame-font "Monospace-9")
 (menu-bar-mode -1)
 
 ;; highlight matching parens
@@ -106,6 +106,7 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'direnv)
 (require 'yas)
+(require 'clear-theme)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
 (use-package pinentry
@@ -115,8 +116,14 @@
 (use-package esup
   :defer t)
 
+;; (use-package material-theme)
+;; (load-theme 'leuven t)
+
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
+
+;; (use-package spacemacs-theme)
+;; (load-theme 'spacemacs-light t)
 
 ;; (use-package spacemacs-theme)
 ;; (load-theme 'spacemacs-light t)
@@ -231,8 +238,11 @@
 (use-package smex
   :defer t)
 
-(use-package ag
-  :defer t)
+(use-package rg
+  :defer t
+  :config
+  (setq rg-custom-type-aliases
+        '(("tf" . "*.tf"))))
 
 (use-package counsel
   :bind
@@ -260,9 +270,9 @@
   :defer t)
 
 (use-package spaceline
-  :config
-  (require 'spaceline-config)
-  (spaceline-emacs-theme))
+ :config
+ (require 'spaceline-config)
+ (spaceline-emacs-theme))
 
 (use-package systemd
   :mode
@@ -355,6 +365,14 @@
    (interactive)
    (scroll-down 4)))
 
+(global-set-key
+ (kbd "C-,")
+ 'switch-to-prev-buffer)
+
+(global-set-key
+ (kbd "C-.")
+ 'switch-to-next-buffer)
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -364,4 +382,18 @@
 (if (not (server-running-p))
     (server-start))
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 (xterm-mouse-mode t)
+
+(defface egoge-display-time
+  '((((type x w32 mac))
+     (:inherit bold)))
+  "Face used to display the time in the mode line.")
+
+(setq display-time-string-forms
+      '((propertize (concat " " 24-hours ":" minutes " ")
+                    'face 'egoge-display-time)))
+
+(display-time-mode t)
