@@ -10,6 +10,7 @@
 
 import i3
 import subprocess
+import pdb;
 
 def i3clients():
     """

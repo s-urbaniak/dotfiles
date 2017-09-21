@@ -31,7 +31,15 @@
 (setq use-package-always-ensure t)
 (setq use-package-verbose nil)
 
+(setq su/font "Monospace-9")
+
+;; set default font
 (set-frame-font "Monospace-9")
+
+;; set default font in newly opened frames
+(add-to-list 'default-frame-alist
+             '(font . "Monospace-9"))
+
 (menu-bar-mode -1)
 
 ;; highlight matching parens
@@ -282,6 +290,8 @@
   :mode "\\.tf\\(vars\\)?\\'"
   :config
   (add-hook 'terraform-mode-hook 'su/terraform-mode-hook))
+
+(use-package json-mode)
 
 (use-package js2-mode
   :mode "\\.jsm?\\'"
