@@ -13,6 +13,10 @@
 (show-paren-mode t)
 ;; no blinking cursor
 (blink-cursor-mode -1)
+;; use xterm mouse
+(xterm-mouse-mode t)
+;; saves the location of the point when you kill a buffer and returns to it next time you visit the associated file.
+(save-place-mode t)
 
 ;; these settings is only applicable if started in a graphical environment
 (when (display-graphic-p)
@@ -120,5 +124,3 @@
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-
-(xterm-mouse-mode t)

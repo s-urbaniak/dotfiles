@@ -1,3 +1,5 @@
+(use-package toml-mode)
+
 (use-package elpy
   :config
   (elpy-enable))

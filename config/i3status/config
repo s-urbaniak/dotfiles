@@ -30,14 +30,9 @@ wireless _first_ {
         format_down = " down"
 }
 
-wireless _first_ {
-        format_up = " (%quality at %essid) %ip"
-        format_down = " down"
-}
-
-ethernet _first_ {
+ethernet enp0s31f6 {
         # if you use %speed, i3status requires root privileges
-        format_up = " %ip (%speed)"
+        format_up = " %ip"
         format_down = " down"
 }
 
