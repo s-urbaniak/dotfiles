@@ -1,5 +1,11 @@
 (use-package toml-mode)
 
+(use-package elixir-mode)
+
+(use-package robe
+  :config
+  (add-hook 'ruby-mode-hook 'robe-mode))
+
 (use-package elpy
   :config
   (elpy-enable))
@@ -95,7 +101,6 @@
   :mode "\\.go\\'"
   :bind
   ("C-h f" . godoc-at-point)
-  ("M-." . go-guru-definition)
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
