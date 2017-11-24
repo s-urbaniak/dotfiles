@@ -261,3 +261,6 @@ new_window pixel 1
 new_float pixel 1
 focus_follows_mouse no
 hide_edge_borders smart
+
+for_window [class="Pinentry"] floating enable
+
