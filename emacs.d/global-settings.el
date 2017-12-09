@@ -35,6 +35,14 @@
 (setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
+(global-set-key (kbd "<mouse-4>") '(lambda ()
+                                     (interactive)
+                                     (scroll-down 4)))
+
+(global-set-key (kbd "<mouse-5>") '(lambda ()
+                                     (interactive)
+                                     (scroll-up 4)))
+
 (global-set-key (kbd "<mouse-7>") '(lambda ()
                                      (interactive)
                                      (scroll-left 4)))
