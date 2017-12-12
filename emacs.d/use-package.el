@@ -101,6 +101,7 @@
   :mode "\\.go\\'"
   :bind
   ("C-h f" . godoc-at-point)
+  ("M-." . go-guru-definition)
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
@@ -192,9 +193,8 @@
 
 (use-package json-mode)
 
-(use-package js2-mode
-  :mode "\\.jsm?\\'"
-  :interpreter "node"
+(use-package tern)
+
+(use-package company-tern
   :config
-  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
+  (add-to-list 'company-backends 'company-tern))

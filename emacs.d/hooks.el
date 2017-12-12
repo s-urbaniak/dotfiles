@@ -38,6 +38,8 @@
   (lambda () (local-set-key (kbd "M-.") #'go-guru-definition)))
 
 (defun su/js-mode-hook()
+  (tern-mode)
+  (company-mode)
   (subword-mode)
   (setq js-indent-level 2)
   (setq indent-tabs-mode nil))
