@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# /etc/X11/xinit/xserverrc
+exec /usr/bin/X -dpi 192 -nolisten tcp "$@"
