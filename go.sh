@@ -2,7 +2,12 @@
 
 goget=("go" "get" "-u" "-v")
 
-for tool in "github.com/nsf/gocode" "github.com/tpng/gopkgs" "github.com/golang/dep/cmd/dep"; do
+for tool in \
+    "github.com/uudashr/gopkgs/cmd/gopkgs" \
+    "github.com/nsf/gocode" \
+    "github.com/tpng/gopkgs" \
+    "github.com/rogpeppe/godef" \
+    "github.com/golang/dep/cmd/dep"; do
     "${goget[@]}" "${tool}"
 done
 
