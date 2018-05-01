@@ -22,17 +22,8 @@
 (use-package esup
   :defer t)
 
-;; (use-package material-theme)
-;; (load-theme 'leuven t)
-
-(use-package zenburn-theme)
-(load-theme 'zenburn t)
-
-;; (use-package spacemacs-theme)
-;; (load-theme 'spacemacs-light t)
-
-;; (use-package spacemacs-theme)
-;; (load-theme 'spacemacs-light t)
+(use-package color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
 
 (use-package direnv)
 
@@ -193,8 +184,13 @@
 
 (use-package json-mode)
 
-(use-package tern)
-
-(use-package company-tern
+(use-package prettier-js
   :config
-  (add-to-list 'company-backends 'company-tern))
+  (add-hook 'js-mode-hook 'prettier-js-mode)
+  (setq prettier-js-args
+        '("--trailing-comma" "all"
+          "--bracket-spacing" "false"
+          "--single-quote" "true"
+          "--bracket-spacing" "true")))
+
+(use-package go-fill-struct)

@@ -1,4 +1,4 @@
-(setq su/font "Monospace-10")
+(setq su/font "Monospace-11.5")
 
 ;; set default font
 (set-frame-font su/font)
@@ -82,6 +82,7 @@
 (add-to-list 'load-path (expand-file-name "sur" user-emacs-directory))
 (require 'yas)
 (require 'clear-theme)
+(require 'set-font)
 (autoload 'gtk-lookup-symbol "gtk-look" nil t)
 
 (require 'cl)

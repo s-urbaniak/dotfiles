@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Monospace 9
+font = Monospace 12
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -38,7 +38,8 @@ filter_unmatched_urls = true
 foreground      = #c5c8c6
 foreground_bold = #e0e0e0
 cursor          = #e0e0e0
-background      = #1d1f21
+#background      = #1d1f21
+background      = #000000
 
 # 16 color space
 
@@ -79,16 +80,3 @@ color18 = #282a2e
 color19 = #373b41
 color20 = #b4b7b4
 color21 = #e0e0e0
-
-[hints]
-#font = Monospace 12
-#foreground = #dcdccc
-#background = #3f3f3f
-#active_foreground = #e68080
-#active_background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
-
-# vim: ft=dosini cms=#%s

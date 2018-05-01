@@ -21,8 +21,9 @@ ln -sf "$PWD"/vim/vimrc ~/.vimrc
 ln -sf "$PWD"/git/gitconfig ~/.gitconfig
 
 mkdir -p ~/.config
-ln -sf "$PWD"/i3 ~/.config/i3
-ln -sf "$PWD"/i3status ~/.config/i3status
+ln -sf "$PWD"/config/i3 ~/.config/i3
+ln -sf "$PWD"/config/i3status ~/.config/i3status
+ln -sf "$PWD"/config/termite ~/.config/termite
 mkdir -p ~/.local/share
 ln -sf "$PWD"/local/share/i3 ~/.local/share/i3
 

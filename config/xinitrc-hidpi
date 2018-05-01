@@ -1,6 +1,5 @@
-echo $XDG_RUNTIME_DIR
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5
+xrdb -merge ~/.Xresources
 exec i3
 
