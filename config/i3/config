@@ -80,8 +80,8 @@ bindsym $mod+Shift+z move scratchpad
 # Show the first scratchpad window
 bindsym $mod+z scratchpad show
 
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen brightness
 
 bindsym $mod+o exec --no-startup-id i3-msg open
 
@@ -219,9 +219,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer set Master 10%+"
-bindsym XF86AudioLowerVolume exec --no-startup-id "amixer set Master 10%-"
-bindsym XF86AudioMute exec --no-startup-id "amixer set Master toggle"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pamixer -i 10"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pamixer -d 10"
+bindsym XF86AudioMute exec --no-startup-id "pamixer -t"
 
 bindsym $mod+Tab exec --no-startup-id ~/go/bin/i3-focus-last switch
 bindsym $mod+w exec --no-startup-id ~/.local/share/i3/winmenu.py
