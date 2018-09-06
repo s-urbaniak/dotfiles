@@ -1,12 +1,14 @@
-(setq su/font "Monospace-10")
+(setq su/font "Monospace-15")
 
 ;; set default font
 (set-frame-font su/font)
 
-;; set default font in newly opened frames
-(add-to-list 'default-frame-alist
-             `(font . ,su/font)
-             '(vertical-scroll-bars . nil))
+(custom-set-variables
+ '(default-frame-alist
+    `((font . ,su/font)
+      (vertical-scroll-bars)
+      (tool-bar-lines)
+      (menu-bar-lines))))
 
 ;; disable menu bar
 (menu-bar-mode -1)
