@@ -29,6 +29,7 @@
   (company-mode t))
 
 (defun su/go-mode-hook ()
+  (flycheck-mode)
   (subword-mode)
   (eldoc-mode)
   (company-mode)
@@ -56,3 +57,8 @@
 (defun su/terraform-mode-hook()
   (company-mode)
   (terraform-format-on-save-mode))
+
+(defun su/rust-mode-hook()
+  (racer-mode)
+  (company-mode)
+  (eldoc-mode))

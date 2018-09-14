@@ -92,12 +92,12 @@
 (require 'cl-macs)
 
 ;; installed locally
-(when (require 'rtags nil 'noerror)
-  (require 'company)
-  (push 'company-rtags company-backends)
-  (setq rtags-autostart-diagnostics t)
-  (setq rtags-completions-enabled t)
-  (setq rtags-rc-log-enanabled t))
+;; (when (require 'rtags nil 'noerror)
+;;   (require 'company)
+;;   (push 'company-rtags company-backends)
+;;   (setq rtags-autostart-diagnostics t)
+;;   (setq rtags-completions-enabled t)
+;;   (setq rtags-rc-log-enanabled t))
 
 (global-set-key
  "\C-n"

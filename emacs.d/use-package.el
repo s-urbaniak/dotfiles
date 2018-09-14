@@ -30,10 +30,6 @@
 (use-package protobuf-mode
   :mode "\\.proto\\'")
 
-(use-package list-register
-  :bind
-  ("C-x r v" . list-register))
-
 (use-package neotree
   :bind
   ("C-c b" . neotree-toggle)
@@ -115,11 +111,6 @@
   :config
   (add-to-list 'company-backends 'company-go))
 
-(use-package zoom-frm
-  :bind
-  ("C-x C--" . zoom-in/out)
-  ("C-x C-=" . zoom-in/out))
-
 (use-package tide
   :mode ("\\.ts\\'" "\\.tsx\\'")
   :config
@@ -141,7 +132,7 @@
   :defer t
   :config
   (setq rg-custom-type-aliases
-        '(("tf" . "*.tf"))))
+        '(("tf" . "*.tf") ("jsonnet" . "*.jsonnet *.libsonnet"))))
 
 (use-package counsel
   :bind
@@ -194,3 +185,16 @@
           "--bracket-spacing" "true")))
 
 (use-package go-fill-struct)
+
+(use-package flycheck
+  :config
+  (setq flycheck-go-build-install-deps t))
+
+(use-package rust-mode
+  :config
+  (add-hook 'rust-mode-hook 'su/rust-mode-hook))
+
+(use-package racer
+  :after rust-mode)
+
+(use-package jsonnet-mode)
