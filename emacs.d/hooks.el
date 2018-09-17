@@ -29,7 +29,6 @@
   (company-mode t))
 
 (defun su/go-mode-hook ()
-  (flycheck-mode)
   (subword-mode)
   (eldoc-mode)
   (company-mode)

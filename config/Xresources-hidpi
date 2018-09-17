@@ -8,7 +8,7 @@ Xft.rgba: rgb
 
 Xcursor.size: 64
 
-URxvt.font: xft:Monospace:size=15
+URxvt.font: xft:Monospace:size=10
 
 URxvt.scrollBar: false
 URxvt.perl-ext-common: resize-font
