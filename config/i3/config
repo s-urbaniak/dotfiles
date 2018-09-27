@@ -248,7 +248,7 @@ bar {
     }
 }
 
-exec --no-startup-id /usr/bin/dunst -fn 'font pango: Helvetica Neue, FontAwesome 16' -lf "#7780a1" -nf "#ffffff" -cf "#ee829f" -lb "#1f222d" -nb "#1f222d" -cb "#1f222d"
+exec --no-startup-id /usr/bin/dunst -fn 'font pango: Monspace 17' -lf "#7780a1" -nf "#ffffff" -cf "#ee829f" -lb "#1f222d" -nb "#1f222d" -cb "#1f222d"
 exec --no-startup-id /usr/bin/urxvtd -f
 
 new_window pixel 1
@@ -260,3 +260,4 @@ for_window [class="Pinentry"] floating enable
 for_window [title="^Android Emulator.*"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [title="Yubico Authenticator"] floating enable
+for_window [title="Ediff"] floating enable

@@ -45,7 +45,7 @@ def win_menu(clients, l=10):
     """
     Displays a window menu using dmenu. Returns window id.
     """
-    dmenu = subprocess.Popen(['/usr/bin/dmenu','-i','-l', str(l), '-sf', '#ffffff', '-sb', '#252936', '-nf', '#7780a1', '-nb', '#1f222d', '-fn', '"SFNS Display 10"'],
+    dmenu = subprocess.Popen(['/usr/bin/dmenu','-i','-l', str(l), '-sf', '#ffffff', '-sb', '#252936', '-nf', '#7780a1', '-nb', '#1f222d', '-fn', '"font pango: Bitstream Vera Sans"'],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE)
     menu_str = '\n'.join(sorted(clients.keys()))
