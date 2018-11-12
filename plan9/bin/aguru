@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+CMD="describe"
+if [ -n "$1" ]
+then
+	CMD="$1"
+fi
+
+PKG=""
+if [ -n "$2" ]
+then
+	PKG="$2"
+fi
+
+ADR=`apl dot`
+
+(guru -scope "$PKG" "$CMD" "$ADR" | awk '
+	{
+		printf "%s\n", $1
+		$1=""
+		printf "%s\n---\n", $0
+	}') 2>&1 | plumb -i -d edit -a 'action=showdata filename=+oracle'

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+scratch=$(dirname $(apl dot | cut -d ':' -f1))"/+scratch"
+echo "Delete" | plumb -i -d edit -a "filename=$scratch"

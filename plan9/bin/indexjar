@@ -1,0 +1,20 @@
+#!/bin/sh
+
+JAR="$1"
+JARFILE="$PWD"/$(find "$1")
+FILES=$(unzip -l "$JAR" | tr -s ' ' | tail -n +4 | tail -r | tail -n +3 | cut -d ' ' -f 5 | egrep '.*\.java$')
+
+echo $TMP
+for f in $FILES
+do
+	SRC=$(unzip -c "$JAR" $f | tail -n +3 | base64)
+	CLASS=$(echo "$f" | sed 's/\//\./g' | sed 's/\(.*\)\.java$/\1/g')
+	curl -XPOST 'localhost:9200/src/jar?pretty' -d "
+{
+	\"jar\": \""$JAR"\",
+	\"file\": \""$f"\",
+	\"class\": \""$CLASS"\",
+	\"java\": \""$SRC"\"
+}
+"
+done

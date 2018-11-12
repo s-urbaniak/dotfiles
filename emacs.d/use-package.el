@@ -33,6 +33,7 @@
 (use-package neotree
   :bind
   ("C-c b" . neotree-toggle)
+  ("C-b" . neotree-find)
   :config
   (setq neo-window-width 40)
   (setq neo-window-fixed-size nil)
@@ -65,7 +66,7 @@
   :bind
   ("C-x f" . find-file-in-project)  
   :config
-  (setq ffip-find-options "-not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'"))
+  (setq ffip-find-options "-not -iwholename './vendor/*' -not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'"))
 
 (use-package expand-region
   :bind

@@ -10,7 +10,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 # npm
 export PATH=$PATH:$HOME/npm/bin
 
-export EDITOR="emacsclient" # default editor
+export EDITOR="emacsclient -c" # default editor
 #export EDITOR=nvim
 export LANG=en_US.UTF-8
 
@@ -59,9 +59,7 @@ fi
 # virtualbox
 alias vb=VBoxManage
 # emacs
-alias en="emacsclient -n"
-alias et="emacsclient -t"
-alias ec="emacsclient -c -n"
+alias e=emacsclient
 
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
@@ -137,3 +135,8 @@ duration: $(($(date +%s) - start))s, exit code: $exit_code"
 [[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
 [[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
 
+
+complete -C /usr/bin/vault vault
+
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash

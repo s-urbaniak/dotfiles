@@ -1,6 +1,5 @@
 #!/bin/bash
 
-UID=1000
 GID=1000
 
 pathtoname() {
@@ -12,6 +11,7 @@ stdbuf -oL -- udevadm monitor --udev -s block | while read -r -- _ _ event devpa
             devname="$(pathtoname "$devpath")"
             unset TYPE
             source <(blkid "${devname}" -o export)
+            echo "type ${devname} ${TYPE}"
 
             opts=""
             if [[ "${TYPE}" == *"fat" ]]; then

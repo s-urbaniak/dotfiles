@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# an acme startup helper
+
+d=$(dirname ${BASH_SOURCE[0]})
+
+echo dir "${d}"
+
+source /etc/profile.d/plan9.sh
+
+PAGER=nobs
+EDITOR=E
+TERM=dumb
+PATH=$PATH:$d
+
+#[ "$1" = "-n" ] && { export NAMESPACE=/tmp/ns.$USER.$2; mkdir -p "$NAMESPACE"; shift 2; }
+
+FONTARG='/mnt/font/DejaVu Sans Mono/28a/font'
+
+9p ls plumb >/dev/null 2>/dev/null || plumber
+9p ls font >/dev/null 2>/dev/null || fontsrv &
+
+export acmeshell="bash"
+
+exec acme -a -f "$FONTARG" "$@"
