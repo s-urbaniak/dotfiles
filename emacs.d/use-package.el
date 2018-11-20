@@ -1,14 +1,13 @@
-(use-package toml-mode)
+(use-package toml-mode
+  :defer t)
 
-(use-package elixir-mode)
+(use-package elixir-mode
+  :defer t)
 
 (use-package robe
+  :defer t
   :config
   (add-hook 'ruby-mode-hook 'robe-mode))
-
-(use-package elpy
-  :config
-  (elpy-enable))
 
 (use-package smartparens
   :config
@@ -40,7 +39,8 @@
   (setq neo-theme 'arrow)
   (setq neo-force-change-root t))
 
-(use-package markdown-mode+)
+(use-package markdown-mode+
+  :defer t)
 
 (use-package yaml-mode
   :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
@@ -73,27 +73,26 @@
   ("C-=" . er/expand-region)
   ("C-v" . er/expand-region))
 
-(use-package go-rename
-  :defer t)
-
-(use-package go-eldoc
-  :after go-mode)
-
-(use-package go-guru
-  :after go-mode
-  :config
-  (set-face-attribute 'go-guru-hl-identifier-face nil
-                      :inherit 'isearch))
-
 (use-package go-mode
   :mode "\\.go\\'"
-  :bind
-  ("C-h f" . godoc-at-point)
-  ("M-." . go-guru-definition)
   :config
   (setq gofmt-command "goimports")
+
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook 'su/go-mode-hook))
+
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (subword-mode)
+              (eldoc-mode)
+              (company-mode)
+              (local-set-key (kbd "C-h f") #'godoc-at-point))))
+
+(use-package go-guru
+  :after go-mode)
+  
+(use-package go-rename
+  :defer t
+  :after go-mode)
 
 (use-package company
   :bind
@@ -107,16 +106,6 @@
   (setq company-begin-commands '(self-insert-command))  ; start autocompletion only after typing
   (add-hook 'lisp-mode-hook 'company-mode))
 
-(use-package company-go
-  :after go-mode
-  :config
-  (add-to-list 'company-backends 'company-go))
-
-(use-package tide
-  :mode ("\\.ts\\'" "\\.tsx\\'")
-  :config
-  (add-hook 'typescript-mode-hook 'su/tide-mode-hook))
-
 (use-package ivy
   :bind
   ("C-x b" . ivy-switch-buffer)
@@ -126,14 +115,12 @@
   (setq ivy-use-virtual-buffers t)
   (ivy-mode 1))
 
-(use-package smex
-  :defer t)
-
 (use-package rg
   :defer t
   :config
   (setq rg-custom-type-aliases
-        '(("tf" . "*.tf") ("jsonnet" . "*.jsonnet *.libsonnet"))))
+        '(("tf" . "*.tf")
+          ("jsonnet" . "*.jsonnet *.libsonnet"))))
 
 (use-package counsel
   :bind
@@ -160,42 +147,86 @@
 (use-package magit
   :defer t)
 
-(use-package spaceline
- :config
- (require 'spaceline-config)
- (spaceline-emacs-theme))
-
 (use-package systemd
-  :mode
-  ("/systemd/\\(?:.\\|\n\\)+?\\.d/[^/]+?\\.conf\\'" . systemd-mode))
+  :mode "/systemd/\\(?:.\\|\n\\)+?\\.d/[^/]+?\\.conf\\'")
 
 (use-package terraform-mode
   :mode "\\.tf\\(vars\\)?\\'"
   :config
   (add-hook 'terraform-mode-hook 'su/terraform-mode-hook))
 
-(use-package json-mode)
-
 (use-package prettier-js
+  :defer t
   :config
   (add-hook 'js-mode-hook 'prettier-js-mode)
+  (add-hook 'ts-mode-hook 'prettier-js-mode)
   (setq prettier-js-args
         '("--trailing-comma" "all"
           "--bracket-spacing" "false"
-          "--single-quote" "true"
+          "--single-quote" "false"
           "--bracket-spacing" "true")))
 
-(use-package go-fill-struct)
+(use-package go-fill-struct
+  :defer t)
 
 (use-package flycheck
   :config
   (setq flycheck-go-build-install-deps t))
 
 (use-package rust-mode
+  :defer t
   :config
   (add-hook 'rust-mode-hook 'su/rust-mode-hook))
 
 (use-package racer
+  :defer t
   :after rust-mode)
 
-(use-package jsonnet-mode)
+(use-package json-mode
+  :defer t
+  :config
+  (setq js-indent-level 2))
+
+(use-package jsonnet-mode
+  :mode ("jsonnet" "libsonnet"))
+
+(use-package lsp-mode
+  :config
+  (require 'lsp-imenu)
+
+  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
+  (lsp-define-stdio-client lsp-python "python"
+                           #'ffip-project-root
+                           '("pyls"))
+
+  (add-hook 'python-mode-hook
+            (lambda () (lsp-python-enable))))
+
+(use-package company-lsp
+  :after lsp-mode
+  :config
+  (push 'company-lsp company-backends))
+
+(use-package lsp-go
+  :after lsp-mode
+  :config
+  (add-hook 'go-mode-hook 'lsp-go-enable))
+
+(use-package lsp-javascript-typescript
+  :after lsp-mode
+  :config
+  (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
+  (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
+  (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
+  (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
+  )
+
+(use-package typescript-mode
+  :defer t
+  :config
+  (add-hook 'typescript-mode-hook 'company-mode)
+  (setq typescript-indent-level 2))
+
+(use-package smex
+  :defer t)

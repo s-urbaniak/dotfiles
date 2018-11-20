@@ -28,15 +28,6 @@
   (tide-hl-identifier-mode t)
   (company-mode t))
 
-(defun su/go-mode-hook ()
-  (subword-mode)
-  (eldoc-mode)
-  (company-mode)
-  (go-eldoc-setup)
-  (go-guru-hl-identifier-mode)
-  (lambda () (local-set-key (kbd "C-h f") #'godoc-at-point))
-  (lambda () (local-set-key (kbd "M-.") #'go-guru-definition)))
-
 (defun su/js-mode-hook()
   (tern-mode)
   (company-mode)
