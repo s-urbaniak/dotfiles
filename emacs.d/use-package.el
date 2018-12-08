@@ -174,9 +174,7 @@
   (setq flycheck-go-build-install-deps t))
 
 (use-package rust-mode
-  :defer t
-  :config
-  (add-hook 'rust-mode-hook 'su/rust-mode-hook))
+  :defer t)
 
 (use-package racer
   :defer t
@@ -230,3 +228,11 @@
 
 (use-package smex
   :defer t)
+
+(use-package lsp-rust
+  :after lsp-mode
+  :config
+  (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls"))
+  (add-hook 'rust-mode-hook #'lsp-rust-enable)
+  (add-hook 'rust-mode-hook #'flycheck-rust-setup)
+  (add-hook 'rust-mode-hook #'flycheck-mode))

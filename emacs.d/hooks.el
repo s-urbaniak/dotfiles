@@ -1,11 +1,9 @@
-(add-hook 'html-mode-hook 'su/html-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'su/lisp-mode-hook)
 (add-hook 'lisp-mode-hook 'su/lisp-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'c++-mode-hook 'su/cxx-mode-hook)
 (add-hook 'c-mode-hook 'su/cxx-mode-hook)
-(add-hook 'js-mode-hook 'su/js-mode-hook)
 (add-hook 'isearch-mode-end-hook 'su/goto-match-beginning)
 
 (defun su/goto-match-beginning ()
@@ -19,14 +17,6 @@
 (defun su/lisp-mode-hook()
   (company-mode)
   (turn-on-eldoc-mode))
-
-(defun su/tide-mode-hook()
-  (tide-setup)
-  (flycheck-mode t)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode t)
-  (tide-hl-identifier-mode t)
-  (company-mode t))
 
 (defun su/js-mode-hook()
   (tern-mode)
@@ -47,8 +37,3 @@
 (defun su/terraform-mode-hook()
   (company-mode)
   (terraform-format-on-save-mode))
-
-(defun su/rust-mode-hook()
-  (racer-mode)
-  (company-mode)
-  (eldoc-mode))
