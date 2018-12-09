@@ -74,12 +74,12 @@
   ("C-v" . er/expand-region))
 
 (use-package go-mode
+  :after lsp-mode
   :mode "\\.go\\'"
   :config
   (setq gofmt-command "goimports")
-
+  (add-hook 'go-mode-hook 'lsp)
   (add-hook 'before-save-hook 'gofmt-before-save)
-
   (add-hook 'go-mode-hook
             (lambda ()
               (subword-mode)
@@ -174,7 +174,9 @@
   (setq flycheck-go-build-install-deps t))
 
 (use-package rust-mode
-  :defer t)
+  :after lsp-mode
+  :config
+  (add-hook 'rust-mode-hook 'lsp))
 
 (use-package racer
   :defer t
@@ -188,51 +190,19 @@
 (use-package jsonnet-mode
   :mode ("jsonnet" "libsonnet"))
 
-(use-package lsp-mode
-  :config
-  (require 'lsp-imenu)
-
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
-
-  (lsp-define-stdio-client lsp-python "python"
-                           #'ffip-project-root
-                           '("pyls"))
-
-  (add-hook 'python-mode-hook
-            (lambda () (lsp-python-enable))))
+(use-package lsp-mode)
 
 (use-package company-lsp
   :after lsp-mode
   :config
   (push 'company-lsp company-backends))
 
-(use-package lsp-go
-  :after lsp-mode
-  :config
-  (add-hook 'go-mode-hook 'lsp-go-enable))
-
-(use-package lsp-javascript-typescript
-  :after lsp-mode
-  :config
-  (add-hook 'js-mode-hook #'lsp-javascript-typescript-enable)
-  (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable) ;; for typescript support
-  (add-hook 'js3-mode-hook #'lsp-javascript-typescript-enable) ;; for js3-mode support
-  (add-hook 'rjsx-mode #'lsp-javascript-typescript-enable) ;; for rjsx-mode support
-  )
-
 (use-package typescript-mode
-  :defer t
+  :after lsp-mode
   :config
+  (add-hook 'typescript-mode-hook 'lsp)
   (add-hook 'typescript-mode-hook 'company-mode)
   (setq typescript-indent-level 2))
 
 (use-package smex
   :defer t)
-
-(use-package lsp-rust
-  :after lsp-mode
-  :config
-  (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls"))
-  (add-hook 'rust-mode-hook #'lsp-rust-enable)
-  (add-hook 'rust-mode-hook #'flycheck-rust-setup)
-  (add-hook 'rust-mode-hook #'flycheck-mode))
