@@ -104,7 +104,7 @@ shopt -s nocaseglob
 [[ $- == *i* ]] && stty -ixon
 
 # register direnv
-eval $(direnv hook bash)
+eval "$(direnv hook bash)"
 
 # register kubectl completion
 source <(kubectl completion bash)
