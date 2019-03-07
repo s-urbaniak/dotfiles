@@ -1,0 +1,5 @@
+Xft.dpi:	72
+
+URxvt.font: xft:Monospace:size=14
+
+#include ".config/xresources/common"

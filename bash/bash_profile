@@ -10,8 +10,8 @@ export PATH=$PATH:$HOME/.cargo/bin
 # npm
 export PATH=$PATH:$HOME/npm/bin
 
-export EDITOR="emacsclient -c" # default editor
-#export EDITOR=nvim
+export EDITOR="emacsclient -c"
+#export EDITOR=vim
 export LANG=en_US.UTF-8
 
 # libvirt
@@ -140,3 +140,8 @@ complete -C /usr/bin/vault vault
 
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
+
+[[ -s "/home/sur/.gvm/scripts/gvm" ]] && source "/home/sur/.gvm/scripts/gvm"
+source /usr/share/undistract-me/long-running.bash
+notify_when_long_running_commands_finish_install
+

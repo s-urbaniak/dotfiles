@@ -68,11 +68,6 @@
   :config
   (setq ffip-find-options "-not -iwholename './vendor/*' -not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'"))
 
-(use-package expand-region
-  :bind
-  ("C-=" . er/expand-region)
-  ("C-v" . er/expand-region))
-
 (use-package go-mode
   :after lsp-mode
   :mode "\\.go\\'"
@@ -176,6 +171,7 @@
 (use-package rust-mode
   :after lsp-mode
   :config
+  (require 'lsp-clients)
   (add-hook 'rust-mode-hook 'lsp))
 
 (use-package racer
@@ -192,14 +188,15 @@
 
 (use-package lsp-mode)
 
-(use-package company-lsp
-  :after lsp-mode
-  :config
-  (push 'company-lsp company-backends))
+;;(use-package company-lsp
+;;  :after lsp-mode
+;;  :config
+;;  (push 'company-lsp company-backends))
 
 (use-package typescript-mode
   :after lsp-mode
   :config
+  (require 'lsp-clients)
   (add-hook 'typescript-mode-hook 'lsp)
   (add-hook 'typescript-mode-hook 'company-mode)
   (setq typescript-indent-level 2))

@@ -13,3 +13,5 @@ emacs.d/elpa
 emacs.d/tramp
 emacs.d/url
 emacs.d/#recentf#
+emacs.d/.lsp-session-v1
+emacs.d/transient/

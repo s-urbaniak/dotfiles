@@ -66,7 +66,7 @@
 (setq locate-command "mdfind")
 (setq ring-bell-function 'ignore)
 (setq set-mark-command-repeat-pop t)
-(setq frame-title-format '("" " %b"))
+(setq frame-title-format '("" " %f"))
 
 (setq-default indent-tabs-mode nil) ;; don't insert tabs (only whitespace)
 (setq-default tab-width 4) ;; show <TAB> characters as 4 whitespaces
