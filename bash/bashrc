@@ -1,0 +1,147 @@
+### environment
+
+# go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+
+# rust
+export PATH=$PATH:$HOME/.cargo/bin
+
+# npm
+export PATH=$PATH:$HOME/npm/bin
+
+export EDITOR="emacsclient -c"
+#export EDITOR=vim
+export LANG=en_US.UTF-8
+
+# libvirt
+export VIRSH_DEFAULT_CONNECT_URI=qemu:///system
+
+BLACK='\e[0;30m'
+RED='\e[0;31m'
+GREEN='\e[0;32m'
+YELLOW='\e[0;33m'
+BLUE='\e[0;34m'
+MAGENTA='\e[01;35m'
+CYAN='\e[0;36m'
+WHITE='\e[0;37m'
+
+PLATFORM=$(uname)
+
+# bash (osx)
+if [ $PLATFORM == 'Darwin' ] && which brew >/dev/null;
+then
+	export PATH=/usr/local/bin:$PATH
+
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		. $(brew --prefix)/etc/bash_completion
+	fi
+
+    # go
+    export PATH=$PATH:/usr/local/opt/go/libexec/bin
+fi
+
+# linux
+if [ $PLATFORM == 'Linux' ]
+then
+    [[ -f /usr/share/git/git-prompt.sh ]] && source /usr/share/git/git-prompt.sh
+    [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]] && source /usr/share/git-core/contrib/completion/git-prompt.sh
+
+    alias rm="rm -I"
+    alias ls="ls --color"
+    alias pbcopy="xclip -sel clip"
+    alias grm=gvfs-trash
+    alias open=xdg-open
+fi
+
+### aliases
+
+# virtualbox
+alias vb=VBoxManage
+# emacs
+alias e=emacsclient
+
+# Undocumented feature which sets the size to "unlimited".
+# http://stackoverflow.com/questions/9457233/unlimited-bash-history
+export HISTFILESIZE=
+export HISTSIZE=
+# Change the file location because certain bash sessions truncate .bash_history file upon close.
+# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
+export HISTFILE=~/.bash_eternal_history
+# enable colors in hh
+export HH_CONFIG=hicolor         # get more colors
+
+export TERM=xterm-256color
+
+### prompt setup
+
+function _prompt() {
+    exit_code=$?
+
+    # Save and reload the history after each command finishes
+    history -a
+    history -c
+    history -r
+    echo -ne "\033]0;$(dirs -0)\007"
+
+    pwd > "${HOME}/.cwd"
+}
+
+PROMPT_COMMAND=_prompt
+
+PS1="$(echo \$?) \[$GREEN\]\A \[$MAGENTA\]\h \[$YELLOW\]\w\[$RED\]\$(__git_ps1)\n\[\033[0m\]$ "
+
+### other settings
+
+# append to history, don't overwrite it
+shopt -s histappend
+
+# configure glob
+shopt -s globstar
+shopt -s nocaseglob
+
+# disable XON/XOFF flow control, to enable C-s forward history search
+[[ $- == *i* ]] && stty -ixon
+
+# register direnv
+eval "$(direnv hook bash)"
+
+# register kubectl completion
+source <(kubectl completion bash)
+
+### helper functions
+
+function enterpod() {
+    local pod=$(rkt list --no-legend | tr -s '\t' | grep running | head -1)
+    local uuid="${1:-$(echo "${pod}" | cut -f1)}"
+    echo entering pod "${pod}"
+    sudo nsenter -n -m -p -t $(pgrep -P $(rkt status $uuid | grep pid | cut -d= -f2)) /bin/bash
+}
+
+function runningpod() {
+    rkt l --no-legend --full | grep running | cut -f1 | head -1
+}
+
+function n() {
+    wd=$(pwd)
+    start=$(date +%s)
+    "$@"
+    exit_code=$?
+    notify-send "Command" "
+$wd $(echo $@)\r
+duration: $(($(date +%s) - start))s, exit code: $exit_code"
+}
+
+[[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
+[[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
+
+
+complete -C /usr/bin/vault vault
+
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
+
+[[ -s "/home/sur/.gvm/scripts/gvm" ]] && source "/home/sur/.gvm/scripts/gvm"
+source /usr/share/undistract-me/long-running.bash
+notify_when_long_running_commands_finish_install
+

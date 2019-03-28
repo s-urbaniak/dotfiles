@@ -34,6 +34,7 @@
   ("C-c b" . neotree-toggle)
   ("C-b" . neotree-find)
   :config
+  (setq neo-show-hidden-files t)
   (setq neo-window-width 40)
   (setq neo-window-fixed-size nil)
   (setq neo-theme 'arrow)
@@ -69,17 +70,13 @@
   (setq ffip-find-options "-not -iwholename './vendor/*' -not -regex '.*Godeps.*' -not -regex '.*build-rkt.*'"))
 
 (use-package go-mode
-  :after lsp-mode
-  :mode "\\.go\\'"
   :config
   (setq gofmt-command "goimports")
-  (add-hook 'go-mode-hook 'lsp)
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook
             (lambda ()
               (subword-mode)
               (eldoc-mode)
-              (company-mode)
               (local-set-key (kbd "C-h f") #'godoc-at-point))))
 
 (use-package go-guru
@@ -88,6 +85,15 @@
 (use-package go-rename
   :defer t
   :after go-mode)
+
+(use-package lsp-mode
+  :after go-mode
+  :commands lsp
+  :init
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
+                    :major-modes '(go-mode)
+                    :server-id 'gopls)))
 
 (use-package company
   :bind
@@ -168,15 +174,7 @@
   :config
   (setq flycheck-go-build-install-deps t))
 
-(use-package rust-mode
-  :after lsp-mode
-  :config
-  (require 'lsp-clients)
-  (add-hook 'rust-mode-hook 'lsp))
-
-(use-package racer
-  :defer t
-  :after rust-mode)
+(use-package rust-mode)
 
 (use-package json-mode
   :defer t
@@ -186,19 +184,8 @@
 (use-package jsonnet-mode
   :mode ("jsonnet" "libsonnet"))
 
-(use-package lsp-mode)
-
-;;(use-package company-lsp
-;;  :after lsp-mode
-;;  :config
-;;  (push 'company-lsp company-backends))
-
 (use-package typescript-mode
-  :after lsp-mode
   :config
-  (require 'lsp-clients)
-  (add-hook 'typescript-mode-hook 'lsp)
-  (add-hook 'typescript-mode-hook 'company-mode)
   (setq typescript-indent-level 2))
 
 (use-package smex
