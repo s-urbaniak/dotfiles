@@ -35,5 +35,4 @@
   (set (make-local-variable 'sgml-basic-offset) 4))
 
 (defun su/terraform-mode-hook()
-  (company-mode)
   (terraform-format-on-save-mode))

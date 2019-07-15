@@ -1,7 +1,7 @@
 [user]
 	name = Sergiusz Urbaniak
 	email = sergiusz.urbaniak@gmail.com
-	signingkey = 300137157DBED7EF
+#	signingkey = 300137157DBED7EF
 
 [color]
 	ui = true
@@ -25,5 +25,6 @@
 
 [core]
 	excludesfile = ~/.gitignore
+
 [gpg]
 	program = gpg2

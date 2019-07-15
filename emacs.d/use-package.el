@@ -1,13 +1,11 @@
+(use-package color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
+
 (use-package toml-mode
   :defer t)
 
 (use-package elixir-mode
   :defer t)
-
-(use-package robe
-  :defer t
-  :config
-  (add-hook 'ruby-mode-hook 'robe-mode))
 
 (use-package smartparens
   :config
@@ -20,9 +18,6 @@
 
 (use-package esup
   :defer t)
-
-(use-package color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
 
 (use-package direnv)
 
@@ -72,40 +67,7 @@
 (use-package go-mode
   :config
   (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook
-            (lambda ()
-              (subword-mode)
-              (eldoc-mode)
-              (local-set-key (kbd "C-h f") #'godoc-at-point))))
-
-(use-package go-guru
-  :after go-mode)
-  
-(use-package go-rename
-  :defer t
-  :after go-mode)
-
-(use-package lsp-mode
-  :after go-mode
-  :commands lsp
-  :init
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
-                    :major-modes '(go-mode)
-                    :server-id 'gopls)))
-
-(use-package company
-  :bind
-  ("M-/" . company-complete-common)
-  :config
-  (setq company-dabbrev-code-modes t)
-  (setq company-dabbrev-code-everywhere t)
-  (setq company-tooltip-limit 20)                       ; bigger popup window
-  (setq company-idle-delay .3)                          ; decrease delay before autocompletion popup shows
-  (setq company-echo-delay 0)                           ; remove annoying blinking
-  (setq company-begin-commands '(self-insert-command))  ; start autocompletion only after typing
-  (add-hook 'lisp-mode-hook 'company-mode))
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 (use-package ivy
   :bind
@@ -145,9 +107,6 @@
   :bind
   ("\C-s" . swiper))
 
-(use-package magit
-  :defer t)
-
 (use-package systemd
   :mode "/systemd/\\(?:.\\|\n\\)+?\\.d/[^/]+?\\.conf\\'")
 
@@ -166,9 +125,6 @@
           "--bracket-spacing" "false"
           "--single-quote" "false"
           "--bracket-spacing" "true")))
-
-(use-package go-fill-struct
-  :defer t)
 
 (use-package flycheck
   :config

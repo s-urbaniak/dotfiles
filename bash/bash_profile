@@ -20,19 +20,25 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
             export GDK_SCALE=3
             export GDK_DPI_SCALE=0.5
             export QT_SCALE_FACTOR=2
+            export WINIT_HIDPI_FACTOR=3
             ln -sf ~/src/dotfiles/config/xresources/4k-hidpi ~/.Xresources
+            ln -sf ~/src/dotfiles/config/xserverrc/4k-hidpi ~/.xserverrc
             ;;
         2)
             export GDK_SCALE=2
             export GDK_DPI_SCALE=1
             export QT_SCALE_FACTOR=2
+            export WINIT_HIDPI_FACTOR=2
             ln -sf ~/src/dotfiles/config/xresources/hd-hidpi ~/.Xresources
+            ln -sf ~/src/dotfiles/config/xserverrc/hd-hidpi ~/.xserverrc
             ;;
         *)
             export GDK_SCALE=1
             export GDK_DPI_SCALE=1
             export QT_SCALE_FACTOR=1
+            export WINIT_HIDPI_FACTOR=1
             ln -sf ~/src/dotfiles/config/xresources/lodpi ~/.Xresources
+            ln -sf ~/src/dotfiles/config/xserverrc/lodpi ~/.xserverrc
             ;;
     esac
 

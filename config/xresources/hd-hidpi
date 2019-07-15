@@ -1,5 +1,5 @@
-Xft.dpi:	84
+Xft.dpi:	96
 
-URxvt.font: xft:Monospace:size=18
+emacs*font: Monospace-21
 
 #include ".config/xresources/common"

@@ -249,7 +249,6 @@ bar {
 }
 
 exec --no-startup-id /usr/bin/dunst
-exec --no-startup-id /usr/bin/urxvtd -f
 exec --no-startup-id /usr/bin/i3-focus-last
 
 new_window pixel 1
