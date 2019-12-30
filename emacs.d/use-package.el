@@ -12,10 +12,6 @@
   (require 'smartparens-config)
   (smartparens-global-mode t))
 
-(use-package pinentry
-  :config
-  (pinentry-start))
-
 (use-package esup
   :defer t)
 

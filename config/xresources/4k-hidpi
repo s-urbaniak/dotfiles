@@ -1,5 +1,5 @@
-Xft.dpi:	180
+Xft.dpi:	192
 
-URxvt.font: xft:Monospace:size=14
+#include "/home/sur/.config/xresources/common"
 
-#include ".config/xresources/common"
+Xcursor.size: 72

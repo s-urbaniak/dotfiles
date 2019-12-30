@@ -32,8 +32,8 @@ wireless _first_ {
 }
 
 ethernet enp0 {
-        format_up = ""
-        format_down = ""
+        format_up = "UP"
+        format_down = "DN"
 }
 
 ethernet bnep0 {

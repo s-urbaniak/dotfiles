@@ -20,16 +20,8 @@ ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 ln -sf "$PWD"/vim/vimrc ~/.vimrc
 ln -sf "$PWD"/git/gitconfig ~/.gitconfig
 
-mkdir -p ~/.config
-ln -sf "$PWD"/config/i3 ~/.config/i3
-ln -sf "$PWD"/config/i3status ~/.config/i3status
-ln -sf "$PWD"/config/termite ~/.config/termite
-ln -sf "$PWD"/config/xresources ~/.config/xresources
-
-mkdir -p ~/.local/share
-ln -sf "$PWD"/local/share/i3 ~/.local/share/i3
-
 mkdir -p ~/.cache/emacs/elpa
 ln -sf $PWD/emacs.d ~/.emacs.d
 touch ~/.emacs.d/local.el
 touch ~/.emacs.d/custom.el
+

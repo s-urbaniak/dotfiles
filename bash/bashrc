@@ -80,8 +80,6 @@ function _prompt() {
 
     # Save and reload the history after each command finishes
     history -a
-    history -c
-    history -r
     echo -ne "\033]0;$(dirs -0)\007"
 
     pwd > "${HOME}/.cwd"
@@ -109,19 +107,6 @@ eval "$(direnv hook bash)"
 # register kubectl completion
 source <(kubectl completion bash)
 
-### helper functions
-
-function enterpod() {
-    local pod=$(rkt list --no-legend | tr -s '\t' | grep running | head -1)
-    local uuid="${1:-$(echo "${pod}" | cut -f1)}"
-    echo entering pod "${pod}"
-    sudo nsenter -n -m -p -t $(pgrep -P $(rkt status $uuid | grep pid | cut -d= -f2)) /bin/bash
-}
-
-function runningpod() {
-    rkt l --no-legend --full | grep running | cut -f1 | head -1
-}
-
 function n() {
     wd=$(pwd)
     start=$(date +%s)
@@ -132,16 +117,12 @@ $wd $(echo $@)\r
 duration: $(($(date +%s) - start))s, exit code: $exit_code"
 }
 
-[[ -f "$HOME/.bashrc_local" ]] && source "$HOME/.bashrc_local"
 [[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
 
-
-complete -C /usr/bin/vault vault
-
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash
+source /etc/profile.d/bash_completion.sh
+source /usr/share/fzf/shell/key-bindings.bash
 
 [[ -s "/home/sur/.gvm/scripts/gvm" ]] && source "/home/sur/.gvm/scripts/gvm"
-source /usr/share/undistract-me/long-running.bash
+source /home/sur/src/undistract-me/long-running.bash
 notify_when_long_running_commands_finish_install
 
