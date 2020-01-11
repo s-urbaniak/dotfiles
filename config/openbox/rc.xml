@@ -49,7 +49,7 @@
 </placement>
 
 <theme>
-  <name>Clearlooks</name>
+  <name>blackarch</name>
   <titleLayout>NLIMC</titleLayout>
   <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -64,26 +64,26 @@
   <keepBorder>yes</keepBorder>
   <animateIconify>yes</animateIconify>
   <font place="ActiveWindow">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
-    <weight>bold</weight>
+    <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
     <!-- 'italic' or 'normal' -->
   </font>
   <font place="InactiveWindow">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
-    <weight>bold</weight>
+    <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
     <!-- 'italic' or 'normal' -->
   </font>
   <font place="MenuHeader">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
     <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
@@ -91,8 +91,8 @@
     <!-- 'italic' or 'normal' -->
   </font>
   <font place="MenuItem">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
     <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
@@ -100,19 +100,19 @@
     <!-- 'italic' or 'normal' -->
   </font>
   <font place="ActiveOnScreenDisplay">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
-    <weight>bold</weight>
+    <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
     <!-- 'italic' or 'normal' -->
   </font>
   <font place="InactiveOnScreenDisplay">
-    <name>sans</name>
-    <size>16</size>
+    <name>Terminus (TTF)</name>
+    <size>14</size>
     <!-- font size in points -->
-    <weight>bold</weight>
+    <weight>normal</weight>
     <!-- 'bold' or 'normal' -->
     <slant>normal</slant>
     <!-- 'italic' or 'normal' -->
@@ -128,7 +128,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-  <number>4</number>
+  <number>9</number>
   <firstdesk>1</firstdesk>
   <names>
     <!-- set names up here if you want to, like this:
@@ -190,6 +190,48 @@
 </dock>
 
 <keyboard>
+  <keybind key="XF86AudioPlay">
+    <action name="Execute">
+      <execute>sh -c "for player in $(qdbus | tr -d '[:blank:]' | grep org.mpris.MediaPlayer2); do qdbus $player /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause; done"</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioNext">
+    <action name="Execute">
+      <execute>sh -c "for player in $(qdbus | tr -d '[:blank:]' | grep org.mpris.MediaPlayer2); do qdbus $player /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next; done"</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioPrev">
+    <action name="Execute">
+      <execute>sh -c "for player in $(qdbus | tr -d '[:blank:]' | grep org.mpris.MediaPlayer2); do qdbus $player /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous; done"</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioRaiseVolume">
+    <action name="Execute">
+      <execute>pamixer -i 5</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioRaiseVolume">
+    <action name="Execute">
+      <execute>pamixer -i 5</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioLowerVolume">
+    <action name="Execute">
+      <execute>pamixer -d 5</execute>
+    </action>
+  </keybind>
+
+  <keybind key="XF86AudioMute">
+    <action name="Execute">
+      <execute>pamixer -t</execute>
+    </action>
+  </keybind>
+
   <keybind key="XF86MonBrightnessUp">
     <action name="Execute">
       <execute>light -A 5</execute>
@@ -230,84 +272,33 @@
     <action name="ToggleMaximize"/>
   </keybind>
 
+  <keybind key="W-r">
+    <keybind key="W-1">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>33%</x>
+        <y>0</y>
+        <width>33%</width>
+        <height>100%</height>
+      </action>
+    </keybind>
+    <keybind key="W-2">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>17%</x>
+        <y>0</y>
+        <width>66%</width>
+        <height>100%</height>
+      </action>
+    </keybind>
+  </keybind>
+
   <keybind key="W-q">
     <action name="Close"/>
   </keybind>
 
   <keybind key="W-i">
     <action name="Iconify"/>
-  </keybind>
-
-  <keybind key="W-Right">
-    <keybind key="W-Right">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
-  </keybind>
-
-  <keybind key="W-Right">
-    <keybind key="W-Down">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>-0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-  </keybind>
-
-  <keybind key="W-Right">
-    <keybind key="W-Up">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>-0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-  </keybind>
-
-  <keybind key="W-Left">
-    <keybind key="W-Left">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
-  </keybind>
-
-  <keybind key="W-Left">
-    <keybind key="W-Up">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
-  </keybind>
-
-  <keybind key="W-Left">
-    <keybind key="W-Down">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>0</x>
-        <y>-0</y>
-        <width>50%</width>
-        <height>50%</height>
-      </action>
-    </keybind>
   </keybind>
 
   <keybind key="W-Right">
@@ -320,24 +311,74 @@
     </action>
   </keybind>
 
-  <keybind key="W-Up">
+  <keybind key="W-Left">
     <action name="Unmaximize" />
     <action name="MoveResizeTo">
       <x>0</x>
       <y>0</y>
-      <width>100%</width>
-      <height>50%</height>
+      <width>50%</width>
+      <height>100%</height>
     </action>
   </keybind>
 
   <keybind key="W-Down">
-    <action name="Unmaximize" />
-    <action name="MoveResizeTo">
-      <x>0</x>
-      <y>-0</y>
-      <width>100%</width>
-      <height>50%</height>
-    </action>
+    <keybind key="W-Right">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>-0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-Left">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>-0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>-0</y>
+        <width>100%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+  </keybind>
+
+  <keybind key="W-Up">
+    <keybind key="W-Up">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <width>100%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-Right">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-Left">
+      <action name="Unmaximize" />
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
   </keybind>
 
   <chainQuitKey>C-g</chainQuitKey>
@@ -367,6 +408,7 @@
   <keybind key="S-W-Down">
     <action name="SendToDesktop"><to>down</to><wrap>no</wrap></action>
   </keybind>
+
   <keybind key="W-1">
     <action name="GoToDesktop"><to>1</to></action>
   </keybind>
@@ -379,6 +421,22 @@
   <keybind key="W-4">
     <action name="GoToDesktop"><to>4</to></action>
   </keybind>
+  <keybind key="W-5">
+    <action name="GoToDesktop"><to>5</to></action>
+  </keybind>
+  <keybind key="W-6">
+    <action name="GoToDesktop"><to>6</to></action>
+  </keybind>
+  <keybind key="W-7">
+    <action name="GoToDesktop"><to>7</to></action>
+  </keybind>
+  <keybind key="W-8">
+    <action name="GoToDesktop"><to>8</to></action>
+  </keybind>
+  <keybind key="W-9">
+    <action name="GoToDesktop"><to>9</to></action>
+  </keybind>
+
   <keybind key="W-d">
     <action name="ToggleShowDesktop"/>
   </keybind>
