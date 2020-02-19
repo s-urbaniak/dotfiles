@@ -268,29 +268,18 @@
     </action>
   </keybind>
 
-  <keybind key="W-m">
+  <keybind key="W-f">
     <action name="ToggleMaximize"/>
   </keybind>
 
-  <keybind key="W-r">
-    <keybind key="W-1">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>33%</x>
-        <y>0</y>
-        <width>33%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
-    <keybind key="W-2">
-      <action name="Unmaximize" />
-      <action name="MoveResizeTo">
-        <x>17%</x>
-        <y>0</y>
-        <width>66%</width>
-        <height>100%</height>
-      </action>
-    </keybind>
+  <keybind key="W-m">
+    <action name="Unmaximize" />
+    <action name="MoveResizeTo">
+      <x>17%</x>
+      <y>0</y>
+      <width>66%</width>
+      <height>100%</height>
+    </action>
   </keybind>
 
   <keybind key="W-q">
@@ -407,6 +396,34 @@
   </keybind>
   <keybind key="S-W-Down">
     <action name="SendToDesktop"><to>down</to><wrap>no</wrap></action>
+  </keybind>
+
+  <keybind key="S-W-1">
+    <action name="SendToDesktop"><to>1</to></action>
+  </keybind>
+  <keybind key="S-W-2">
+    <action name="SendToDesktop"><to>2</to></action>
+  </keybind>
+  <keybind key="S-W-3">
+    <action name="SendToDesktop"><to>3</to></action>
+  </keybind>
+  <keybind key="S-W-4">
+    <action name="SendToDesktop"><to>4</to></action>
+  </keybind>
+  <keybind key="S-W-5">
+    <action name="SendToDesktop"><to>5</to></action>
+  </keybind>
+  <keybind key="S-W-6">
+    <action name="SendToDesktop"><to>6</to></action>
+  </keybind>
+  <keybind key="S-W-7">
+    <action name="SendToDesktop"><to>7</to></action>
+  </keybind>
+  <keybind key="S-W-8">
+    <action name="SendToDesktop"><to>8</to></action>
+  </keybind>
+  <keybind key="S-W-9">
+    <action name="SendToDesktop"><to>9</to></action>
   </keybind>
 
   <keybind key="W-1">
