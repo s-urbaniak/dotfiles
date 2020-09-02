@@ -264,7 +264,7 @@
 
   <keybind key="W-l">
     <action name="Execute">
-      <execute>i3lock -c 400000</execute>
+      <execute>sh -c "i3lock -c 400000"</execute>
     </action>
   </keybind>
 
@@ -462,9 +462,8 @@
   <keybind key="A-F4">
     <action name="Close"/>
   </keybind>
-  <keybind key="A-Escape">
+  <keybind key="W-Escape">
     <action name="Lower"/>
-    <action name="FocusToBottom"/>
     <action name="Unfocus"/>
   </keybind>
   <keybind key="A-space">
@@ -474,6 +473,7 @@
   <!-- Keybindings for window switching -->
   <keybind key="W-Tab">
     <action name="NextWindow">
+      <allDesktops>yes</allDesktops>
       <dialog>icons</dialog>
       <raise>yes</raise>
       <finalactions>
@@ -485,6 +485,7 @@
   </keybind>
   <keybind key="W-S-Tab">
     <action name="PreviousWindow">
+      <allDesktops>yes</allDesktops>
       <raise>yes</raise>
       <finalactions>
         <action name="Focus"/>
