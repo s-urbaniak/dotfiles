@@ -1,4 +1,4 @@
-(setq su/font "Monospace-18")
+(setq su/font "Monospace-20")
 
 ;; set default font
 (set-frame-font su/font)

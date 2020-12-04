@@ -46,3 +46,4 @@ button {
 paned {
   min-height: 0;
 }
+@import 'colors.css';

@@ -210,25 +210,19 @@
 
   <keybind key="XF86AudioRaiseVolume">
     <action name="Execute">
-      <execute>pamixer -i 5</execute>
-    </action>
-  </keybind>
-
-  <keybind key="XF86AudioRaiseVolume">
-    <action name="Execute">
-      <execute>pamixer -i 5</execute>
+      <execute>sh -c "pactl -- set-sink-volume 0 +5%"</execute>
     </action>
   </keybind>
 
   <keybind key="XF86AudioLowerVolume">
     <action name="Execute">
-      <execute>pamixer -d 5</execute>
+      <execute>sh -c "pactl -- set-sink-volume 0 -5%"</execute>
     </action>
   </keybind>
 
   <keybind key="XF86AudioMute">
     <action name="Execute">
-      <execute>pamixer -t</execute>
+      <execute>sh -c "pactl -- set-sink-mute 0 toggle"</execute>
     </action>
   </keybind>
 
