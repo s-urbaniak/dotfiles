@@ -210,13 +210,13 @@
 
   <keybind key="XF86AudioRaiseVolume">
     <action name="Execute">
-      <execute>sh -c "pactl -- set-sink-volume 0 +5%"</execute>
+      <execute>sh -c "pactl -- set-sink-volume $(pactl list sinks short | head -n1 | cut -f1) +5%"</execute>
     </action>
   </keybind>
 
   <keybind key="XF86AudioLowerVolume">
     <action name="Execute">
-      <execute>sh -c "pactl -- set-sink-volume 0 -5%"</execute>
+      <execute>sh -c "pactl -- set-sink-volume $(pactl list sinks short | head -n1 | cut -f1) -5%"</execute>
     </action>
   </keybind>
 
