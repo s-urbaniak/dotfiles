@@ -120,7 +120,7 @@ duration: $(($(date +%s) - start))s, exit code: $exit_code"
 [[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
 
 source /etc/profile.d/bash_completion.sh
-source /usr/share/fzf/shell/key-bindings.bash
+source /usr/share/fzf/key-bindings.bash
 
 [[ -s "/home/sur/.gvm/scripts/gvm" ]] && source "/home/sur/.gvm/scripts/gvm"
 source /home/sur/src/undistract-me/long-running.bash

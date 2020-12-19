@@ -252,7 +252,7 @@
 
   <keybind key="W-space">
     <action name="Execute">
-      <execute>j4-dmenu-desktop --dmenu='dmenu -l 10 -sf "#ffffff" -sb "#252936" -nf "#7780a1" -nb "#1f222d" -fn "DejaVu Sans:regular:pixelsize=32" -i'</execute>
+      <execute>rofi -sort -font "Monospace 24" -show drun</execute>
     </action>
   </keybind>
 
