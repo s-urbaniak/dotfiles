@@ -4,7 +4,7 @@ JACK settings, as persisted by D-Bus object.
 You probably don't want to edit this because
 it will be overwritten next time jackdbus saves.
 -->
-<!-- Sat Dec 19 11:34:44 2020 -->
+<!-- Tue Dec 22 12:58:20 2020 -->
 <jack>
  <engine>
   <option name="driver">alsa</option>
@@ -13,10 +13,10 @@ it will be overwritten next time jackdbus saves.
  <drivers>
   <driver name="alsa">
    <option name="device">hw:PCH,7</option>
-   <option name="capture">front:CARD=iTwo,DEV=0</option>
-   <option name="playback">front:CARD=iTwo,DEV=0</option>
+   <option name="capture">hw:PCH,0</option>
+   <option name="playback">hw:PCH,0</option>
    <option name="rate">48000</option>
-   <option name="period">64</option>
+   <option name="period">1024</option>
    <option name="nperiods">2</option>
    <option name="duplex">true</option>
    <option name="inchannels">2</option>

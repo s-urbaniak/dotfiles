@@ -6,17 +6,18 @@ Requires=dbus.socket
 
 [Service]
 Type=simple
+#Type=dbus
 #BusName=org.jackaudio.service
 
 EnvironmentFile=-/etc/jack/%i.conf
 EnvironmentFile=-%h/.config/jack/%i.conf
 
-ExecStartPre=-/usr/bin/killall -9 jackdbus
 ExecStartPre=-/usr/bin/pacmd set-default-sink null
 ExecStartPre=-/usr/bin/pacmd unload-module module-jackdbus-detect
 ExecStartPre=-/usr/bin/pacmd unload-module module-jack-sink
 ExecStartPre=-/usr/bin/pacmd unload-module module-jack-source
 ExecStartPre=/usr/bin/pacmd suspend 1
+ExecStartPre=/usr/bin/jack_control eps realtime $REALTIME
 ExecStartPre=/usr/bin/jack_control stop
 ExecStartPre=/usr/bin/jack_control ds $DRIVER
 ExecStartPre=/usr/bin/jack_control dps capture $CAPTURE_DEVICE
@@ -37,7 +38,6 @@ ExecStartPost=/usr/bin/pacmd suspend-sink jack_out 0
 
 ExecStop=/usr/bin/jack_control exit
 
-ExecStopPost=-/usr/bin/killall -9 jackdbus
 ExecStopPost=-/usr/bin/pacmd unload-module module-jackdbus-detect
 ExecStopPost=-/usr/bin/pacmd unload-module module-jack-sink
 ExecStopPost=-/usr/bin/pacmd unload-module module-jack-source
