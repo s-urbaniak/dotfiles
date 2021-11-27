@@ -31,9 +31,6 @@
   (setq neo-theme 'arrow)
   (setq neo-force-change-root t))
 
-(use-package markdown-mode+
-  :defer t)
-
 (use-package yaml-mode
   :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
 
